@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block meta %}{% endblock %}
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="/public/js/app.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="header-left">
+                    <img src="/public/images/img.png" alt="">
+                    <a href="">Accueil</a>
+                    <a href="">Se connecter</a>
+                </div>
+                <div class="header-right">
+                    <a href="">Articles</a>
+                    <a href="">Contact</a>
+                </div>
+        </div>  
+
+
+
+       <!--Navbar-->
+<nav class="navbar navbar-light amber lighten-4 mb-4">
+
+  <!-- Navbar brand -->
+  <img src="img.png" alt="">
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler first-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent20"
+    aria-controls="navbarSupportedContent20" aria-expanded="false" aria-label="Toggle navigation">
+    <div class="animated-icon1"><span></span><span></span><span></span></div>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent20">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Accueil<span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Se connecter</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Articles</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+    </ul>
+    <!-- Links -->
+
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
+    </header>
+    <main>
+    {% block main %}{% endblock %}
+    </main>
+    <footer>
+        <div class="footer">
+            <div class="btn-footer">
+                <a href="">Mentions légales</a>
+                <a href="">Contact</a>
+            </div>
+            <div class="cophyright">
+                <p>Cophyright</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% extends "base.twig" %}
+
+{% block meta %}
+    <meta name="description" content="">
+{% endblock %}
+
+
+{% block main %}
+        <div class="contacts">
+            <div class="img-covert">
+                <img src="/public/images/img.png" alt="">
+            </div>
+            <div class="contact">
+                <div class="info">
+                    <p class="title">Blog</p>
+                    <p class="mail">Mail: blog@blog.fr</p>
+                    <p class="tel">Tel: +33642184765</p>
+                </div>
+                <div class="contact-form">
+                    <p class="title">Nous contacter</p>
+                    <form action="" method="post">
+                        <p>Nom:</p>
+                        <input type="text">
+                        <p>Prenom:</p>
+                        <input type="text">
+                        <p>Mail:</p>
+                        <input type="text">
+                        <p>Tel:</p>
+                        <input type="text">
+                        <div class="btn-form">
+                            <input class="btn-submit" type="button" value="Envoyer">
+                        </div>
+                        
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+{% endblock %}
