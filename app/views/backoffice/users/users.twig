@@ -1,0 +1,171 @@
+{% extends "backoffice/base.twig" %}
+
+{% block meta %}
+    <meta name="description" content="Backoffice">
+{% endblock %}
+
+
+{% block main %}
+<div class="page-inner">
+		
+        <div class="row">
+            <div class="col-md-8">
+				<div class="card">
+					<div class="card-header d-flex space-between">
+						<div class="card-title">Tous les Auteurs</div>
+						<div>
+							<a href="user{#{{ path('add_carriere') }}#}" class="btn btn-primary btn-sm">Ajouter un Auteur</a>
+						</div>
+					</div>
+					<div class="card-body">
+
+						{#{% if carrieres | length > 0 %}#}
+
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th scope="col">Civilité</th>
+									<th scope="col">Nom</th>
+									<th scope="col">Prenom</th>
+									<th scope="col">Mail</th>
+                                    <th scope="col">Actions</th>
+								</tr>
+							</thead>
+							<tbody id="sliders">
+
+
+								{#{% for carriere in carrieres %}#}
+
+									<tr data-order="{#{{ carriere.number }}#}">
+										<td>
+                                            <div class="project">
+												<div class="project-img" style="background: {#{{ carriere.image }}#}">
+													<img src="/images/carrieres/{#{{ carriere.image }}#}" alt="">
+												</div>
+												<span class="project-title">{#{{ carriere.title }}#}</span>
+											</div>
+                                        </td>
+                                        <td>
+											<div class="project">
+												<span class="project">{#{{ carriere.workType }}#}</span>
+											</div>
+                                        </td>
+                                        <td>
+                                        <td>
+											<div class="project">
+												<span class="project">{#{{ carriere.workType }}#}</span>
+											</div>
+                                        </td>
+                                            <div class="project">
+												<span class="project">{#{{ carriere.date }}#}</span>
+											</div>
+										</td>
+										<td>
+											{#<a href="{{ path('view_project', {'slug': carriere.slug}) }}" class="btn btn-icon btn-round btn-primary btn-sm">
+												<i class="fas fa-eye"></i>
+											</a>#}
+											<a href="{#{{ path('edit_carriere', {'slug': carriere.slug}) }}#}" class="btn btn-icon btn-round btn-primary btn-sm">
+												<i class="fas fa-edit"></i>
+											</a>
+
+                                            <button class="btn btn-icon btn-round btn-primary btn-sm"  data-toggle="modal" data-target="#delete-{#{{ carriere.id }}#}" data-backdrop="static" data-keyboard="false">
+												<i class="fas fa-trash"></i>
+											</button>
+
+											<!-- Modal delete -->
+                                            <div class="modal fade" id="delete-{#{{ carriere.id }}#}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <form action="{#{{ path('delete_carriere') }}#}" method="post">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Suppression d'un auteur</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+
+                                                                <p>Êtes vous sure de vouloir supprimer l'auteur <b>{#{{ carriere.slug }}#}</b>? </p>
+
+																<input type="hidden" name="carriere_id" value="{#{{ carriere.id }}#}">
+                                                            
+                                                            </div>
+                                                            <div class="modal-footer left">
+                                                                <button type="submit" class="btn btn-primary btn-sm">Oui, Supprimer</button>
+                                                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Annuler</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+										</td>
+									</tr>
+
+							{#	{% endfor %}#}
+							</tbody>
+						</table>
+
+						{#{% else %}#}
+
+						<div class="my-5 py-5 text-center">
+
+							<h2>Aucun Auteur</h2>
+
+						</div>
+							
+						{#{% endif %}#}
+
+					</div>
+					{#{{ knp_pagination_render(carrieres) }}#}
+				</div>
+			</div>
+
+			
+
+        </div>
+
+	</div>
+
+
+{% endblock %}
+
+
+{% block javascript %}
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+	<script>
+		$( "#sliders" ).sortable({
+		placeholder : "ui-state-highlight",
+		update  : function(event, ui)
+		{
+		var slider_order_ids = new Array();
+
+		$('#sliders tr').each(function(){
+			slider_order_ids.push($(this).data("order"));
+			$("#alert-place").text('');
+		});
+
+		fetch("/reorder-slider-carriers", {
+			method: 'post',
+			headers: {
+				'Content-type': 'application/json',
+			},
+			body: JSON.stringify({
+				slider_order_ids: slider_order_ids
+			}),
+		})
+        .then((response) => {
+
+            return response.json();
+
+        })
+        .then((result) => {
+			location.reload();
+        })
+
+		}
+		});
+	</script>
+{% endblock %}

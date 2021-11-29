@@ -1,0 +1,60 @@
+{% extends "backoffice/base.twig" %}
+
+{% block meta %}
+    <meta name="description" content="Backoffice">
+{% endblock %}
+
+
+{% block main %}
+<div class="page-inner">
+		
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+				<div class="card">
+					<div class="card-header d-flex space-between">
+						<div class="card-title">Nouvelle offre d'emploi</div>
+					</div>
+					<div class="card-body">
+
+						<form action="" method="POST">
+                        <div class="row">
+						    <div class="col-md-12 text-center m-4">
+							<label for="">Civilité</label>
+                            <select name="civility" type="text">
+                                <option value="">--</option>
+                                <option value="mr">Mr</option>
+                                <option value="mrs">Mrs</option>
+                            </select>
+                            </div>
+                            <div class="col-md-4 text-center m-4">
+							<label for="">Nom</label>
+                            <input name="last_name" type="text">
+                            </div>
+                            <div class="col-md-4 text-center m-4">
+							<label for="">Prenom</label>
+                            <input name="first_name" type="text">
+                            </div>
+                            <div class="col-md-4 text-center m-4">
+							<label for="">E-mail</label>
+                            <input name="email" type="text">
+                            </div>
+                            <div class="col-md-4 text-center m-4">
+							<label for="">Mot de passe</label>
+                            <input name="password" type="text">
+                            </div>
+                            <div class="col-md-12 ">
+                                <button type="submit" class="btn btn-primary">Envoyer</button>
+                                <a class="btn btn-danger pull-right" href="auteurs">Annuler</a>
+                            </div>
+                        </div>
+                        </form>
+						
+
+					</div>
+				</div>
+			</div>
+        </div>
+
+	</div>
+
+{% endblock %}
