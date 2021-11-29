@@ -35,7 +35,7 @@ class Articles extends DataBase{
 
     
     public function ajouteArticle($nouvelArticle){
-        $req = $this->db->prepare("INSERT INTO `articles` (`title`, `image`, `content`, `date`, `category`, `id_user`) VALUES (:titre, :image,:contenu, NOW(), :idCategorie, :idAuteur);");
+        $req = $this->db->prepare("INSERT INTO `articles` (`title`, `image`, `content`, `date`, `category`, `id_user`) VALUES (:titre, :image, :contenu, NOW(), :idCategorie, :idAuteur);");
         $req->bindValue(":titre", $nouvelArticle["title"], \PDO::PARAM_STR_CHAR);
         $req->bindValue(":image", $nouvelArticle["image"], \PDO::PARAM_STR_CHAR);
         $req->bindValue(":content", $nouvelArticle["content"], \PDO::PARAM_STR_CHAR);
@@ -46,5 +46,3 @@ class Articles extends DataBase{
       $this->getTenLastPosts();
     }
 }
-
-// <option value="12">boucherie</option>

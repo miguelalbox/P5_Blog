@@ -10,9 +10,11 @@ use App\Ctrl\Front;
 try {
     $request = new SecurizedRequest([
         "post" => [
-            "champsA" => FILTER_SANITIZE_ENCODED,
-            "title" => FILTER_SANITIZE_STRING,
-            "content" => FILTER_SANITIZE_STRING,
+            "first_name" => FILTER_SANITIZE_STRING,
+            "last_name" => FILTER_SANITIZE_STRING,
+            "email" => FILTER_SANITIZE_STRING,
+            "password" => FILTER_SANITIZE_STRING,
+            "civility" => FILTER_SANITIZE_STRING,
         ]
     ]);
     switch ($request->uri[0]) {
