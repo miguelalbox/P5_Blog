@@ -1,0 +1,148 @@
+<html lang="fr">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+		<title>{% block title %}{% endblock %} - Backoffice</title>
+
+		<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+		<link rel="icon" href="/images/favicon.png" type="image/x-icon"/>
+
+		<!-- CSS Files -->
+		<link rel="stylesheet" href="/public/css/backoffice/bootstrap.min.css">
+		<link rel="stylesheet" href="/public/css/backoffice/atlantis.css">
+		<link rel="stylesheet" href="/public/css/backoffice/dropify.css">
+
+        {% block stylesheets %}{% endblock %}
+
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="main-header">
+				{% include "backoffice/_header.twig" %}
+			</div>
+
+			{% include "backoffice/_sidebar.twig" %}
+
+			<div class="main-panel">
+				<div class="container" style="min-height: calc(100vh - 62px)">
+
+                    {% block main %}{% endblock %}
+		
+				</div>
+				
+			</div>
+			
+		</div>
+		<!--   Core JS Files   -->
+		<script src="/public/js/backoffice/core/jquery.3.2.1.min.js"></script>
+		<script src="/public/js/backoffice/core/popper.min.js"></script>
+		<script src="/public/js/backoffice/core/bootstrap.min.js"></script>
+
+		<!-- jQuery UI -->
+		<script src="/public/js/backoffice/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+		<script src="/public/js/backoffice/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+		<!-- jQuery Scrollbar -->
+		<script src="/public/js/backoffice/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+		<!-- Moment JS -->
+		<script src="/public/js/backoffice/plugin/moment/moment.min.js"></script>
+
+		<!-- Chart JS -->
+		<script src="/public/js/backoffice/plugin/chart.js/chart.min.js"></script>
+
+		<!-- jQuery Sparkline -->
+		<script src="/public/js/backoffice/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+		<!-- Chart Circle -->
+		<script src="/public/js/backoffice/plugin/chart-circle/circles.min.js"></script>
+
+		<!-- Datatables -->
+		<script src="/public/js/backoffice/plugin/datatables/datatables.min.js"></script>
+
+		<!-- Bootstrap Notify -->
+		<script src="/public/js/backoffice/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+		<!-- Bootstrap Toggle -->
+		<script src="/public/js/backoffice/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+
+		<!-- jQuery Vector Maps -->
+		<script src="/public/js/backoffice/plugin/jqvmap/jquery.vmap.min.js"></script>
+		<script src="/public/js/backoffice/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+
+		<!-- Google Maps Plugin -->
+		<script src="/public/js/backoffice/plugin/gmaps/gmaps.js"></script>
+
+		<!-- Dropzone -->
+		<script src="/public/js/backoffice/plugin/dropzone/dropzone.min.js"></script>
+
+		<!-- Fullcalendar -->
+		<script src="/public/js/backoffice/plugin/fullcalendar/fullcalendar.min.js"></script>
+
+		<!-- DateTimePicker -->
+		<script src="/public/js/backoffice/plugin/datepicker/bootstrap-datetimepicker.min.js"></script>
+
+		<!-- Bootstrap Tagsinput -->
+		<script src="/public/js/backoffice/plugin/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+
+		<!-- Bootstrap Wizard -->
+		<script src="/public/js/backoffice/plugin/bootstrap-wizard/bootstrapwizard.js"></script>
+
+		<!-- jQuery Validation -->
+		<script src="/public/js/backoffice/plugin/jquery.validate/jquery.validate.min.js"></script>
+		<script src="/public/js/backoffice/plugin/jquery.validate/fr.js"></script>
+
+		<!-- Summernote -->
+		<script src="/public/js/backoffice/plugin/summernote/summernote-bs4.min.js"></script>
+
+		<!-- Select2 -->
+		<script src="/public/js/backoffice/plugin/select2/select2.full.min.js"></script>
+
+		<!-- Owl Carousel -->
+		<script src="/public/js/backoffice/plugin/owl-carousel/owl.carousel.min.js"></script>
+
+		<!-- Magnific Popup -->
+		<script src="/public/js/backoffice/plugin/jquery.magnific-popup/jquery.magnific-popup.min.js"></script>
+
+		<!-- Dropify -->
+		<script src="/public/js/backoffice/dropify.js"></script>
+
+		<script>
+			$('.summernote').summernote({
+				tabsize: 2,
+				theme: 'yeti',
+				height: 400,
+				toolbar: [
+					['style', ['bold', 'italic']],
+					['para', ['ul', 'ol', 'paragraph']]
+				]
+			});
+			$('#cause_end').datetimepicker({
+				format: 'DD/MM/YYYY',
+			});
+			$('.dropify').dropify();
+		</script>
+
+		<script>
+		
+			$('.select2').select2({
+				theme: "bootstrap"
+			});
+		</script>
+
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+        {% for label, messages in app.flashes %}
+
+            {% for message in messages %}
+
+            
+
+            {% endfor %}
+
+        {% endfor %}
+
+        {% block javascript %}{% endblock %}
+
+	</body>
+</html>

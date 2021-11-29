@@ -2,6 +2,7 @@
 
 namespace App\Ctrl;
 
+use App\Models\Articles;
 
 class Front{
     private $request;
@@ -17,11 +18,12 @@ class Front{
     }
 
     private function home(){
-
+        $posts = new Articles();
+        $posts->getTenLastPosts();
 
         $this->template = "index";
         $this->data = [
-            //"test"=>"Miguel"
+            "list"=>$posts->listPosts
         ];
 
     }
@@ -47,7 +49,7 @@ class Front{
         ];
         
     }
-    private function mentionslegales(){
+    private function mentions_legales(){
         $this->template = "mentions-legales";
         $this->data = [
             //"test"=>"Miguel"

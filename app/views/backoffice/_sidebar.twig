@@ -1,0 +1,49 @@
+<div class="sidebar sidebar-style-2">
+	<div class="sidebar-wrapper scrollbar scrollbar-inner">
+		<div class="sidebar-content">
+			<div class="user">
+				<div class="info">
+					<h2 class="text-primary">Backoffice Blog</h2>
+				</div>
+			</div>
+			<ul class="nav nav-primary">
+				<li class="nav-item {% if menu is defined and menu == "backoffice" %}active{% endif %}">
+					<a href="/admin{#{{ path('backoffice') }}#}">
+						<i class="fas fa-tachometer-alt"></i>
+						<p>Tableau de bord</p>
+					</a>
+				</li>
+                <li class="nav-item {% if menu is defined and menu == "auteurs" %}active{% endif %}">
+					<a href="/admin/auteurs{#{{ path('backoffice') }}#}">
+						<i class="fas fa-tachometer-alt"></i>
+						<p>Auteurs</p>
+					</a>
+				</li>
+                <li class="nav-item {% if menu is defined and menu == "articles" %}active{% endif %}">
+					<a href="{#{{ path('backoffice') }}#}">
+						<i class="fas fa-tachometer-alt"></i>
+						<p>Articles</p>
+					</a>
+				</li>
+                <li class="nav-item {% if menu is defined and menu == "commentaires" %}active{% endif %}">
+					<a href="{#{{ path('backoffice') }}#}">
+						<i class="fas fa-tachometer-alt"></i>
+						<p>Commentaires</p>
+					</a>
+				</li>
+                <li class="nav-item {% if menu is defined and menu == "utilisateurs" %}active{% endif %}">
+					<a href="{#{{ path('backoffice') }}#}">
+						<i class="fas fa-tachometer-alt"></i>
+						<p>Utilisateurs</p>
+					</a>
+				</li>
+			<li class="nav-item">
+					<a href="{#{{ path('admin_logout') }}#}">
+						<i class="fas fa-power-off"></i>
+						<p>Déconnexion</p>
+					</a>
+				</li> 
+			</ul>
+		</div>
+	</div>
+</div>

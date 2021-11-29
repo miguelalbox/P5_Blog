@@ -11,12 +11,14 @@ try {
     $request = new SecurizedRequest([
         "post" => [
             "champsA" => FILTER_SANITIZE_ENCODED,
+            "title" => FILTER_SANITIZE_STRING,
+            "content" => FILTER_SANITIZE_STRING,
         ]
     ]);
     switch ($request->uri[0]) {
-            // case "admin" : 
-            //     $page = new Back($request);
-            //     break;
+        case "admin":
+            $page = new Back($request);
+            break;
             // case "api" : 
             //     $page = new API($request);
             //     break;
@@ -24,13 +26,13 @@ try {
             $page = new Front($request);
             break;
     }
-    $loader = new \Twig\Loader\FilesystemLoader(__DIR__."/app/views/");
-    $twig = new Twig\Environment($loader,[
-        "debug"=>true,
-        "cache"=>false
+    $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . "/app/views/");
+    $twig = new Twig\Environment($loader, [
+        "debug" => true,
+        "cache" => false
     ]);
     $twig->addExtension(new \Twig\Extension\DebugExtension());
-    echo $twig->render($page->template.".twig", $page->data);
+    echo $twig->render($page->template . ".twig", $page->data);
 
     //twig
 } catch (\Throwable $err) {
