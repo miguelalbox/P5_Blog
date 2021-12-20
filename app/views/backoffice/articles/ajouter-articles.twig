@@ -12,41 +12,38 @@
             <div class="col-md-8">
 				<div class="card">
 					<div class="card-header d-flex space-between">
-						<div class="card-title">Nouveau Auteur</div>
+						<div class="card-title">Nouveau Article</div>
 					</div>
 					<div class="card-body">
 
-						<form action="" method="POST">
+						<form action="" method="POST" enctype="multipart/form-data">
                         <div class="row justify-content-center">
-						    <div class="col-md-4 text-center m-4">
-							<label for="">Civilité</label>
-                            <select class="col-md-12" name="civility" type="text">
-                                <option value="">--</option>
-                                <option value="mr">Mr</option>
-                                <option value="mrs">Mrs</option>
+                            <div class="col-md-4 text-center m-4">
+							<label for="">Titre</label>
+                            <input class="col-md-12" name="title" type="text">
+                            </div>
+                            <div class="col-md-4 text-center m-4">
+							<label for="">Categories</label>
+                            <select class="col-md-12" name="category" type="text">
+                                {% for category in selectCategories %}
+                                    <option value="{{category.id}}">{{category.name}}</option>
+                                {% endfor %}
                             </select>
                             </div>
-                            <div class="col-md-4 text-center m-4">
-							<label for="">Nom</label>
-                            <input class="col-md-12" name="last_name" type="text">
+                             <div class="col-md-4 text-center m-4">
+							<label for="">Image</label>
+                            <input class="col-md-12" name="image" type="file">
                             </div>
-                            <div class="col-md-4 text-center m-4">
-							<label for="">Prenom</label>
-                            <input class="col-md-12" name="first_name" type="text">
-                            </div>
-                            <div class="col-md-4 text-center m-4">
-							<label for="">E-mail</label>
-                            <input class="col-md-12" name="email" type="text">
-                            </div>
-                            <div class="col-md-4 text-center m-4">
-							<label for="">Mot de passe</label>
-                            <input class="col-md-12" name="password" type="text">
+                            <div class="col-md-12 text-center m-4">
+							<label for="">Contenu</label>
+                            <textarea class="col-md-12" name="content" type="text" rows="10" cols="50"></textarea>
                             </div>
                             <div class="col-md-12 ">
                                 <button type="submit" class="btn btn-primary">Envoyer</button>
                                 <a class="btn btn-danger pull-right" href="auteurs">Annuler</a>
                             </div>
                         </div>
+                        
                         </form>
 						
 

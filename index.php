@@ -15,6 +15,11 @@ try {
             "email" => FILTER_SANITIZE_STRING,
             "password" => FILTER_SANITIZE_STRING,
             "civility" => FILTER_SANITIZE_STRING,
+            "image" => FILTER_UNSAFE_RAW,
+            "title" => FILTER_SANITIZE_STRING,
+            "content" => FILTER_SANITIZE_STRING,
+            "category" => FILTER_SANITIZE_STRING,
+            
         ]
     ]);
     switch ($request->uri[0]) {

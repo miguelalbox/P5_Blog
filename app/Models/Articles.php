@@ -30,19 +30,26 @@ class Articles extends DataBase{
 
     //super fonction 
     public function test(){
-
     }
 
-    
-    public function ajouteArticle($nouvelArticle){
+    /**
+     * [ajouteArticle description]
+     *
+     * @param   Array  $nouvelArticle  [$nouvelArticle description]
+     * @param   Number  $nouvelArticle["idAuteur]
+     *
+     * @return  [type]                  [return description]
+     */
+    public function ajouteArticle($nouvelArticle){  
+        if (!isset ($nouvelArticle["idAuteur"] ) ) $nouvelArticle["idAuteur"] = 1; //TODO remove après prise en charge de la session
         $req = $this->db->prepare("INSERT INTO `articles` (`title`, `image`, `content`, `date`, `category`, `id_user`) VALUES (:titre, :image, :contenu, NOW(), :idCategorie, :idAuteur);");
         $req->bindValue(":titre", $nouvelArticle["title"], \PDO::PARAM_STR_CHAR);
         $req->bindValue(":image", $nouvelArticle["image"], \PDO::PARAM_STR_CHAR);
         $req->bindValue(":content", $nouvelArticle["content"], \PDO::PARAM_STR_CHAR);
-        $req->bindValue(":idCategorie", $nouvelArticle[""], \PDO::PARAM_INT);
-        $req->bindValue(":idAuteur", $nouvelArticle[""], \PDO::PARAM_INT);
+        $req->bindValue(":idCategorie", $nouvelArticle["idCategorie"], \PDO::PARAM_INT);
+        $req->bindValue(":idAuteur", $nouvelArticle["idAuteur"], \PDO::PARAM_INT);
         $req->execute();
-      $this->test();
       $this->getTenLastPosts();
     }
+    
 }

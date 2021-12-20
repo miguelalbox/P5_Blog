@@ -3,6 +3,7 @@
 namespace App\Ctrl;
 
 use App\Models\Articles;
+use App\Models\Categorie;
 use App\Models\Users;
 
 class Back
@@ -89,7 +90,7 @@ class Back
                     "password" => $this->request->post["password"],
                     "civility" => $this->request->post["civility"],
                 ]);
-                $msg = "l'auteur à bien été enregistré";
+                $msg = "l'utilisateur à bien été enregistré";
             } catch (\Throwable $err) {
                 $error = true;
                 $msg="un problème est apparu lors de l'enregistrement";
@@ -103,7 +104,49 @@ class Back
         ];
     }
 
+    private function articles()
+    {
+        
+        $this->template = "backoffice/articles/articles";
+        $this->data = [
+            'menu' => 'articles',
+        ];
+    }
 
+    private function article()
+    {
+        $error = false;
+        $msg = "";
+        $categorie = new Categorie();
+        if ($this->request->method === "POST") {
+            // die(var_dump($this->request));
+            try {
+                $image =  new Image($_FILES);
+               // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
+                if ( ! $image->isValid()) throw (["msg"=>"l'image n'est pas valide"]);
+                //apppeler model
+                $article = new Articles();
+                $article->ajouteArticle([
+                    "title" => $this->request->post["title"],
+                    "image" => $image->getPath(),
+                    "content" => $this->request->post["content"],
+                    "category" => $this->request->post["idCategorie"],
+                    
+                ]);
+                $msg = "l'article à bien été enregistré";
+            } catch (\Throwable $err) {
+                $error = true;
+                //$msg= $err["msg"] ? $err["msg"] : "un problème est apparu lors de l'enregistrement";
+            }
+        };
+        $this->template = "backoffice/articles/ajouter-articles";
+        $this->data = [
+            'menu' => 'articles',
+            "error" => $error,
+            "message" =>$msg,
+            "selectCategories" => $categorie->getCategories()
+        ];
+    }
 
 
 
