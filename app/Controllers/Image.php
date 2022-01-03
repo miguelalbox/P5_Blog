@@ -10,11 +10,11 @@ class Image {
     private $name;
     private $ruta;
     private $routeRelative = "public/images/";
-    
+
 
   public function __construct($image)
   {
-      
+
 
     // array(1) { ["image"]=> array(5) { ["name"]=> string(21) "tmp_1621329767177.jpg" ["type"]=> string(10) "image/jpeg" ["tmp_name"]=> string(45) "C:\Users\Miguel\AppData\Local\Temp\phpA49.tmp" ["error"]=> int(0) ["size"]=> int(731879) } }
 
@@ -22,15 +22,17 @@ class Image {
     $nouvelleImage = $image["image"];
 
     $this->valide = $this->validImage($nouvelleImage);
+    // die(var_dump($this->valide));
 
     //ce n'est pas valide on ne va pas plus loin
     if (!$this->valide) return;
 
     $this->name = $this->rename($nouvelleImage["name"], $nouvelleImage["type"]);
-    // die(var_dump($name));
+    // die(var_dump($this->name));
+    // die(var_dump($nouvelleImage).var_dump($this->getPath()));
 
-    
-    if(! move_uploaded_file ($nouvelleImage['tmp_name'] , $this->getPath() ) ) {
+
+    if ( ! move_uploaded_file($nouvelleImage['tmp_name'], $this->getPath())) {
       $this->valide = false;
     }
   }
@@ -61,11 +63,11 @@ class Image {
 
   private function rename($name, $extension){
       $ext = explode("/", $extension)[1];
-      return substr($name, 0, 5).date("Y-m-d_h:i:sa").".".$ext;
+      return substr($name, 0, 5).date("Y-m-d_hisa").".".$ext;
   }
 
   public function getPath(){
-    return realpath($this->routeRelative)."/".$this->name;
+    return __DIR__."/../../public/images/".$this->name;
   }
 
   public function getRelativePath(){

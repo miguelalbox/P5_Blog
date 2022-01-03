@@ -12,7 +12,7 @@
             <div class="col-md-8">
 				<div class="card">
 					<div class="card-header d-flex space-between">
-						<div class="card-title">Nouveau Article</div>
+						<div class="card-title">{{title}}</div>
 					</div>
 					<div class="card-body">
 
@@ -20,7 +20,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-4 text-center m-4">
 							<label for="">Titre</label>
-                            <input class="col-md-12" name="title" type="text">
+                            <input class="col-md-12" name="title" type="text" value="{{titre_article}}">
                             </div>
                             <div class="col-md-4 text-center m-4">
 							<label for="">Categories</label>
@@ -36,11 +36,11 @@
                             </div>
                             <div class="col-md-12 text-center m-4">
 							<label for="">Contenu</label>
-                            <textarea class="col-md-12" name="content" type="text" rows="10" cols="50"></textarea>
+                            <textarea class="col-md-12" name="content" type="text" rows="10" cols="50" value="{{content}}"></textarea>
                             </div>
                             <div class="col-md-12 ">
-                                <button type="submit" class="btn btn-primary">Envoyer</button>
-                                <a class="btn btn-danger pull-right" href="auteurs">Annuler</a>
+                                <button type="submit" class="btn btn-primary pull-right">Envoyer</button>
+                                <a class="btn btn-danger pull-left" href="../../articles">Annuler</a>
                             </div>
                         </div>
                         

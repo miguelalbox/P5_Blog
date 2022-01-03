@@ -28,9 +28,6 @@ class Articles extends DataBase{
         $this->listPosts = $req->fetchAll();
     }
 
-    //super fonction 
-    public function test(){
-    }
 
     /**
      * [ajouteArticle description]
@@ -41,15 +38,35 @@ class Articles extends DataBase{
      * @return  [type]                  [return description]
      */
     public function ajouteArticle($nouvelArticle){  
-        if (!isset ($nouvelArticle["idAuteur"] ) ) $nouvelArticle["idAuteur"] = 1; //TODO remove après prise en charge de la session
+      if (!isset ($nouvelArticle["idAuteur"] ) ) $nouvelArticle["idAuteur"] = 1; //TODO remove après prise en charge de la session
+      // die(var_dump($nouvelArticle));
         $req = $this->db->prepare("INSERT INTO `articles` (`title`, `image`, `content`, `date`, `category`, `id_user`) VALUES (:titre, :image, :contenu, NOW(), :idCategorie, :idAuteur);");
         $req->bindValue(":titre", $nouvelArticle["title"], \PDO::PARAM_STR_CHAR);
         $req->bindValue(":image", $nouvelArticle["image"], \PDO::PARAM_STR_CHAR);
-        $req->bindValue(":content", $nouvelArticle["content"], \PDO::PARAM_STR_CHAR);
-        $req->bindValue(":idCategorie", $nouvelArticle["idCategorie"], \PDO::PARAM_INT);
+        $req->bindValue(":contenu", $nouvelArticle["content"], \PDO::PARAM_STR_CHAR);
+        $req->bindValue(":idCategorie", $nouvelArticle["category"], \PDO::PARAM_INT);
         $req->bindValue(":idAuteur", $nouvelArticle["idAuteur"], \PDO::PARAM_INT);
         $req->execute();
       $this->getTenLastPosts();
+    }
+    public function updateArticle($updateArticle){
+    if (!isset ($updateArticle["idAuteur"] ) ) $updateArticle["idAuteur"] = 1; //TODO remove après prise en charge de la session
+      $req = $this->db->prepare("UPDATE `articles` SET `title` = :titre, `image`= :image,  `content`=:contenu, `category`=:idCategorie, `id_user`=:idAuteur WHERE `articles`.`id` = :id");
+      $req->bindValue(":titre", $updateArticle["title"], \PDO::PARAM_STR_CHAR);
+      $req->bindValue(":image", $updateArticle["image"], \PDO::PARAM_STR_CHAR);
+      $req->bindValue(":contenu", $updateArticle["content"], \PDO::PARAM_STR_CHAR);
+      $req->bindValue(":idCategorie", $updateArticle["category"], \PDO::PARAM_INT);
+      $req->bindValue(":idAuteur", $updateArticle["idAuteur"], \PDO::PARAM_INT);
+      $req->bindValue(":id", $updateArticle["id"], \PDO::PARAM_INT);
+      $req->execute();
+    $this->getTenLastPosts();
+    }
+
+    public function getArticleInfo($id){
+      $req = $this->db->prepare("SELECT * FROM `articles` WHERE `id`=:id;");
+      $req->bindValue(":id", $id);
+      $req->execute();
+      $this->hydrate($req->fetch());
     }
     
 }

@@ -12,7 +12,7 @@
             <div class="col-md-8">
 				<div class="card">
 					<div class="card-header d-flex space-between">
-						<div class="card-title">Nouveau Auteur</div>
+						<div class="card-title">{{title}}</div>
 					</div>
 					<div class="card-body">
 
@@ -20,7 +20,7 @@
                         <div class="row justify-content-center">
 						    <div class="col-md-4 text-center m-4">
 							<label for="">Civilité</label>
-                            <select class="col-md-12" name="civility" type="text">
+                            <select class="col-md-12" name="civility" type="text" value="{{civility}}">
                                 <option value="">--</option>
                                 <option value="mr">Mr</option>
                                 <option value="mrs">Mrs</option>
@@ -28,23 +28,23 @@
                             </div>
                             <div class="col-md-4 text-center m-4">
 							<label for="">Nom</label>
-                            <input class="col-md-12" name="last_name" type="text">
+                            <input class="col-md-12" name="last_name" type="text" value="{{last_name}}">
                             </div>
                             <div class="col-md-4 text-center m-4">
 							<label for="">Prenom</label>
-                            <input class="col-md-12" name="first_name" type="text">
+                            <input class="col-md-12" name="first_name" type="text" value="{{first_name}}">
                             </div>
                             <div class="col-md-4 text-center m-4">
 							<label for="">E-mail</label>
-                            <input class="col-md-12" name="email" type="text">
+                            <input class="col-md-12" name="email" type="text" value="{{email}}">
                             </div>
                             <div class="col-md-4 text-center m-4">
 							<label for="">Mot de passe</label>
-                            <input class="col-md-12" name="password" type="text">
+                            <input class="col-md-12" name="password" type="text" value="{{password}}">
                             </div>
                             <div class="col-md-12 ">
-                                <button type="submit" class="btn btn-primary">Envoyer</button>
-                                <a class="btn btn-danger pull-right" href="auteurs">Annuler</a>
+                                <a class="btn btn-danger pull-left" href="../../users">Annuler</a>
+                                <button type="submit" class="btn btn-primary pull-right">{{action}}</button>
                             </div>
                         </div>
                         </form>
