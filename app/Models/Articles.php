@@ -68,5 +68,11 @@ class Articles extends DataBase{
       $req->execute();
       $this->hydrate($req->fetch());
     }
+
+    public function removeArticle($id){
+      $req = $this->db->prepare("DELETE FROM articles WHERE `articles`.`id` = :id LIMIT 1");
+      $req->bindValue(":id", $id, \PDO::PARAM_INT);
+      $req->execute();
+    }
     
 }

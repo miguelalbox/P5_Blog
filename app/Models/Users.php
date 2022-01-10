@@ -15,7 +15,7 @@ class Users extends DataBase
   public $role;
   public $id;
 
-
+  
   public function ajouteAuteur($newUser)
   {
     $this->addUser($newUser, 3);
@@ -34,6 +34,7 @@ class Users extends DataBase
    * @return  void            [return description]
    */
 
+   
 
   private function addUser($newUser, $role){
     $req = $this->db->prepare("INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `civility`, role) VALUES (:first_name, :last_name, :email, :password, :civility, :role);");

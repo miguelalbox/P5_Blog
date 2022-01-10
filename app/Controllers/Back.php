@@ -31,13 +31,16 @@ class Back
     }
     private function auteurs()
     {
+
         // /auteurs => onn affiche la liste des auteurs
         // /auteurs/edite => on edite
         // /auteurrs/ajoute => on ajoute
         if (count($this->request->uri) === 2) {
+
             $this->template = "backoffice/auteurs/auteurs";
             $this->data = [
                 'menu' => 'auteurs',
+
             ];
             return;
         }
@@ -101,7 +104,7 @@ class Back
                     "email" => $this->request->post["email"],
                     "password" => $this->request->post["password"],
                     "civility" => $this->request->post["civility"],
-                    "id"=> $this->request->uri[3]
+                    "id" => $this->request->uri[3]
                 ]);
                 $msg = "l'auteur à bien été modifié";
             }
@@ -131,9 +134,9 @@ class Back
 
         if (count($this->request->uri) === 2) {
             $this->template = "backoffice/users/users";
-        $this->data = [
-            'menu' => 'utilisateurs',
-        ];
+            $this->data = [
+                'menu' => 'utilisateurs',
+            ];
             return;
         }
         //die(var_dump($this->request->uri));
@@ -194,7 +197,7 @@ class Back
                     "email" => $this->request->post["email"],
                     "password" => $this->request->post["password"],
                     "civility" => $this->request->post["civility"],
-                    "id"=> $this->request->uri[3]
+                    "id" => $this->request->uri[3]
                 ]);
                 $msg = "l'utilisateur à bien été modifié";
             }
@@ -228,9 +231,9 @@ class Back
 
         if (count($this->request->uri) === 2) {
             $this->template = "backoffice/articles/articles";
-        $this->data = [
-            'menu' => 'articles',
-        ];
+            $this->data = [
+                'menu' => 'articles',
+            ];
             return;
         }
         //die(var_dump($this->request->uri));
@@ -286,48 +289,47 @@ class Back
         $msg = "";
         try {
             //apppeler model
-            
+
+            $article = new Articles();
             $categorie = new Categorie();
             if ($this->request->method === "POST") {
-                try {
-                    $image =  new Image($_FILES);
-                    // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
-                    if (!$image->isValid()) throw (["msg" => "l'image n'est pas valide"]);
-                    //apppeler model
-                    $article = new Articles();
-    
-                    $article->updateArticle([
-                        "title" => $this->request->post["title"],
-                        "image" => $image->getPath(),
-                        "content" => $this->request->post["content"],
-                        "category" => intval($this->request->post["category"]),
-                        "id"=> $this->request->uri[3]
-                    ]);
-                    $article->getArticleInfo($this->request->uri[3]);
-                    $msg = "l'article à bien été modifié";
-                } catch (\Throwable $err) {
-                    die(var_dump($err));
-                    $error = true;
-                    //$msg= $err["msg"] ? $err["msg"] : "un problème est apparu lors de l'enregistrement";
-                }
-            };
-        }
-        catch (\Throwable $err) {
+                $image =  new Image($_FILES);
+
+                // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
+                if (!$image->isValid()) throw (["msg" => "l'image n'est pas valide"]);
+                $image->removePrevious($this->request->uri[3]);
+                //apppeler model
+
+                $article->updateArticle([
+                    "title" => $this->request->post["title"],
+                    "image" => $image->getPath(),
+                    "content" => $this->request->post["content"],
+                    "category" => intval($this->request->post["category"]),
+                    "id" => $this->request->uri[3]
+                ]);
+                $msg = "l'article à bien été modifié";
+            }
+            $article->getArticleInfo($this->request->uri[3]);
+                
+        } catch (\Throwable $err) {
+            die(var_dump($err));
             $error = true;
             $msg = "un problème est apparu lors de l'enregistrement";
+        } finally {
+            // die(var_dump($article));
+            $this->template = "backoffice/articles/ajouter-modifier-articles";
+            $this->data = [
+                'menu' => 'articles',
+                "error" => $error,
+                "message" => $msg,
+                "selectCategories" => $categorie->getCategories(),
+                "title" => "Modifier Article",
+                "titre_article" => $article->title,
+                "content" => $article->content,
+            ];
         }
-        $this->template = "backoffice/articles/ajouter-modifier-articles";
-        $this->data = [
-            'menu' => 'articles',
-            "error" => $error,
-            "message" => $msg,
-            "selectCategories" => $categorie->getCategories(),
-            "title" => "Modifier Article",
-            "titre_article" => $article->title,
-            "content" => $article->content,
-        ];
     }
-    
+
 
 
 

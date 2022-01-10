@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Ctrl;
-
+use App\Models\Articles;
 
 
 class Image {
@@ -73,6 +73,14 @@ class Image {
   public function getRelativePath(){
     $path = substr($this->routeRelative, strlen("public"));
     return $path.$this->name;
+  }
+
+  public function removePrevious($idArticle){
+    $article = new Articles();
+    $article->getArticleInfo($idArticle);
+    // die(var_dump($imageToRemove));
+    unlink($article->image);
+
   }
 
 }
