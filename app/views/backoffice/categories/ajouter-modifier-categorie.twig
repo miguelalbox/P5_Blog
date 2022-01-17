@@ -1,0 +1,40 @@
+{% extends "backoffice/base.twig" %}
+
+{% block meta %}
+    <meta name="description" content="Backoffice">
+{% endblock %}
+
+
+{% block main %}
+<div class="page-inner">
+		
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+				<div class="card">
+					<div class="card-header d-flex space-between">
+						<div class="card-title">{{title}}</div>
+					</div>
+					<div class="card-body">
+
+						<form action="" method="POST">
+                        <div class="row justify-content-center">
+                            <div class="col-md-4 text-center m-4">
+							<label for="">Categorie</label>
+                            <input class="col-md-12" name="name" type="text" value="{{name}}">
+                            </div>
+                            <div class="col-md-12 ">
+                                <a class="btn btn-danger pull-left" href="/admin/categories">Annuler</a>
+                                <button type="submit" name="action" class="btn btn-primary pull-right">{{action}}</button>
+                            </div>
+                        </div>
+                        </form>
+						
+
+					</div>
+				</div>
+			</div>
+        </div>
+
+	</div>
+
+{% endblock %}

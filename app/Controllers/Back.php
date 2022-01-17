@@ -437,6 +437,124 @@ class Back
         }
         
     }
+
+
+    private function categories()
+    {
+
+
+        if (count($this->request->uri) === 2) {
+            $this->template = "backoffice/categories/categories";
+            $this->data = [
+                'menu' => 'categories',
+            ];
+            return;
+        }
+        //die(var_dump($this->request->uri));
+        $fonction = "categorie_" . $this->request->uri[2];
+        // die(var_dump($fonction));
+        if (!method_exists($this, $fonction)) $fonction = "page404";
+        $this->$fonction();
+    }
+
+    private function categorie_ajouter()
+    {
+        $error = false;
+        $msg = "";
+        if ($this->request->method === "POST") {
+            //die(var_dump($this->request));
+            try {
+                //apppeler model
+                $category = new Categorie();
+
+                $category->addCategory([
+                    "name" => $this->request->post["name"],
+                ]);
+                $msg = "la categorie à bien été enregistré";
+            } catch (\Throwable $err) {
+                $error = true;
+                $msg = "un problème est apparu lors de l'enregistrement";
+            }
+        };
+        $this->template = "backoffice/categories/ajouter-modifier-categorie";
+        $this->data = [
+            'menu' => 'categories',
+            "error" => $error,
+            "message" => $msg,
+            "action" => "Ajouter",
+            "title" => "Nouvelle Categorie",
+            "first_name" => "",
+            "last_name" => "",
+            "email" => "",
+            "password" => "",
+            "civility" => "",
+        ];
+    }
+
+    private function categorie_editer()
+    {
+        $error = false;
+        $msg = "";
+        try {
+            //apppeler model
+            $categorie = new Categorie();
+            if ($this->request->method === "POST") {
+                $categorie->updateCategory([
+                    "name" => $this->request->post["name"],
+                    "id" => $this->request->uri[3]
+                ]);
+                $msg = "la categorie à bien été modifié";
+            }
+            $categorie->getCategorieInfo($this->request->uri[3]);
+        } catch (\Throwable $err) {
+            $error = true;
+            $msg = "un problème est apparu lors de l'enregistrement";
+        }
+        $this->template = "backoffice/categories/ajouter-modifier-categorie";
+        $this->data = [
+            'menu' => 'categories',
+            "error" => $error,
+            "message" => $msg,
+            "action" => "Modifier",
+            "title" => "Modifier Categorie",
+            "name" => $categorie->name,
+
+        ];
+    }
+
+    private function categorie_suprimer()
+    {
+        $error = false;
+        $msg = "";
+        try {
+            //apppeler model
+
+            $categorie = new Categorie();
+
+                $categorie->removeCategory([
+                    "id" => $this->request->uri[3]
+                ]);
+                //die(var_dump($article));
+                
+                $msg = "la categorie à bien été suprimé";
+            
+            
+                
+        } catch (\Throwable $err) {
+            die(var_dump($err));
+            $error = true;
+            $msg = "un problème est apparu lors de l'enregistrement";
+        } finally {
+            // die(var_dump($article));
+            $this->template = "backoffice/categories/categories";
+            $this->data = [
+                'menu' => 'categories',
+                "error" => $error,
+                "message" => $msg,
+            ];
+        }
+        
+    }
     
 
 

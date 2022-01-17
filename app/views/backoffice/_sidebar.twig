@@ -19,22 +19,28 @@
 						<p>Auteurs</p>
 					</a>
 				</li>
+				<li class="nav-item {% if menu is defined and menu == "utilisateurs" %}active{% endif %}">
+					<a href="/admin/users{#{{ path('backoffice') }}#}">
+						<i class="fas fa-tachometer-alt"></i>
+						<p>Utilisateurs</p>
+					</a>
+				</li>
                 <li class="nav-item {% if menu is defined and menu == "articles" %}active{% endif %}">
 					<a href="/admin/articles{#{{ path('backoffice') }}#}">
 						<i class="fas fa-tachometer-alt"></i>
 						<p>Articles</p>
 					</a>
 				</li>
+				<li class="nav-item {% if menu is defined and menu == "categories" %}active{% endif %}">
+					<a href="/admin/categories{#{{ path('backoffice') }}#}">
+						<i class="fas fa-tachometer-alt"></i>
+						<p>Categories</p>
+					</a>
+				</li>
                 <li class="nav-item {% if menu is defined and menu == "commentaires" %}active{% endif %}">
 					<a href="{#{{ path('backoffice') }}#}">
 						<i class="fas fa-tachometer-alt"></i>
 						<p>Commentaires</p>
-					</a>
-				</li>
-                <li class="nav-item {% if menu is defined and menu == "utilisateurs" %}active{% endif %}">
-					<a href="/admin/users{#{{ path('backoffice') }}#}">
-						<i class="fas fa-tachometer-alt"></i>
-						<p>Utilisateurs</p>
 					</a>
 				</li>
 			<li class="nav-item">
