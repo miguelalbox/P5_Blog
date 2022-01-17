@@ -56,6 +56,12 @@ class Users extends DataBase
     $req->bindValue(":id", $updateUser["id"], \PDO::PARAM_INT);
     $req->execute();
   }
+  public function removeUser($id){
+    $req = $this->db->prepare("DELETE FROM `users` WHERE `users`.`id` = :id LIMIT 1");
+    $req->bindValue(":id", $id["id"], \PDO::PARAM_INT);
+    $req->execute();
+  }
+  
 
   public function ajouteUtilisateur($newUser){
     $this->addUser($newUser, 1);

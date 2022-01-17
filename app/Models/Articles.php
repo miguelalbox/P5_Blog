@@ -12,6 +12,7 @@ class Articles extends DataBase{
   public $date;
   public $category;
   public $listPosts;
+  public $id;
 
   /**
    * retourne les 10 articles à partir d'un point de départ
@@ -70,8 +71,8 @@ class Articles extends DataBase{
     }
 
     public function removeArticle($id){
-      $req = $this->db->prepare("DELETE FROM articles WHERE `articles`.`id` = :id LIMIT 1");
-      $req->bindValue(":id", $id, \PDO::PARAM_INT);
+      $req = $this->db->prepare("DELETE FROM `articles` WHERE `articles`.`id` = :id LIMIT 1");
+      $req->bindValue(":id", $id["id"], \PDO::PARAM_INT);
       $req->execute();
     }
     

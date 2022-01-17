@@ -128,6 +128,39 @@ class Back
 
         ];
     }
+    private function auteur_suprimer()
+    {
+        $error = false;
+        $msg = "";
+        try {
+            //apppeler model
+
+            $user = new Users();
+
+                $user->removeUser([
+                    "id" => $this->request->uri[3]
+                ]);
+                //die(var_dump($article));
+                
+                $msg = "l'auteur à bien été suprimé";
+            
+            
+                
+        } catch (\Throwable $err) {
+            die(var_dump($err));
+            $error = true;
+            $msg = "un problème est apparu lors de l'enregistrement";
+        } finally {
+            // die(var_dump($article));
+            $this->template = "backoffice/auteurs/auteurs";
+            $this->data = [
+                'menu' => 'auteurs',
+                "error" => $error,
+                "message" => $msg,
+            ];
+        }
+        
+    }
 
     private function users()
     {
@@ -220,6 +253,40 @@ class Back
             "civility" => $user->civility,
 
         ];
+    }
+
+    private function user_suprimer()
+    {
+        $error = false;
+        $msg = "";
+        try {
+            //apppeler model
+
+            $user = new Users();
+
+                $user->removeUser([
+                    "id" => $this->request->uri[3]
+                ]);
+                //die(var_dump($article));
+                
+                $msg = "l'utilisateur à bien été suprimé";
+            
+            
+                
+        } catch (\Throwable $err) {
+            die(var_dump($err));
+            $error = true;
+            $msg = "un problème est apparu lors de l'enregistrement";
+        } finally {
+            // die(var_dump($article));
+            $this->template = "backoffice/users/users";
+            $this->data = [
+                'menu' => 'utilisateurs',
+                "error" => $error,
+                "message" => $msg,
+            ];
+        }
+        
     }
 
 
@@ -329,6 +396,48 @@ class Back
             ];
         }
     }
+
+    private function article_suprimer()
+    {
+        $error = false;
+        $msg = "";
+        try {
+            //apppeler model
+
+            $article = new Articles();
+            
+                $image =  new Image($_FILES);
+
+                // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
+                
+                $image->removePrevious($this->request->uri[3]);
+                //apppeler model
+
+                $article->removeArticle([
+                    "id" => $this->request->uri[3]
+                ]);
+                //die(var_dump($article));
+                
+                $msg = "l'article à bien été suprimé";
+            
+            
+                
+        } catch (\Throwable $err) {
+            die(var_dump($err));
+            $error = true;
+            $msg = "un problème est apparu lors de l'enregistrement";
+        } finally {
+            // die(var_dump($article));
+            $this->template = "backoffice/articles/articles";
+            $this->data = [
+                'menu' => 'articles',
+                "error" => $error,
+                "message" => $msg,
+            ];
+        }
+        
+    }
+    
 
 
 
