@@ -5,6 +5,7 @@ namespace App\Ctrl;
 use App\Models\Articles;
 use App\Models\Categorie;
 use App\Models\Users;
+use App\Ctrl\Auth;
 
 class Back
 {
@@ -14,6 +15,10 @@ class Back
     public $current;
     public function __construct($request)
     {
+
+        // $auth = Auth::login("mikyfiestas@gmail.com", "dfdsfsdfsdffds");
+        //die(var_dump($request->session));
+
         $this->request = $request;
         $fonction = $request->uri[1];
         if ($fonction === "" || !isset($fonction)) $fonction = "backoffice";
@@ -31,6 +36,9 @@ class Back
     }
     private function auteurs()
     {
+        $users = new Users();
+
+        $usersList = $users->getAuthors();
 
         // /auteurs => onn affiche la liste des auteurs
         // /auteurs/edite => on edite
@@ -40,6 +48,7 @@ class Back
             $this->template = "backoffice/auteurs/auteurs";
             $this->data = [
                 'menu' => 'auteurs',
+                'auteurs' => $usersList
 
             ];
             return;
@@ -164,11 +173,16 @@ class Back
 
     private function users()
     {
+        $users = new Users();
+
+        $usersList = $users->getUsers();
+        
 
         if (count($this->request->uri) === 2) {
             $this->template = "backoffice/users/users";
             $this->data = [
                 'menu' => 'utilisateurs',
+                'utilisateurs' => $usersList
             ];
             return;
         }
@@ -295,11 +309,15 @@ class Back
     private function articles()
     {
 
+        $articles = new Articles();
+
+        $articleList = $articles->getArticles();
 
         if (count($this->request->uri) === 2) {
             $this->template = "backoffice/articles/articles";
             $this->data = [
                 'menu' => 'articles',
+                'articles' => $articleList
             ];
             return;
         }
@@ -441,12 +459,16 @@ class Back
 
     private function categories()
     {
+        $categories = new Categorie();
 
+        $categoriesList = $categories->getCategories();
 
+        //die(var_dump($categories));
         if (count($this->request->uri) === 2) {
             $this->template = "backoffice/categories/categories";
             $this->data = [
                 'menu' => 'categories',
+                'categories' => $categoriesList
             ];
             return;
         }

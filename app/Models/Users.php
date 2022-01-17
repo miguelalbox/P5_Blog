@@ -77,4 +77,25 @@ class Users extends DataBase
     $req->execute();
     $this->hydrate($req->fetch());
   }
+  public function getUsers(){
+    $req = $this->db->prepare("SELECT * FROM `users`  WHERE `role`=1 ORDER BY id ASC");
+    $req->execute();
+    return $req->fetchAll();
+}
+public function getAuthors(){
+  $req = $this->db->prepare("SELECT * FROM `users`  WHERE `role`=3 ORDER BY id ASC");
+  $req->execute();
+  return $req->fetchAll();
+}
+
+  public function login($email, $password){
+    $req = $this->db->prepare("SELECT * FROM `users` WHERE `email`=:email AND `password`=:password; LIMIT 1");
+    $req->bindValue(":email", $email);
+    $req->bindValue(":password", $password);
+    $req->execute();
+    $result = $req->fetch();
+    if (!$result) return false;
+    $this->hydrate($result);
+    return true;
+  }
 }

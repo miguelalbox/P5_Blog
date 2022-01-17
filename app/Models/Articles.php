@@ -29,7 +29,11 @@ class Articles extends DataBase{
         $this->listPosts = $req->fetchAll();
     }
 
-
+    public function getArticles(){
+      $req = $this->db->prepare("SELECT * FROM `articles` ORDER BY id ASC");
+      $req->execute();
+      return $req->fetchAll();
+  }
     /**
      * [ajouteArticle description]
      *

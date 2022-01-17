@@ -19,13 +19,12 @@
 					</div>
 					<div class="card-body">
 
-						{#{% if carrieres | length > 0 %}#}
+						{% if articles | length > 0 %}
 
 						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th scope="col">Title</th>
-									<th scope="col">Image</th>
 									<th scope="col">Date</th>
 									<th scope="col">Auteur</th>
                                     <th scope="col">Actions</th>
@@ -34,37 +33,28 @@
 							<tbody id="sliders">
 
 
-								{#{% for carriere in carrieres %}#}
+								{% for article in articles %}
 
 									<tr data-order="{#{{ carriere.number }}#}">
 										<td>
                                             <div class="project">
 												<div class="project-img" style="background: {#{{ carriere.image }}#}">
-													<img src="/images/carrieres/{#{{ carriere.image }}#}" alt="">
+													<img src="{{ article.image }}" alt="">
 												</div>
-												<span class="project-title">{#{{ carriere.title }}#}</span>
+												<span class="project-title">{{ article.title }}</span>
 											</div>
                                         </td>
                                         <td>
 											<div class="project">
-												<span class="project">{#{{ carriere.workType }}#}</span>
+												<span class="project">{{ article.date }}</span>
 											</div>
                                         </td>
-                                        <td>
                                         <td>
 											<div class="project">
-												<span class="project">{#{{ carriere.workType }}#}</span>
+												<span class="project">{{ article.id_user }}</span>
 											</div>
-                                        </td>
-                                            <div class="project">
-												<span class="project">{#{{ carriere.date }}#}</span>
-											</div>
-										</td>
 										<td>
-											{#<a href="{{ path('view_project', {'slug': carriere.slug}) }}" class="btn btn-icon btn-round btn-primary btn-sm">
-												<i class="fas fa-eye"></i>
-											</a>#}
-											<a href="{#{{ path('edit_carriere', {'slug': carriere.slug}) }}#}" class="btn btn-icon btn-round btn-primary btn-sm">
+											<a href="/admin/articles/editer/{{article.id}}" class="btn btn-icon btn-round btn-primary btn-sm">
 												<i class="fas fa-edit"></i>
 											</a>
 
@@ -91,7 +81,7 @@
                                                             
                                                             </div>
                                                             <div class="modal-footer left">
-                                                                <button type="submit" class="btn btn-primary btn-sm">Oui, Supprimer</button>
+                                                                <a href="/admin/articles/suprimer/{{article.id}}" class="btn btn-primary btn-sm">Oui, Supprimer</a>
                                                                 <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Annuler</button>
                                                             </div>
                                                         </form>
@@ -102,11 +92,11 @@
 										</td>
 									</tr>
 
-							{#	{% endfor %}#}
+							{% endfor %}
 							</tbody>
 						</table>
 
-						{#{% else %}#}
+						{% else %}
 
 						<div class="my-5 py-5 text-center">
 
@@ -114,7 +104,7 @@
 
 						</div>
 							
-						{#{% endif %}#}
+						{% endif %}
 
 					</div>
 					{#{{ knp_pagination_render(carrieres) }}#}

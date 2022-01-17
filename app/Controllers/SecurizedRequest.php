@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Ctrl;
+use App\Ctrl\SessionManager;
 
 class SecurizedRequest{
     public $uri;
     public $method;
+    public $session;
 
     public function __construct($rules){
+        $this->session = new SessionManager();
         $this->method = filter_input(
             INPUT_SERVER,
             "REQUEST_METHOD",

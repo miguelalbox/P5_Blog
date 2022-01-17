@@ -14,61 +14,36 @@
 					<div class="card-header d-flex space-between">
 						<div class="card-title">Tous les Categories</div>
 						<div>
-							<a href="./users/ajouter{#{{ path('add_carriere') }}#}" class="btn btn-primary btn-sm">Ajouter une categorie</a>
+							<a href="./categories/ajouter{#{{ path('add_carriere') }}#}" class="btn btn-primary btn-sm">Ajouter une categorie</a>
 						</div>
 					</div>
 					<div class="card-body">
 
-						{#{% if carrieres | length > 0 %}#}
+						{% if categories | length > 0 %}
 
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th scope="col">Civilité</th>
-									<th scope="col">Nom</th>
-									<th scope="col">Prenom</th>
-									<th scope="col">Mail</th>
+									<th scope="col">Categorie</th>
                                     <th scope="col">Actions</th>
 								</tr>
 							</thead>
 							<tbody id="sliders">
 
 
-								{#{% for carriere in carrieres %}#}
+								{% for categorie in categories %}
 
 									<tr data-order="{#{{ carriere.number }}#}">
 										<td>
                                             <div class="project">
-												<div class="project-img" style="background: {#{{ carriere.image }}#}">
-													<img src="/images/carrieres/{#{{ carriere.image }}#}" alt="">
-												</div>
-												<span class="project-title">{#{{ carriere.title }}#}</span>
+												<span class="project-title">{{ categorie.name }}</span>
 											</div>
                                         </td>
-                                        <td>
-											<div class="project">
-												<span class="project">{#{{ carriere.workType }}#}</span>
-											</div>
-                                        </td>
-                                        <td>
-                                        <td>
-											<div class="project">
-												<span class="project">{#{{ carriere.workType }}#}</span>
-											</div>
-                                        </td>
-                                            <div class="project">
-												<span class="project">{#{{ carriere.date }}#}</span>
-											</div>
-										</td>
 										<td>
-											{#<a href="{{ path('view_project', {'slug': carriere.slug}) }}" class="btn btn-icon btn-round btn-primary btn-sm">
+											<a href="/admin/categories/editer/{{categorie.id}}" class="btn btn-icon btn-round btn-primary btn-sm">
 												<i class="fas fa-eye"></i>
-											</a>#}
-											<a href="{#{{ path('edit_carriere', {'slug': carriere.slug}) }}#}" class="btn btn-icon btn-round btn-primary btn-sm">
-												<i class="fas fa-edit"></i>
 											</a>
-
-                                            <button class="btn btn-icon btn-round btn-primary btn-sm"  data-toggle="modal" data-target="#delete-{#{{ carriere.id }}#}" data-backdrop="static" data-keyboard="false">
+											<button class="btn btn-icon btn-round btn-primary btn-sm"  data-toggle="modal" data-target="#delete-{#{{ carriere.id }}#}" data-backdrop="static" data-keyboard="false">
 												<i class="fas fa-trash"></i>
 											</button>
 
@@ -78,20 +53,20 @@
                                                     <div class="modal-content">
                                                         <form action="{#{{ path('delete_carriere') }}#}" method="post">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Suppression d'un utilisateur</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Suppression d'une categorie</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
 
-                                                                <p>Êtes vous sure de vouloir supprimer l'utilisateur <b>{#{{ carriere.slug }}#}</b>? </p>
+                                                                <p>Êtes vous sure de vouloir supprimer la categorie <b>{#{{ carriere.slug }}#}</b>? </p>
 
 																<input type="hidden" name="carriere_id" value="{#{{ carriere.id }}#}">
                                                             
                                                             </div>
                                                             <div class="modal-footer left">
-                                                                <button type="submit" class="btn btn-primary btn-sm">Oui, Supprimer</button>
+                                                                <a href="/admin/categories/suprimer/{{categorie.id}}" class="btn btn-primary btn-sm">Oui, Supprimer</a>
                                                                 <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Annuler</button>
                                                             </div>
                                                         </form>
@@ -99,22 +74,24 @@
                                                 </div>
                                             </div>
 
+                                            
+
 										</td>
 									</tr>
 
-							{#	{% endfor %}#}
+							{% endfor %}
 							</tbody>
 						</table>
 
-						{#{% else %}#}
+						{% else %}
 
 						<div class="my-5 py-5 text-center">
 
-							<h2>Aucun Utilisateur</h2>
+							<h2>Aucun Categorie</h2>
 
 						</div>
 							
-						{#{% endif %}#}
+						{% endif %}
 
 					</div>
 					{#{{ knp_pagination_render(carrieres) }}#}
