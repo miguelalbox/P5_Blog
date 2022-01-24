@@ -6,6 +6,7 @@ use App\Models\Articles;
 use App\Models\Categorie;
 use App\Models\Users;
 use App\Ctrl\Auth;
+use App\Ctrl\Tools;
 
 class Back
 {
@@ -334,7 +335,6 @@ class Back
         $msg = "";
         $categorie = new Categorie();
         if ($this->request->method === "POST") {
-            // die(var_dump($this->request));
             try {
                 $image =  new Image($_FILES);
                 // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
@@ -344,10 +344,10 @@ class Back
 
                 $article->ajouteArticle([
                     "title" => $this->request->post["title"],
-                    "image" => $image->getPath(),
+                    "image" => $image->getRelativePath(),
                     "content" => $this->request->post["content"],
                     "category" => intval($this->request->post["category"]),
-
+                    "idAuteur" => $this->request->session["data"]["id"]
                 ]);
                 $msg = "l'article à bien été enregistré";
             } catch (\Throwable $err) {
@@ -387,7 +387,7 @@ class Back
 
                 $article->updateArticle([
                     "title" => $this->request->post["title"],
-                    "image" => $image->getPath(),
+                    "image" => $image->getRelativePath(),
                     "content" => $this->request->post["content"],
                     "category" => intval($this->request->post["category"]),
                     "id" => $this->request->uri[3]
@@ -437,7 +437,7 @@ class Back
                 //die(var_dump($article));
                 
                 $msg = "l'article à bien été suprimé";
-            
+                Tools::endPage(["redirect"=>"/admin/articles"]);
             
                 
         } catch (\Throwable $err) {

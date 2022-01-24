@@ -12,6 +12,11 @@ class SessionManager
         session_start();
         $this->data = $_SESSION;
         if (count($this->data) >0) $this->hasSession = true;
+
+
+        // pour le debug 
+        $this->update("id", 15);
+        $this->update("name","Jean Miguel");
     }
 
     public function setSession($key, $value)
@@ -32,5 +37,10 @@ class SessionManager
     public function delete(){
         session_destroy();
         $this->hasSession = false;
+    }
+
+    public function update($clef, $valeur){
+        $this->data[$clef] = $valeur;
+        $this->saveSession();
     }
 }

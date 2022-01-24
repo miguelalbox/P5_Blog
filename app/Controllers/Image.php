@@ -67,19 +67,19 @@ class Image {
   }
 
   public function getPath(){
-    return __DIR__."/../../public/images/".$this->name;
+    return __DIR__."/../../".$this->routeRelative.$this->name;
   }
 
   public function getRelativePath(){
     $path = substr($this->routeRelative, strlen("public"));
-    return $path.$this->name;
+    return "/public".$path.$this->name;
   }
 
   public function removePrevious($idArticle){
     $article = new Articles();
     $article->getArticleInfo($idArticle);
-    // die(var_dump($imageToRemove));
-    unlink($article->image);
+    //die(var_dump(__DIR__."/../..".$article->image));
+    unlink(__DIR__."/../..".$article->image);
 
   }
 

@@ -61,4 +61,11 @@ class Front{
         $this->template = "404";
         
     }
+    private function login(){
+        // si method === POST
+        // appel méthode login dans App\Models\Users
+        // $this->request->session->update("name", "truc")
+        // si c'est juste -> mettre à jour la session + redirection vers  /admin
+
+    }
 }
