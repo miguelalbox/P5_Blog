@@ -15,8 +15,8 @@ class SessionManager
 
 
         // pour le debug 
-        $this->update("id", 15);
-        $this->update("name","Jean Miguel");
+        // $this->update("id", 14);
+        // $this->update("name","Jean Miguel");
     }
 
     public function setSession($key, $value)

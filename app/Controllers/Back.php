@@ -35,6 +35,8 @@ class Back
             'menu' => 'backoffice'
         ];
     }
+
+
     private function auteurs()
     {
         $users = new Users();
@@ -153,6 +155,7 @@ class Back
                 //die(var_dump($article));
                 
                 $msg = "l'auteur à bien été suprimé";
+                Tools::endPage(["redirect"=>"/admin/auteurs"]);
             
             
                 
@@ -285,6 +288,7 @@ class Back
                 //die(var_dump($article));
                 
                 $msg = "l'utilisateur à bien été suprimé";
+                Tools::endPage(["redirect"=>"/admin/users"]);
             
             
                 
@@ -559,7 +563,7 @@ class Back
                 //die(var_dump($article));
                 
                 $msg = "la categorie à bien été suprimé";
-            
+                Tools::endPage(["redirect"=>"/admin/categories"]);
             
                 
         } catch (\Throwable $err) {

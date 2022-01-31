@@ -46,6 +46,7 @@ class Users extends DataBase
     $req->bindValue(":role", $role, \PDO::PARAM_INT);
     $req->execute();
   }
+  
   private function updateUser($updateUser){
     $req = $this->db->prepare("UPDATE `users` SET `last_name` = :last_name, `first_name`= :first_name,  `email`=:email, `password`=:password, `civility`=:civility WHERE `users`.`id` = :id");
     $req->bindValue(":first_name", $updateUser["first_name"], \PDO::PARAM_STR_CHAR);
@@ -88,14 +89,12 @@ public function getAuthors(){
   return $req->fetchAll();
 }
 
-  public function login($email, $password){
-    $req = $this->db->prepare("SELECT * FROM `users` WHERE `email`=:email AND `password`=:password; LIMIT 1");
-    $req->bindValue(":email", $email);
-    $req->bindValue(":password", $password);
+  public function login($email){
+    $req = $this->db->prepare("SELECT * FROM `users` WHERE `email`=:email LIMIT 1");
+    $req->bindValue(":email", $email, \PDO::PARAM_STR_CHAR);
     $req->execute();
     $result = $req->fetch();
-    if (!$result) return false;
+    if (!$result) throw ""; // TODO faire la gfestion des erreurs l'eamil n'existe pas dans la base de données
     $this->hydrate($result);
-    return true;
   }
 }

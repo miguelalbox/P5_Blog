@@ -23,6 +23,7 @@ try {
             "name"=>FILTER_SANITIZE_STRING,
         ]
     ]);
+    
     switch ($request->uri[0]) {
         case "admin":
             $page = new Back($request);
