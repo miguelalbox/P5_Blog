@@ -18,12 +18,12 @@
         <div class="header">
             <div class="header-left">
                     <img src="/public/images/img.png" alt="">
-                    <a href="">Accueil</a>
+                    <a href="/">Accueil</a>
                     <a href="">Se connecter</a>
                 </div>
                 <div class="header-right">
-                    <a href="">Articles</a>
-                    <a href="">Contact</a>
+                    <a href="/articles">Articles</a>
+                    <a href="/contact">Contact</a>
                 </div>
         </div>  
 
@@ -47,16 +47,16 @@
     <!-- Links -->
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Accueil<span class="sr-only"></span></a>
+        <a class="nav-link" href="/">Accueil<span class="sr-only"></span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Se connecter</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Articles</a>
+        <a class="nav-link" href="/articles">Articles</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Contact</a>
+        <a class="nav-link" href="/contact">Contact</a>
       </li>
     </ul>
     <!-- Links -->
@@ -80,6 +80,11 @@
                 <p>Cophyright</p>
             </div>
         </div>
+    <ul id="notifications">
+    {% for pages in notifications %}
+      <li class="{{pages.type}}">{{pages.msg}}</li>
+    {% endfor %}
+    </ul>
     </footer>
 </body>
 </html>

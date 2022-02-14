@@ -34,6 +34,15 @@ class Articles extends DataBase{
       $req->execute();
       return $req->fetchAll();
   }
+  public function getArticle($id){
+    $req = $this->db->prepare("SELECT * FROM `articles` WHERE `articles`.`id` = :id");
+    $req->bindValue(":id", $id, \PDO::PARAM_INT);
+    $req->execute();
+    $this->hydrate($req->fetch());
+
+}
+    
+    
     /**
      * [ajouteArticle description]
      *

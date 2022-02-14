@@ -16,6 +16,13 @@ class Categorie extends DataBase{
         $req->execute();
         return $req->fetchAll();
     }
+    public function getCategoriesHome($start=0){
+      $req = $this->db->prepare("SELECT * FROM `categories` ORDER BY id DESC LIMIT :debut, :fin");
+      $req->bindValue(":debut", $start, \PDO::PARAM_INT);
+      $req->bindValue(":fin", $start+10, \PDO::PARAM_INT);
+      $req->execute();
+      $this->listCategorie = $req->fetchAll();
+  }
 
     public function addCategory($newCategory){
         $req = $this->db->prepare("INSERT INTO `categories` (`name`) VALUES (:name);");

@@ -5,6 +5,8 @@ namespace App\Ctrl;
 // use App\Models\Users;
 use App\Ctrl\Auth;
 use App\Models\Articles;
+use App\Ctrl\Tools;
+use App\Models\Categorie;
 
 class Front
 {
@@ -14,9 +16,9 @@ class Front
     public $current;
     public function __construct($request)
     {
-        $this->request = $request;
-        $fonction = $request->uri[0];
-        if ($fonction === "") $fonction = "home";
+           $this->request                               = $request;
+           $fonction                                    = $request->uri[0];
+        if ($fonction === "") $fonction                 = "home";
         if (!method_exists($this, $fonction)) $fonction = "page404";
         $this->$fonction();
     }
@@ -25,38 +27,52 @@ class Front
     {
         $posts = new Articles();
         $posts->getTenLastPosts();
+        $categories = new Categorie();
+        $categories->getCategoriesHome();
+        
 
         $this->template = "index";
-        $this->data = [
-            "list" => $posts->listPosts
+        $this->data     = [
+            "articles"   => $posts->listPosts,
+            "categories" => $categories->listCategorie,
         ];
     }
 
     private function articles()
     {
+        $posts = new Articles();
+        $posts->getTenLastPosts();
+        $categories = new Categorie();
+        $categories->getCategoriesHome();
+
         $this->template = "articles";
-        $this->data = [
-            //"test"=>"Miguel"
+        $this->data     = [
+            "articles"   => $posts->listPosts,
+            "categories" => $categories->listCategorie,
         ];
     }
     private function article()
     {
+        $post = new Articles();
+        $post->getArticle( $this->request->uri[1] );
+        //die(var_dump($post));
+
         $this->template = "article";
-        $this->data = [
-            //"test"=>"Miguel"
+        $this->data     = [
+            "article" => $post
         ];
     }
     private function contact()
     {
         $this->template = "contact";
-        $this->data = [
+        $this->data     = [
             //"test"=>"Miguel"
         ];
     }
     private function mentions_legales()
     {
         $this->template = "mentions-legales";
-        $this->data = [
+        $this->data     = [
             //"test"=>"Miguel"
         ];
     }
@@ -74,17 +90,18 @@ class Front
         // die(var_dump($this->request));
         if ($this->request->method === "POST") {
             try {
-                Auth::login($this->request->post["email"],  $this->request->post["password"]);
+                Auth:: login($this->request->post["email"],  $this->request->post["password"]);
                 //TODO ajoputer un message de réussite de login
                 //TODO ajouter la redirection
+                Tools:: endPage(["redirect"=>"/admin"]);
                 
             } catch (\Throwable $err) {
                 die(var_dump($err));
                 $error = true;
-                $msg = "un problème est apparu lors de l'enregistrement";
+                $msg   = "un problème est apparu lors de l'enregistrement";
             }
         }
         $this->template = "login";
-        $this->data = [];
+        $this->data     = [];
     }
 }

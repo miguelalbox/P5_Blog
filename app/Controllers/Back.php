@@ -7,6 +7,7 @@ use App\Models\Categorie;
 use App\Models\Users;
 use App\Ctrl\Auth;
 use App\Ctrl\Tools;
+use Error;
 
 class Back
 {
@@ -17,8 +18,11 @@ class Back
     public function __construct($request)
     {
 
-        // $auth = Auth::login("mikyfiestas@gmail.com", "dfdsfsdfsdffds");
+         $auth = Auth::login("mikyfiestas@gmail.com", "miguel123");
         //die(var_dump($request->session));
+
+
+        if(!$request->session->hasSession) throw new Error("pas d'utilisateur connecté");
 
         $this->request = $request;
         $fonction = $request->uri[1];

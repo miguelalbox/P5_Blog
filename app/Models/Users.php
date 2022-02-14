@@ -10,7 +10,7 @@ class Users extends DataBase
   public $first_name;
   public $last_name;
   public $email;
-  public $password;
+  // public $password;
   public $civility;
   public $role;
   public $id;
@@ -96,5 +96,6 @@ public function getAuthors(){
     $result = $req->fetch();
     if (!$result) throw ""; // TODO faire la gfestion des erreurs l'eamil n'existe pas dans la base de données
     $this->hydrate($result);
+    return $result["password"];
   }
 }

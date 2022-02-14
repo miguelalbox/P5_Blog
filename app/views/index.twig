@@ -7,59 +7,39 @@
 
 {% block main %}
    <div class="home">
-            <div class="title">
+        <div class="title">
             <h1>Dynamic Title</h1>
         </div>
         <div class="articles">
+            {% for article in articles | slice(0,1) %}
             <div class="first-articles">
-                <img src="/public/images/img.png" alt="">
+                <img src="{{ article.image }}" alt="">
                 <div class="info-article">
-                    <h2 class="title">Titre d'article</h2>
-                    <p class="content-articles">Contenu d'article Lorem ipsum dolor sit amet.Contenu d'article Lorem ipsum dolor sit amet.Contenu d'article Lorem ipsum dolor sit amet.Contenu d'article Lorem ipsum dolor sit amet.</p>
-                    <a href="">En savoir plus</a>
+                    <h2 class="title">{{ article.title }}</h2>
+                    <p class="content-articles">{{ article.content }}</p>
+                    <a href="/article/{{article.id}}">En savoir plus</a>
                 </div>
             </div>
+            {% endfor %}
+            
             <div class="others">
+            {% for article in articles | slice(1,4) %}
                 <div class="others-articles">
-                <img src="/public/images/img.png" alt="">
-                <div class="info-article">
-                    <h2 class="title">Titre d'article</h2>
-                    <p class="content-articles">Contenu d'article Lorem ipsum dolor sit amet.Contenu d'article Lorem ipsum dolor sit amet.Contenu d'article Lorem ipsum dolor sit amet.Contenu d'article Lorem ipsum dolor sit amet.Contenu d'article Lorem ipsum dolor sit amet.</p>
-                    <a href="">En savoir plus</a>
+                    <img src="{{ article.image }}" alt="">
+                    <div class="info-article">
+                        <h2 class="title">{{ article.title }}</h2>
+                        <p class="content-articles">{{ article.content }}</p>
+                        <a href="/article/{{article.id}}">En savoir plus</a>
+                    </div>
                 </div>
-            </div>
-            <div class="others-articles">
-                <img src="/public/images/img.png" alt="">
-                <div class="info-article">
-                    <h2 class="title">Titre d'article</h2>
-                    <p class="content-articles">Contenu d'article Lorem ipsum dolor sit amet.</p>
-                    <a href="">En savoir plus</a>
-                </div>
-            </div>
-            <div class="others-articles">
-                <img src="/public/images/img.png" alt="">
-                <div class="info-article">
-                    <h2 class="title">Titre d'article</h2>
-                    <p class="content-articles">Contenu d'article Lorem ipsum dolor sit amet.</p>
-                    <a href="">En savoir plus</a>
-                </div>
-            </div>
-            <div class="others-articles">
-                <img src="/public/images/img.png" alt="">
-                <div class="info-article">
-                    <h2 class="title">Titre d'article</h2>
-                    <p class="content-articles">Contenu d'article Lorem ipsum dolor sit amet.</p>
-                    <a href="">En savoir plus</a>
-                </div>
-            </div>
-            </div>
-        </div>
+            {% endfor %}
+        </div>      
+    </div>
         <div class="categories">
-            <a class="category-btn" href="#">Category X</a>
-            <a class="category-btn" href="#">Category X</a>
-            <a class="category-btn" href="#">Category X</a>
-            <a class="category-btn" href="#">Category X</a>
+            {% for categorie in categories | slice(0,4) %}
+            <a class="category-btn" href="#">{{ categorie.name }}</a>
+            {% endfor %}
         </div>
-        </div>
+    </div>
 {% endblock %}
 
