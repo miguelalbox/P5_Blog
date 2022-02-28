@@ -40,8 +40,8 @@ try {
 
     //twig
 } catch (\Throwable $err) {
-    // die(var_dump("index").var_dump($err));
-    $request->session->addNotification("error", $err);
+    die(var_dump("index").var_dump($err));
+    // $request->session->addNotification("error", $err);
 } finally {
     $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . "/app/views/");
     $twig   = new Twig\Environment($loader, [
@@ -51,6 +51,8 @@ try {
     $twig->addExtension(new \Twig\Extension\DebugExtension());
     
     $page->data["notifications"] = $request->session->getNotifications();
+
+    //if (count($page->data["notifications"]) > 0) die(var_dump($page->data["notifications"]));
 
     echo $twig->render($page->template . ".twig", $page->data);
 }

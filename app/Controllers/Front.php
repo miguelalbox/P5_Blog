@@ -85,20 +85,19 @@ class Front
     {
         // si method === POST
         // appel méthode login dans App\Models\Users
-        // $this->request->session->update("name", "truc")
         // si c'est juste -> mettre à jour la session + redirection vers  /admin
         // die(var_dump($this->request));
+        //Auth::logout();
         if ($this->request->method === "POST") {
             try {
-                Auth:: login($this->request->post["email"],  $this->request->post["password"]);
-                //TODO ajoputer un message de réussite de login
-                //TODO ajouter la redirection
-                Tools:: endPage(["redirect"=>"/admin"]);
-                
+                Auth::login($this->request->post["email"],  $this->request->post["password"]);
+                Tools::addNotification("succeed", "Authenfication avec succès");
+                Tools::redirect("/admin");
             } catch (\Throwable $err) {
-                die(var_dump($err));
-                $error = true;
-                $msg   = "un problème est apparu lors de l'enregistrement";
+                Tools::addNotification("error", "T'es sur que c'est toi?");
+                // $error = true;
+                // $msg   = "un problème est apparu lors de l'enregistrement";
+                // die(var_dump($err));
             }
         }
         $this->template = "login";

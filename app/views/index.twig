@@ -8,7 +8,10 @@
 {% block main %}
    <div class="home">
         <div class="title">
-            <h1>Dynamic Title</h1>
+            <img class="personal-img" src="/public/images/miguel.jpg" alt="">
+            <h1>Miguel Sevilla</h1>
+            <p>Un developpeur a l'ecoute des besoin de ses clients</p>
+            <a href="/public/cvMiguelSevilla.pdf" target="_blank">Plus d'information sur moi</a>
         </div>
         <div class="articles">
             {% for article in articles | slice(0,1) %}

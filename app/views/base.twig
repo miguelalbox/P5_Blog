@@ -74,15 +74,16 @@
         <div class="footer">
             <div class="btn-footer">
                 <a href="">Mentions légales</a>
-                <a href="">Contact</a>
+                <a href="/contact">Contact</a>
+                <a href="/login">Administration</a>
             </div>
             <div class="cophyright">
                 <p>Cophyright</p>
             </div>
         </div>
     <ul id="notifications">
-    {% for pages in notifications %}
-      <li class="{{pages.type}}">{{pages.msg}}</li>
+    {% for notif in notifications %}
+      <li class="{{notif.type}}">{{notif.msg}}</li>
     {% endfor %}
     </ul>
     </footer>

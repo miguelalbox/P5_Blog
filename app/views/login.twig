@@ -5,6 +5,7 @@
 	<title>Connexion Backoffice</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="/images/favicon.png" type="image/x-icon"/>
+	<link rel="stylesheet" href="/public/css/style.css">
 
 	<!-- Fonts and icons -->
 	<script src="/public/js/backoffice/plugin/webfont/webfont.min.js"></script>
@@ -46,6 +47,11 @@
 			</form>
 		</div>
 	</div>
+	<ul id="notifications">
+    {% for notif in notifications %}
+      <li class="{{notif.type}}">{{notif.msg}}</li>
+    {% endfor %}
+    </ul>
 	<script src="/public/js/backoffice/core/jquery.3.2.1.min.js"></script>
 	<script src="/public/js/backoffice/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 	<script src="/public/js/backoffice/core/popper.min.js"></script>

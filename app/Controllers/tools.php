@@ -8,12 +8,16 @@ class Tools
     {
         header("Location:$newUrl");
     }
-
-    static function endPage($todo)
-    {
-        foreach ($todo as $clef => $valeur) {
-            SELF::$clef($valeur);
-        }
-        exit;
+    
+    /**
+     * ajoute un message dans la pile des notifications
+     *
+     * @param   String  $type    le type de notification : "succeed" | "warn" | "error"
+     * @param   String  $message la notification
+     * @return  void             complete la pile
+     */
+    static function addNotification($type, $message){
+        global $request;
+        $request->session->addNotification($type, $message);
     }
 }

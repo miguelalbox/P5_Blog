@@ -13,15 +13,9 @@ class SessionManager
     {
         session_start();
         $this->data = $_SESSION;
-        if (count($this->data) >0) {
-            $this->hasSession = true;
-            $this->extractFromSession();
-        };
-
-
-        // pour le debug 
-        // $this->update("id", 14);
-        // $this->update("name","Jean Miguel");
+        if ( ! isset($this->data["user"])) return;
+        if ( ! count($this->data["user"]) >1) return;
+        $this->hasSession = true;
     }
 
     public function setSession($key, $value)
@@ -33,15 +27,19 @@ class SessionManager
 
     private function saveSession()
     {
-        // $_SESSION = $this->data;
         foreach ($this->data as $key => $value){
             $_SESSION[$key] = $value;
         }
     }
 
     public function delete(){
-        session_destroy();
+        $notifs = $this->getNotifications();
+        session_unset();
+        $this->data = [
+            "notifications" => $notifs
+        ];
         $this->hasSession = false;
+        $this->saveSession();
     }
 
     public function update($clef, $valeur){
@@ -66,11 +64,5 @@ class SessionManager
         $this->data["notifications"] = [];
         $this->saveSession();
         return $data;
-    }
-
-    private function extractFromSession(){
-        foreach ( $_SESSION as $key => $value){
-            $this->data[$key] = $value;
-        }
     }
 }

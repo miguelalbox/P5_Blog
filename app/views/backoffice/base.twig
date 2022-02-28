@@ -33,6 +33,11 @@
 			</div>
 			
 		</div>
+		<ul id="notifications">
+		{% for notif in notifications %}
+			<li class="{{notif.type}}">{{notif.msg}}</li>
+		{% endfor %}
+		</ul>
 		<!--   Core JS Files   -->
 		<script src="/public/js/backoffice/core/jquery.3.2.1.min.js"></script>
 		<script src="/public/js/backoffice/core/popper.min.js"></script>

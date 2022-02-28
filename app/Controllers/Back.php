@@ -18,11 +18,11 @@ class Back
     public function __construct($request)
     {
 
-         $auth = Auth::login("mikyfiestas@gmail.com", "miguel123");
-        //die(var_dump($request->session));
+        // $auth = Auth::login("mikyfiestas@gmail.com", "miguel123");
+        // die(var_dump($request->session));
 
 
-        if(!$request->session->hasSession) throw new Error("pas d'utilisateur connecté");
+       if(!$request->session->hasSession) Tools::redirect("/login"); //throw new Error("pas d'utilisateur connecté");
 
         $this->request = $request;
         $fonction = $request->uri[1];
@@ -159,7 +159,7 @@ class Back
                 //die(var_dump($article));
                 
                 $msg = "l'auteur à bien été suprimé";
-                Tools::endPage(["redirect"=>"/admin/auteurs"]);
+                Tools::redirect("/admin/auteurs");
             
             
                 
@@ -292,7 +292,7 @@ class Back
                 //die(var_dump($article));
                 
                 $msg = "l'utilisateur à bien été suprimé";
-                Tools::endPage(["redirect"=>"/admin/users"]);
+                Tools::redirect("/admin/users");
             
             
                 
@@ -445,7 +445,7 @@ class Back
                 //die(var_dump($article));
                 
                 $msg = "l'article à bien été suprimé";
-                Tools::endPage(["redirect"=>"/admin/articles"]);
+                Tools::redirect("/admin/articles");
             
                 
         } catch (\Throwable $err) {
@@ -567,7 +567,7 @@ class Back
                 //die(var_dump($article));
                 
                 $msg = "la categorie à bien été suprimé";
-                Tools::endPage(["redirect"=>"/admin/categories"]);
+                Tools::redirect("/admin/categories");
             
                 
         } catch (\Throwable $err) {
@@ -587,6 +587,11 @@ class Back
     }
     
 
+    private function deconnexion(){
+        $this->request->session->delete();
+        Tools::addNotification("succeed", "vous êtes bien déconnecté");
+        Tools::redirect("/login");
+    }
 
 
 
