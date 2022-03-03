@@ -86,6 +86,8 @@ class Back
                     "civility" => $this->request->post["civility"],
                 ]);
                 $msg = "l'auteur à bien été enregistré";
+                Tools::redirect("/admin/auteurs");
+                //Tools::addNotification("succeed", "l'utilisateur à bien été modifié");
             } catch (\Throwable $err) {
                 $error = true;
                 $msg = "un problème est apparu lors de l'enregistrement";
@@ -123,6 +125,8 @@ class Back
                     "id" => $this->request->uri[3]
                 ]);
                 $msg = "l'auteur à bien été modifié";
+                Tools::redirect("/admin/auteurs");
+                //Tools::addNotification("succeed", "l'utilisateur à bien été modifié");
             }
             $auteur->getUserInfo($this->request->uri[3]);
         } catch (\Throwable $err) {
@@ -218,6 +222,9 @@ class Back
                     "civility" => $this->request->post["civility"],
                 ]);
                 $msg = "l'utilisateur à bien été enregistré";
+                Tools::redirect("/admin/users");
+                //Tools::addNotification("succeed", "l'utilisateur à bien été enregistré");
+                
             } catch (\Throwable $err) {
                 $error = true;
                 $msg = "un problème est apparu lors de l'enregistrement";
@@ -255,8 +262,11 @@ class Back
                     "id" => $this->request->uri[3]
                 ]);
                 $msg = "l'utilisateur à bien été modifié";
+                Tools::redirect("/admin/users");
+                //Tools::addNotification("succeed", "l'utilisateur à bien été modifié");
             }
             $user->getUserInfo($this->request->uri[3]);
+            
         } catch (\Throwable $err) {
             $error = true;
             $msg = "un problème est apparu lors de l'enregistrement";
@@ -358,6 +368,8 @@ class Back
                     "idAuteur" => $this->request->session["data"]["id"]
                 ]);
                 $msg = "l'article à bien été enregistré";
+                Tools::redirect("/admin/articles");
+                //Tools::addNotification("succeed", "l'utilisateur à bien été enregistré");
             } catch (\Throwable $err) {
                 die(var_dump($err));
                 $error = true;
@@ -401,6 +413,8 @@ class Back
                     "id" => $this->request->uri[3]
                 ]);
                 $msg = "l'article à bien été modifié";
+                Tools::redirect("/admin/articles");
+                //Tools::addNotification("succeed", "l'utilisateur à bien été enregistré");
             }
             $article->getArticleInfo($this->request->uri[3]);
                 
@@ -501,6 +515,9 @@ class Back
                     "name" => $this->request->post["name"],
                 ]);
                 $msg = "la categorie à bien été enregistré";
+                Tools::redirect("/admin/categories");
+                //Tools::addNotification("succeed", "l'utilisateur à bien été enregistré");
+                
             } catch (\Throwable $err) {
                 $error = true;
                 $msg = "un problème est apparu lors de l'enregistrement";
@@ -533,7 +550,9 @@ class Back
                     "name" => $this->request->post["name"],
                     "id" => $this->request->uri[3]
                 ]);
-                $msg = "la categorie à bien été modifié";
+                //$msg = "la categorie à bien été modifié";
+                Tools::addNotification("succeed", "l'utilisateur à bien été enregistré");
+                Tools::redirect("/admin/categories");
             }
             $categorie->getCategorieInfo($this->request->uri[3]);
         } catch (\Throwable $err) {

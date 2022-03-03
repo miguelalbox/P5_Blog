@@ -131,6 +131,22 @@ body{
     border-radius: 10px;
     background-color: #ffffffcf;
 }
+/*Alert*/
+#notifications{
+    margin-right: 18px;
+    list-style-type: none;
+}
+#notifications .succeed{
+    background-color: #05cf05;
+    border-radius: 4px;
+    padding: 6px;
+}
+#notifications .error{
+    background-color: #d70000;
+    border-radius: 4px;
+    padding: 6px;
+    color: white;
+}
 
 
 /*Home page*/
