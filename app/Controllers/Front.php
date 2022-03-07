@@ -92,6 +92,7 @@ class Front
             try {
                 Auth::login($this->request->post["email"],  $this->request->post["password"]);
                 Tools::addNotification("succeed", "Authenfication avec succès");
+                //die(var_dump($this->request->session));
                 Tools::redirect("/admin");
             } catch (\Throwable $err) {
                 Tools::addNotification("error", "T'es sur que c'est toi?");

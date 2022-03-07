@@ -24,9 +24,15 @@
                             </div>
                             <div class="col-md-4 text-center m-4">
 							<label for="">Categories</label>
-                            <select class="col-md-12" name="category" type="text">
+                            <select class="col-md-12" name="category">
                                 {% for category in selectCategories %}
                                     <option value="{{category.id}}">{{category.name}}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="">Auteur</label>
+                            <select class="col-md-12" name="idAuteur">
+                                {% for auteur in auteurs %}
+                                    <option value="{{auteur.id}}" {% if auteur.id == idAuteur %} selected {% endif %}>{{auteur.first_name}}</option>
                                 {% endfor %}
                             </select>
                             </div>

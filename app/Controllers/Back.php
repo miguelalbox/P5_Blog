@@ -353,9 +353,9 @@ class Back
         $msg = "";
         $categorie = new Categorie();
         if ($this->request->method === "POST") {
+            //die(var_dump($this->request->session));
             try {
                 $image =  new Image($_FILES);
-                // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
                 if (!$image->isValid()) throw (["msg" => "l'image n'est pas valide"]);
                 //apppeler model
                 $article = new Articles();
@@ -365,7 +365,7 @@ class Back
                     "image" => $image->getRelativePath(),
                     "content" => $this->request->post["content"],
                     "category" => intval($this->request->post["category"]),
-                    "idAuteur" => $this->request->session["data"]["id"]
+                    "idAuteur" => $this->request->post["idAuteur"]
                 ]);
                 $msg = "l'article à bien été enregistré";
                 Tools::redirect("/admin/articles");
@@ -376,6 +376,8 @@ class Back
                 //$msg= $err["msg"] ? $err["msg"] : "un problème est apparu lors de l'enregistrement";
             }
         };
+        $auteurs = new Users();
+
         $this->template = "backoffice/articles/ajouter-modifier-articles";
         $this->data = [
             'menu' => 'articles',
@@ -385,6 +387,8 @@ class Back
             "title" => "Ajouter Article",
             "titre_article" => "",
             "content" => "",
+            "auteurs" =>$auteurs->getAuthors(),
+            "idAuteur" => $this->request->session->data["user"]["id"]
         ];
     }
 
@@ -410,7 +414,8 @@ class Back
                     "image" => $image->getRelativePath(),
                     "content" => $this->request->post["content"],
                     "category" => intval($this->request->post["category"]),
-                    "id" => $this->request->uri[3]
+                    "id" => $this->request->uri[3],
+                    "idAuteur" => $this->request->post["idAuteur"]
                 ]);
                 $msg = "l'article à bien été modifié";
                 Tools::redirect("/admin/articles");
@@ -424,6 +429,7 @@ class Back
             $msg = "un problème est apparu lors de l'enregistrement";
         } finally {
             // die(var_dump($article));
+            $auteurs = new Users();
             $this->template = "backoffice/articles/ajouter-modifier-articles";
             $this->data = [
                 'menu' => 'articles',
@@ -433,6 +439,8 @@ class Back
                 "title" => "Modifier Article",
                 "titre_article" => $article->title,
                 "content" => $article->content,
+                "auteurs" =>$auteurs->getAuthors(),
+                "idAuteur" => $this->request->session->data["user"]["id"]
             ];
         }
     }
@@ -515,8 +523,9 @@ class Back
                     "name" => $this->request->post["name"],
                 ]);
                 $msg = "la categorie à bien été enregistré";
+                Tools::addNotification("succeed", "la categorie à bien été enregistrée");
                 Tools::redirect("/admin/categories");
-                //Tools::addNotification("succeed", "l'utilisateur à bien été enregistré");
+                
                 
             } catch (\Throwable $err) {
                 $error = true;

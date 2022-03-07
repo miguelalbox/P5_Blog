@@ -7,6 +7,7 @@ class Tools
     static function redirect($newUrl)
     {
         header("Location:$newUrl");
+        exit;
     }
     
     /**

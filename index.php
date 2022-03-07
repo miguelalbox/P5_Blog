@@ -19,6 +19,7 @@ try {
             "title"        => FILTER_SANITIZE_STRING,
             "content"      => FILTER_SANITIZE_STRING,
             "category"     => FILTER_SANITIZE_NUMBER_INT,
+            "idAuteur"     => FILTER_SANITIZE_NUMBER_INT,
             "ajouteAuteur" => FILTER_SANITIZE_STRING,
             "name"         => FILTER_SANITIZE_STRING,
         ]
