@@ -10,10 +10,13 @@ class Image {
     private $name;
     private $ruta;
     private $routeRelative = "public/images/";
+    public  $hasImage = false;
 
 
   public function __construct($image)
   {
+    if ($image["image"]["size"] === 0) return;
+    $this->hasImage = true;
 
 
     // array(1) { ["image"]=> array(5) { ["name"]=> string(21) "tmp_1621329767177.jpg" ["type"]=> string(10) "image/jpeg" ["tmp_name"]=> string(45) "C:\Users\Miguel\AppData\Local\Temp\phpA49.tmp" ["error"]=> int(0) ["size"]=> int(731879) } }
@@ -36,6 +39,8 @@ class Image {
       $this->valide = false;
     }
   }
+
+
   
   private function updateName(){
 

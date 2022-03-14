@@ -53,23 +53,25 @@ class Articles extends DataBase{
      */
     public function ajouteArticle($nouvelArticle){
       // die(var_dump($nouvelArticle));
-        $req = $this->db->prepare("INSERT INTO `articles` (`title`, `image`, `content`, `date`, `category`, `id_user`) VALUES (:titre, :image, :contenu, NOW(), :idCategorie, :idAuteur);");
+        $req = $this->db->prepare("INSERT INTO `articles` (`title`, `chapo`, `image`, `content`, `date`, `category`, `id_user`) VALUES (:titre, :chapo, :image, :contenu, NOW(), :idCategorie, :idAuteur);");
         $req->bindValue(":titre", $nouvelArticle["title"], \PDO::PARAM_STR_CHAR);
         $req->bindValue(":image", $nouvelArticle["image"], \PDO::PARAM_STR_CHAR);
         $req->bindValue(":contenu", $nouvelArticle["content"], \PDO::PARAM_STR_CHAR);
         $req->bindValue(":idCategorie", $nouvelArticle["category"], \PDO::PARAM_INT);
         $req->bindValue(":idAuteur", $nouvelArticle["idAuteur"], \PDO::PARAM_INT);
+        $req->bindValue(":chapo", $nouvelArticle["chapo"], \PDO::PARAM_STR_CHAR);
         $req->execute();
       $this->getTenLastPosts();
     }
     public function updateArticle($updateArticle){
-      $req = $this->db->prepare("UPDATE `articles` SET `title` = :titre, `image`= :image,  `content`=:contenu, `category`=:idCategorie, `id_user`=:idAuteur WHERE `articles`.`id` = :id");
+      $req = $this->db->prepare("UPDATE `articles` SET `title` = :titre, `chapo` = :chapo, `image`= :image,  `content`=:contenu, `category`=:idCategorie, `id_user`=:idAuteur WHERE `articles`.`id` = :id");
       $req->bindValue(":titre", $updateArticle["title"], \PDO::PARAM_STR_CHAR);
       $req->bindValue(":image", $updateArticle["image"], \PDO::PARAM_STR_CHAR);
       $req->bindValue(":contenu", $updateArticle["content"], \PDO::PARAM_STR_CHAR);
       $req->bindValue(":idCategorie", $updateArticle["category"], \PDO::PARAM_INT);
       $req->bindValue(":idAuteur", $updateArticle["idAuteur"], \PDO::PARAM_INT);
       $req->bindValue(":id", $updateArticle["id"], \PDO::PARAM_INT);
+      $req->bindValue(":chapo", $updateArticle["chapo"], \PDO::PARAM_STR_CHAR);
       $req->execute();
     $this->getTenLastPosts();
     }

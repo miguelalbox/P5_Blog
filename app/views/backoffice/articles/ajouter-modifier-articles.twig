@@ -26,19 +26,28 @@
 							<label for="">Categories</label>
                             <select class="col-md-12" name="category">
                                 {% for category in selectCategories %}
-                                    <option value="{{category.id}}">{{category.name}}</option>
+                                    <option value="{{category.id}}" {% if category.id == categorie %} selected {% endif %} >{{category.name}}</option>
                                 {% endfor %}
                             </select>
+                            </div>
+                            <div class="col-md-4 text-center m-4">
                             <label for="">Auteur</label>
                             <select class="col-md-12" name="idAuteur">
                                 {% for auteur in auteurs %}
-                                    <option value="{{auteur.id}}" {% if auteur.id == idAuteur %} selected {% endif %}>{{auteur.first_name}}</option>
+                                    <option value="{{auteur.id}}" {% if auteur.id == auteurPost %} selected {% endif %}>{{auteur.first_name}}</option>
                                 {% endfor %}
                             </select>
                             </div>
                              <div class="col-md-4 text-center m-4">
 							<label for="">Image</label>
+                            {% if image != null %}
+                                <img class="article-img-bo" src="{{ image }}" >
+                            {% endif %}
                             <input class="col-md-12" name="image" type="file">
+                            </div>
+                            <div class="col-md-4 text-center m-4">
+							<label for="">Chapô</label>
+                            <input class="col-md-12" name="chapo" type="text" value="{{chapo}}">
                             </div>
                             <div class="col-md-12 text-center m-4">
 							<label for="">Contenu</label>

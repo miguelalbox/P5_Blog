@@ -131,6 +131,14 @@ body{
     border-radius: 10px;
     background-color: #ffffffcf;
 }
+/*BO*/
+.awesome-btn{
+ padding-top: 7px;
+}
+.article-img-bo{
+    width: 90%;
+    margin-bottom: 13px;
+}
 /*Alert*/
 #notifications{
     margin-right: 18px;

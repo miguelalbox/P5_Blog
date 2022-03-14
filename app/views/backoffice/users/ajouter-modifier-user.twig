@@ -21,9 +21,9 @@
 						    <div class="col-md-4 text-center m-4">
 							<label for="">Civilité</label>
                             <select class="col-md-12" name="civility" type="text" value="{{civility}}">
-                                <option value="">--</option>
-                                <option value="mr">Mr</option>
-                                <option value="mrs">Mrs</option>
+                                <option value="{{civility}}" {% if civility == civility %} selected {% endif %}>{{ civility }}</option>
+                                <option value="mr" {% if civility == 'Mr' %} hidden {% endif %}>Mr</option>
+                                <option value="mrs" {% if civility == 'Mrs' %} hidden {% endif %}>Mrs</option>
                             </select>
                             </div>
                             <div class="col-md-4 text-center m-4">

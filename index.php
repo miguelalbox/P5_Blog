@@ -22,6 +22,7 @@ try {
             "idAuteur"     => FILTER_SANITIZE_NUMBER_INT,
             "ajouteAuteur" => FILTER_SANITIZE_STRING,
             "name"         => FILTER_SANITIZE_STRING,
+            "chapo"        => FILTER_SANITIZE_STRING,
         ]
     ]);
 
