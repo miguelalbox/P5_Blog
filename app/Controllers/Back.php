@@ -7,6 +7,7 @@ use App\Models\Categorie;
 use App\Models\Users;
 use App\Ctrl\Auth;
 use App\Ctrl\Tools;
+use App\Models\Commentaire;
 use Error;
 
 class Back
@@ -643,6 +644,77 @@ class Back
             $this->template = "backoffice/categories/categories";
             $this->data = [
                 'menu' => 'categories',
+                "error" => $error,
+                "message" => $msg,
+            ];
+        }
+        
+    }
+    private function commentaires()
+    {
+        
+        $commentaire = new Commentaire();
+        if ($this->request->method === "POST") {
+            //die(var_dump($this->request->post));
+            
+            if ($this->request->post["action"] === "validate"){
+                $commentaire->updateCommentaire([
+                    "validated" => $this->request->post["action"],
+                    //"id" => $this->request->uri[3]
+                ]);
+            }
+        }
+
+        $commentaireList = $commentaire->getCommentaire();
+
+        //die(var_dump($categories));
+        if (count($this->request->uri) === 2) {
+            $this->template = "backoffice/commentaires/commentaires";
+            $this->data = [
+                'menu' => 'commentaires',
+                'commentaires' => $commentaireList
+            ];
+            return;
+        }
+        //die(var_dump($this->request->uri));
+        $fonction = "commentaire_" . $this->request->uri[2];
+        // die(var_dump($fonction));
+        if (!method_exists($this, $fonction)) $fonction = "page404";
+        $this->$fonction();
+    }
+    private function validatedCommentaire()
+    {
+
+    }
+    private function commentaire_suprimer()
+    {
+        $error = false;
+        $msg = "";
+        try {
+            //apppeler model
+
+            $commentaire = new Commentaire();
+
+                $commentaire->removeCommentaire([
+                    "id" => $this->request->uri[3]
+                ]);
+                //die(var_dump($article));
+                
+                //$msg = "la categorie à bien été suprimé";
+                Tools::addNotification("succeed", "Le commentaire a bien été suprimé");
+                Tools::redirect("/admin/commentaires");
+            
+                
+        } catch (\Throwable $err) {
+            //die(var_dump($err));
+            //$error = true;
+            //$msg = "un problème est apparu lors de l'enregistrement";
+            Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+        } finally {
+            // die(var_dump($article));
+            $this->template = "backoffice/commentaires/commentaires";
+            $this->data = [
+                'menu' => 'commentaires',
                 "error" => $error,
                 "message" => $msg,
             ];

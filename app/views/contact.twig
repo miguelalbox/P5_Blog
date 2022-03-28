@@ -19,16 +19,28 @@
                 <div class="contact-form">
                     <p class="title">Nous contacter</p>
                     <form action="" method="post">
-                        <p>Nom:</p>
-                        <input type="text">
-                        <p>Prenom:</p>
-                        <input type="text">
-                        <p>Mail:</p>
-                        <input type="text">
-                        <p>Tel:</p>
-                        <input type="text">
+                        <div class="bloc-form">
+                            <label>Nom:</label>
+                            <input type="text" id="fname" name="fname">
+                        </div>
+                        <div class="bloc-form">
+                            <label>Prenom:</label>
+                            <input type="text" id="lname" name="lname">
+                        </div>
+                        <div class="bloc-form">
+                            <label>Mail:</label>
+                            <input type="text" id="mail" name="mail">
+                        </div>
+                        <div class="bloc-form">
+                            <label>Tel:</label>
+                            <input type="text" id="tel" name="tel">
+                        </div>
+                        <div class="bloc-form bloc-textarea">
+                            <label>Votre besoin:</label>
+                            <textarea name="besoin" id="besoin" cols="30" rows="10"></textarea>
+                        </div>
                         <div class="btn-form">
-                            <input class="btn-submit" type="button" value="Envoyer">
+                            <button type="submit" name="action" class="btn-submit">Envoyer</button>
                         </div>
                         
                     </form>

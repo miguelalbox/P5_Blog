@@ -12,74 +12,80 @@
             <div class="col-md-8">
 				<div class="card">
 					<div class="card-header d-flex space-between">
-						<div class="card-title">Tous les Utilisateurs</div>
-						<div>
-							<a href="./users/ajouter{#{{ path('add_carriere') }}#}" class="btn btn-primary btn-sm">Ajouter un Utilisateur</a>
-						</div>
+						<div class="card-title">Tous les Commentaires</div>
 					</div>
 					<div class="card-body">
 
-						{% if utilisateurs | length > 0 %}
+						{% if commentaires | length > 0 %}
 
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th scope="col">Prenom</th>
-									<th scope="col">Email</th>
-                                    <th scope="col">Actions</th>
+									<th scope="col">Auteur</th>
+									<th scope="col">Message</th>
+									<th scope="col">Valider</th>
+                                    <th scope="col">Suprimer</th>
 								</tr>
 							</thead>
 							<tbody id="sliders">
 
 
-								{% for utilisateur in utilisateurs %}
+								{% for commentaire in commentaires %}
 
 									<tr data-order="{#{{ carriere.number }}#}">
 										<td>
                                             <div class="project">
-												<span class="project-title">{{ utilisateur.first_name }} {{ utilisateur.last_name }}</span>
-											</div>
-                                        </td>
-                                        <td>
-											<div class="project">
-												<span class="project">{{ utilisateur.email }}</span>
+												<span class="project-title">{{ commentaire.name }}</span>
 											</div>
                                         </td>
 										<td>
-											<a href="/admin/users/editer/{{utilisateur.id}}" class="awesome-btn btn btn-icon btn-round btn-primary btn-sm">
-												<i class="fa-solid fa-pen-to-square"></i>
-											</a>
+                                            <div class="project">
+												<span class="project-title">{{ commentaire.content }}</span>
+											</div>
+                                        </td>
+										<td>
+                                            <div class="project">
+											<form method="POST">
+												<input type="hidden" name="commentId" value="{{ commentaire.id }}" />
+												<input type="hidden" name="action" value="validate" />
+												<input class=" awesome-btn btn btn-icon btn-round btn-primary btn-sm fa-solid fa-pen-to-square" type="submit" >
+											</form>
+											</div>
+                                        </td>
+										<td>
 
-                                            <button class="btn btn-icon btn-round btn-primary btn-sm"  data-toggle="modal" data-target="#delete-{{ utilisateur.id }}" data-backdrop="static" data-keyboard="false">
+                                            <button class="btn btn-icon btn-round btn-primary btn-sm"  data-toggle="modal" data-target="#delete-{{ commentaire.id }}" data-backdrop="static" data-keyboard="false">
 												<i class="fa-solid fa-trash"></i>
 											</button>
 
 											<!-- Modal delete -->
-                                            <div class="modal fade" id="delete-{{utilisateur.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal fade" id="delete-{{commentaire.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <form action="{#{{ path('delete_carriere') }}#}" method="post">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Suppression d'un utilisateur</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Suppression d'un commentaires</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
 
-                                                                <p>Êtes vous sure de vouloir supprimer l'utilisateur <b>{#{{ carriere.slug }}#}</b>? </p>
+                                                                <p>Êtes vous sure de vouloir supprimer le commentaires <b>{#{{ carriere.slug }}#}</b>? </p>
 
 																<input type="hidden" name="carriere_id" value="{#{{ carriere.id }}#}">
                                                             
                                                             </div>
                                                             <div class="modal-footer left">
-                                                                <a href="/admin/users/suprimer/{{utilisateur.id}}" class="btn btn-primary btn-sm">Oui, Supprimer</a>
+                                                                <a href="/admin/commentaires/suprimer/{{commentaire.id}}" class="btn btn-primary btn-sm">Oui, Supprimer</a>
                                                                 <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Annuler</button>
                                                             </div>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            
 
 										</td>
 									</tr>
@@ -92,7 +98,7 @@
 
 						<div class="my-5 py-5 text-center">
 
-							<h2>Aucun Utilisateur</h2>
+							<h2>Aucun Categorie</h2>
 
 						</div>
 							

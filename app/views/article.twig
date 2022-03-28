@@ -9,6 +9,9 @@
         <div class="article">
             <h2 class="title">{{ article.title }}</h2>
         </div>
+        {% if article.date_update != null %}
+        <em> mis à jour le {{  article.date_update|date("d/m/Y H:m") }}</em>
+        {% endif %}
         <div class="img-article">
             <img src="{{ article.image }}" alt="">
         </div>
@@ -17,5 +20,32 @@
         </div>
         <div class="content-article">
             <p>{{ article.content }}</p>
+        </div>
+        <div class="commentaires-form-article">
+            <h2 class="title">Commentaires</h2>
+            <form action="" method="post">
+                <div class="bloc-form">
+                    <label>Prenom:</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div class="bloc-form bloc-textarea">
+                    <label>Votre commentaire:</label>
+                    <textarea name="content" id="content" cols="10" rows="10"></textarea>
+                </div>
+                <div class="btn-form">
+                    <button type="submit" name="action" class="btn-submit">Envoyer</button>
+                </div>         
+            </form>
+        </div>
+        <div class="commentaires-all">
+        {% for comment in comments %}
+            <div class="commentaire">
+                <h3>{{comment.name}}</h3>
+                <p>{{comment.content}}</p>
+                <p class="date">{{comment.date}}</p>
+                <hr>
+            </div>
+        {% endfor %}
+            
         </div>
 {% endblock %}

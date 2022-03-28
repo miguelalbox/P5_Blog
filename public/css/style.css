@@ -379,13 +379,32 @@ body{
     margin-bottom: 16px;
 }
 .contacts .contact .contact-form form .btn-form{
-    width: 100%;
+    width: 90%;
 }
 .contacts .contact .contact-form form .btn-form .btn-submit{
     margin-top: 10px;
     background-color: grey;
     border: 1px solid white;
     color: white;
+}
+.contacts .bloc-form{
+    display: grid;
+    width: 45%;
+    padding: 10px;
+}
+@media(max-width: 783px){
+    .contacts .bloc-form{
+        width: 90%;
+    }
+}
+.contacts .bloc-form label{
+    color: white;
+}
+.contacts .bloc-form input{
+    width: 100% !important;
+}
+.contacts .bloc-textarea{
+    width: 90%;
 }
 /*Mentions legales*/
 .mentions h2{
@@ -463,9 +482,61 @@ ul#notifications {
     width: 55%;
     margin: 50px auto;
 }
+.commentaires-form-article{
+    width: 55%;
+    margin: 50px auto;
+}
+.commentaires-form-article .title{
+    text-align: center;
+}
+.commentaires-form-article .bloc-form{
+    text-align: center;
+    display: grid;
+}
+.commentaires-form-article .bloc-form input{
+    width: 55%;
+    justify-self: center;
+}
+.commentaires-form-article .bloc-form label{
+    margin: 10px 0;
+}
+.commentaires-form-article .bloc-form textarea{
+    width: 55%;
+    justify-self: center;
+}
+.commentaires-form-article .btn-form{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.commentaires-all{
+    width: 55%;
+    margin: 50px auto;
+}
+.commentaires-all .commentaire .date{
+    font-size: 14px;
+    font-style: italic;
+}
 @media(max-width: 1498px){
     .mentions-articles .others .others-articles{
         width: 49%;
+    }
+    /*Commentaires*/
+    .commentaires-form-article{
+        width: 100%;
+        margin: 50px auto;
+    }
+    .commentaires-form-article .bloc-form input{
+        width: 55%;
+        justify-self: center;
+    }
+    .commentaires-form-article .bloc-form textarea{
+        width: 55%;
+        justify-self: center;
+    }
+    .commentaires-all .commentaire{
+        width: 90%;
+        margin: 5px 15px;
     }
 }
 @media(max-width: 1295px){
@@ -516,6 +587,25 @@ ul#notifications {
     }
     .navbar .navbar-collapse{
         margin-top: -68px;
+    }
+    @media(max-width: 425px){
+        /*Commentaires*/
+        .commentaires-form-article{
+            width: 100%;
+            margin: 50px auto;
+        }
+        .commentaires-form-article .bloc-form input{
+            width: 90%;
+            justify-self: center;
+        }
+        .commentaires-form-article .bloc-form textarea{
+            width: 90%;
+            justify-self: center;
+        }
+        .commentaires-all{
+            width: 100%;
+            
+        }
     }
     /*contact*/
     .contacts .img-covert{

@@ -7,6 +7,7 @@ use App\Ctrl\Auth;
 use App\Models\Articles;
 use App\Ctrl\Tools;
 use App\Models\Categorie;
+use App\Models\Commentaire;
 
 class Front
 {
@@ -55,11 +56,38 @@ class Front
     {
         $post = new Articles();
         $post->getArticle( $this->request->uri[1] );
-        //die(var_dump($post));
+        $comments = new Commentaire();
+
+        // die(var_dump($comments->getValidsComments($this->request->uri[1])));
+        if ($this->request->method === "POST") {
+            //die(var_dump($this->request));
+            try {
+                //apppeler model
+                $commentaire = new Commentaire();
+
+                $commentaire->addCommentaire([
+                    "name" => $this->request->post["name"],
+                    "content" => $this->request->post["content"],
+                    "articleId"=>$this->request->uri[1]
+                ]);
+                //$msg = "la categorie à bien été enregistré";
+                Tools::addNotification("succeed", "le commentaire à bien été enregistrée");
+                Tools::redirect("/article/".$this->request->uri[1]);
+                
+                
+            } catch (\Throwable $err) {
+                //$error = true;
+                //$msg = "un problème est apparu lors de l'enregistrement";
+                Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+            }
+        };
 
         $this->template = "article";
         $this->data     = [
-            "article" => $post
+            "article" => $post,
+            "name" => "",
+            "content" => "",
+            "comments"=>$comments->getValidsComments($this->request->uri[1])
         ];
     }
     private function contact()

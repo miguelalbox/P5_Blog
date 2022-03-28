@@ -64,7 +64,7 @@ class Articles extends DataBase{
       $this->getTenLastPosts();
     }
     public function updateArticle($updateArticle){
-      $req = $this->db->prepare("UPDATE `articles` SET `title` = :titre, `chapo` = :chapo, `image`= :image,  `content`=:contenu, `category`=:idCategorie, `id_user`=:idAuteur WHERE `articles`.`id` = :id");
+      $req = $this->db->prepare("UPDATE `articles` SET `title` = :titre, `chapo` = :chapo, `image`= :image,  `content`=:contenu, `category`=:idCategorie, `id_user`=:idAuteur, `date_update`=NOW() WHERE `articles`.`id` = :id");
       $req->bindValue(":titre", $updateArticle["title"], \PDO::PARAM_STR_CHAR);
       $req->bindValue(":image", $updateArticle["image"], \PDO::PARAM_STR_CHAR);
       $req->bindValue(":contenu", $updateArticle["content"], \PDO::PARAM_STR_CHAR);
