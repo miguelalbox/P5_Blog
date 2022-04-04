@@ -32,8 +32,9 @@ class Commentaire extends DataBase{
         $req->execute();
       }
       public function updateCommentaire($updateComentaire){
-        $req = $this->db->prepare("UPDATE `commentaires` SET `validated` = :validate WHERE `commentaires`.`id` = :id");
-        $req->bindValue(":validate", $updateComentaire["action"], \PDO::PARAM_INT);
+        $req = $this->db->prepare("UPDATE `commentaires` SET `validated` = :estIlValide WHERE `commentaires`.`id` = :id");
+        $req->bindValue(":estIlValide", $updateComentaire["valid"], \PDO::PARAM_INT);
+        $req->bindValue(":id", $updateComentaire["id"], \PDO::PARAM_INT);
         $req->execute();
       }
       public function removeCommentaire($id){

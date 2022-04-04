@@ -17,8 +17,8 @@ class Front
     public $current;
     public function __construct($request)
     {
-           $this->request                               = $request;
-           $fonction                                    = $request->uri[0];
+        $this->request                               = $request;
+        $fonction                                    = $request->uri[0];
         if ($fonction === "") $fonction                 = "home";
         if (!method_exists($this, $fonction)) $fonction = "page404";
         $this->$fonction();
@@ -30,7 +30,7 @@ class Front
         $posts->getTenLastPosts();
         $categories = new Categorie();
         $categories->getCategoriesHome();
-        
+
 
         $this->template = "index";
         $this->data     = [
@@ -55,7 +55,7 @@ class Front
     private function article()
     {
         $post = new Articles();
-        $post->getArticle( $this->request->uri[1] );
+        $post->getArticle($this->request->uri[1]);
         $comments = new Commentaire();
 
         // die(var_dump($comments->getValidsComments($this->request->uri[1])));
@@ -68,13 +68,11 @@ class Front
                 $commentaire->addCommentaire([
                     "name" => $this->request->post["name"],
                     "content" => $this->request->post["content"],
-                    "articleId"=>$this->request->uri[1]
+                    "articleId" => $this->request->uri[1]
                 ]);
                 //$msg = "la categorie à bien été enregistré";
                 Tools::addNotification("succeed", "le commentaire à bien été enregistrée");
-                Tools::redirect("/article/".$this->request->uri[1]);
-                
-                
+                Tools::redirect("/article/" . $this->request->uri[1]);
             } catch (\Throwable $err) {
                 //$error = true;
                 //$msg = "un problème est apparu lors de l'enregistrement";
@@ -87,9 +85,24 @@ class Front
             "article" => $post,
             "name" => "",
             "content" => "",
-            "comments"=>$comments->getValidsComments($this->request->uri[1])
+            "comments" => $comments->getValidsComments($this->request->uri[1])
         ];
     }
+
+    private function categorie()
+    {
+        $posts = new Articles();
+        $categories = new Categorie();
+        $categories->getCategoriesHome();
+        $this->template = "articles";
+        $this->data     = [
+            "articles" => $posts->getArticlesFromCategorie($this->request->uri[1]),
+            "categories" => $categories->listCategorie,
+        ];
+
+            // die(var_dump($this->data));
+    }
+
     private function contact()
     {
         $this->template = "contact";

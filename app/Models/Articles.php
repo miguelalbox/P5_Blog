@@ -88,5 +88,13 @@ class Articles extends DataBase{
       $req->bindValue(":id", $id["id"], \PDO::PARAM_INT);
       $req->execute();
     }
+
+    public function getArticlesFromCategorie($categorieName){
+      $req = $this->db->prepare("SELECT A.title, A.content, A.chapo, A.date, A.image, A.id FROM articles as A INNER JOIN categories as C ON a.category = C.id  WHERE C.name= :catName ORDER BY A.date");
+      $req->bindValue(":catName", $categorieName, \PDO::PARAM_STR);
+      $req->execute();
+      return $req->fetchAll();
+      
+    }
     
 }

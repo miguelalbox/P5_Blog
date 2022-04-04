@@ -655,13 +655,18 @@ class Back
         
         $commentaire = new Commentaire();
         if ($this->request->method === "POST") {
-            //die(var_dump($this->request->post));
             
             if ($this->request->post["action"] === "validate"){
-                $commentaire->updateCommentaire([
-                    "validated" => $this->request->post["action"],
-                    //"id" => $this->request->uri[3]
-                ]);
+                // die(var_dump($this->request->post));
+                try{
+                    $commentaire->updateCommentaire([
+                        "valid" => 1,
+                        "id" => $this->request->post["commentId"]
+                    ]);
+                }
+                catch(\Throwable $err){
+                    die(var_dump($err));
+                }
             }
         }
 

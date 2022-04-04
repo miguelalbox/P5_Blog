@@ -40,7 +40,7 @@
     </div>
         <div class="categories">
             {% for categorie in categories | slice(0,4) %}
-            <a class="category-btn" href="#">{{ categorie.name }}</a>
+            <a class="category-btn" href="/categorie/{{ categorie.name }}">{{ categorie.name }}</a>
             {% endfor %}
         </div>
     </div>
