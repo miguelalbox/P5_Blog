@@ -8,35 +8,20 @@ use App\Ctrl\Front;
 
 
 try {
-    $request = new SecurizedRequest([
-        "post" => [
-            "first_name"   => FILTER_SANITIZE_STRING,
-            "last_name"    => FILTER_SANITIZE_STRING,
-            "email"        => FILTER_SANITIZE_STRING,
-            "password"     => FILTER_SANITIZE_STRING,
-            "civility"     => FILTER_SANITIZE_STRING,
-            "image"        => FILTER_UNSAFE_RAW,
-            "title"        => FILTER_SANITIZE_STRING,
-            "content"      => FILTER_SANITIZE_STRING,
-            "category"     => FILTER_SANITIZE_NUMBER_INT,
-            "idAuteur"     => FILTER_SANITIZE_NUMBER_INT,
-            "ajouteAuteur" => FILTER_SANITIZE_STRING,
-            "name"         => FILTER_SANITIZE_STRING,
-            "chapo"        => FILTER_SANITIZE_STRING,
-            "action"     =>  FILTER_SANITIZE_STRING,
-            "commentId"    => FILTER_SANITIZE_NUMBER_INT,
-        ]
-    ]);
+    
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+    $request = new SecurizedRequest("security.yaml");
 
 
     switch ($request->uri[0]) {
-        case "admin": 
+        case "admin":
             $page = new Back($request);
             break;
             // case "api" : 
             //     $page = new API($request);
             //     break;
-        default: 
+        default:
             $page = new Front($request);
             break;
     }
@@ -44,7 +29,7 @@ try {
 
     //twig
 } catch (\Throwable $err) {
-    die(var_dump("index").var_dump($err));
+    die(var_dump("index") . var_dump($err));
     // $request->session->addNotification("error", $err);
 } finally {
     $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . "/app/views/");
@@ -53,7 +38,7 @@ try {
         "cache" => false
     ]);
     $twig->addExtension(new \Twig\Extension\DebugExtension());
-    
+
     $page->data["notifications"] = $request->session->getNotifications();
 
     //if (count($page->data["notifications"]) > 0) die(var_dump($page->data["notifications"]));

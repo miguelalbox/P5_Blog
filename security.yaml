@@ -1,0 +1,47 @@
+---
+body:
+  first_name: name
+  last_name: name
+  email: email
+  password: text
+  message: text
+  tel: telephone
+
+filters:
+  name:
+    valid: /^[\p{Latin} -]*$/
+    sanitize:
+    - regex: /[^\p{Latin} -]/
+  email:
+    sanitize:
+    - regex: /[^\p{Latin}\p{N}@-_.]*/
+  text:
+    valid: /^[\p{Latin}\p{N}\p{P} -]*$/
+    sanitize:
+    - regex: /[^\p{Latin} -]/
+    - avoidSqlInjection
+  telephone:
+    sanitize:
+    - regex: /[^p{N}()+]*/
+
+
+
+        "post" => [
+            "first_name"   => FILTER_SANITIZE_STRING,
+            "last_name"    => FILTER_SANITIZE_STRING,
+            "email"        => FILTER_SANITIZE_STRING,
+            "password"     => FILTER_SANITIZE_STRING,
+            "civility"     => FILTER_SANITIZE_STRING,
+            "image"        => FILTER_UNSAFE_RAW,
+            "title"        => FILTER_SANITIZE_STRING,
+            "content"      => FILTER_SANITIZE_STRING,
+            "category"     => FILTER_SANITIZE_NUMBER_INT,
+            "idAuteur"     => FILTER_SANITIZE_NUMBER_INT,
+            "ajouteAuteur" => FILTER_SANITIZE_STRING,
+            "name"         => FILTER_SANITIZE_STRING,
+            "chapo"        => FILTER_SANITIZE_STRING,
+            "action"       => FILTER_SANITIZE_STRING,
+            "commentId"    => FILTER_SANITIZE_NUMBER_INT,
+            "tel"          => FILTER_SANITIZE_NUMBER_INT,
+            "besoin"       => FILTER_SANITIZE_STRING,
+        ]

@@ -8,6 +8,9 @@ use App\Models\Articles;
 use App\Ctrl\Tools;
 use App\Models\Categorie;
 use App\Models\Commentaire;
+use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
+
 
 class Front
 {
@@ -100,11 +103,73 @@ class Front
             "categories" => $categories->listCategorie,
         ];
 
-            // die(var_dump($this->data));
+        // die(var_dump($this->data));
     }
 
     private function contact()
     {
+        if ($this->request->method === "POST") {
+            try {
+
+                $mail = new PHPMailer();
+                $mail->IsSMTP();
+                $mail->Mailer="smtp";
+                $mail->SMTPDebug=1;
+                $mail->SMTPAuth=true;
+                $mail->SMTPSecure="tls";
+                $mail->Port=587;
+                $mail->Host="smtp.gmail.com";
+                $mail->Username=$_ENV["EMAIL"];
+                $mail->Password=$_ENV["PASSWORD"];
+
+                $mail->IsHTML(true);
+                $mail->AddAddress($_ENV["EMAIL"], "Miguel");
+                // die(var_dump($this->request->post));
+                $mail->AddReplyTo($this->request->post["email"], $this->request->post["first_name"]." ".$this->request->post["last_name"]);
+                $mail->Subject="nouveau message depuis le formulaire du site";
+                // Le .= nous permet de concatene tout les variable $message
+                $message = "De la part de ".$this->request->post['last_name'];
+                $message .= " ".$this->request->post['first_name'];
+                $message .= "<br>Mail ".$this->request->post['email'];
+                $message .=",<br>Tel ".$this->request->post['tel'];
+                $message .=",<br>Exprime le besoin suivante: ".$this->request->post['besoin'];
+                $mail->MsgHTML($message);
+                if (!$mail->Send()){
+                    throw $mail;
+                }
+
+                // $nom = $_POST['lname'];
+                // $prenom = $_POST['fname'];
+                // $mail = $_POST['mail'];
+                // $tel = $_POST['tel'];
+                // $besoin = $_POST['besoin'];
+                // afficher le résultat
+                //echo '<h3>Informations récupérées en utilisant POST</h3>';
+                //echo 'lname : ' . $nom . 'fname:' . $prenom . ' mail : ' . $mail . ' tel : ' . $tel . 'besoin : ' . $besoin;
+                //exit;
+
+
+                // $to = "$mail";
+                // $subject = "Contact Blog";
+                // $message = wordwrap($message, 70, "r\n");
+                // $headers = [
+                //     "From" => "miguelsj.pro@gmail.com",
+                //     "Reply-To" => "miguelsj.pro@gmail.com",
+                //     "Bcc" => "miguelsj.pro@gmail.com",
+                // ];
+
+                // mail($to, $subject, $message, $headers);
+
+                //$msg = "le message à bien été enregistré";
+                Tools::addNotification("succeed", "Le message à bien été enregistrée, un mail a été envoye dans votre boite mail");
+                Tools::redirect("/contact");
+            } catch (\Throwable $err) {
+                die(var_dump($err));
+                Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+            }
+        }
+
+
         $this->template = "contact";
         $this->data     = [
             //"test"=>"Miguel"

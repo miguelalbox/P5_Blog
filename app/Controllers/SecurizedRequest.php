@@ -7,6 +7,7 @@ class SecurizedRequest{
     public $uri;
     public $method;
     public $session;
+    public $post;
 
     public function __construct($rules){
         $this->session = new SessionManager();

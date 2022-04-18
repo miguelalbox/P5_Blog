@@ -4,19 +4,14 @@ namespace App\Models;
 
 class DataBase
 {
-
-    private $user = "root";
-    private $password = "root";
-    private $host = "localhost";
-    private $dbname = "blog_openclassrooms";
     public $db;
 
     public function __construct()
     {
         //PDO
         try {
-            $dsn = "mysql:host=$this->host;dbname=$this->dbname";
-            $this->db = new \PDO($dsn, $this->user, $this->password);
+            $dsn = "mysql:host=".$_ENV["DB_HOST"].";dbname=".$_ENV["DB_DBNAME"];
+            $this->db = new \PDO($dsn, $_ENV["DB_USER"], $_ENV["DB_PASSWORD"]);
             $this->db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
             $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e) {
