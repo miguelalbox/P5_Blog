@@ -11,8 +11,7 @@ try {
     
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
-    $request = new SecurizedRequest("security.yaml");
-
+    $request = new SecurizedRequest(__DIR__."/security.yaml");
 
     switch ($request->uri[0]) {
         case "admin":
@@ -29,7 +28,7 @@ try {
 
     //twig
 } catch (\Throwable $err) {
-    die(var_dump("index") . var_dump($err));
+    die("index" . var_dump($err));
     // $request->session->addNotification("error", $err);
 } finally {
     $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . "/app/views/");

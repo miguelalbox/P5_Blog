@@ -1,12 +1,22 @@
 ---
 body:
-  first_name: name
-  last_name: name
+  action: text
+  ajouterAuteur: text
+  besoin: text
+  categorie: number
+  chapo: text
+  civility: text
+  commentId: number
+  content: text
   email: email
+  first_name: name
+  idAuteur: number
+  image: text
+  last_name: name
+  name: text
   password: text
-  message: text
   tel: telephone
-
+  title: text
 filters:
   name:
     valid: /^[\p{Latin} -]*$/
@@ -18,30 +28,13 @@ filters:
   text:
     valid: /^[\p{Latin}\p{N}\p{P} -]*$/
     sanitize:
-    - regex: /[^\p{Latin} -]/
+    - regex: /[^\p{Latin}\p{N}\p{P} -]/
     - avoidSqlInjection
   telephone:
+    valid: /^[\p{Latin}\p{N}\p{P} -]*$/
     sanitize:
     - regex: /[^p{N}()+]*/
-
-
-
-        "post" => [
-            "first_name"   => FILTER_SANITIZE_STRING,
-            "last_name"    => FILTER_SANITIZE_STRING,
-            "email"        => FILTER_SANITIZE_STRING,
-            "password"     => FILTER_SANITIZE_STRING,
-            "civility"     => FILTER_SANITIZE_STRING,
-            "image"        => FILTER_UNSAFE_RAW,
-            "title"        => FILTER_SANITIZE_STRING,
-            "content"      => FILTER_SANITIZE_STRING,
-            "category"     => FILTER_SANITIZE_NUMBER_INT,
-            "idAuteur"     => FILTER_SANITIZE_NUMBER_INT,
-            "ajouteAuteur" => FILTER_SANITIZE_STRING,
-            "name"         => FILTER_SANITIZE_STRING,
-            "chapo"        => FILTER_SANITIZE_STRING,
-            "action"       => FILTER_SANITIZE_STRING,
-            "commentId"    => FILTER_SANITIZE_NUMBER_INT,
-            "tel"          => FILTER_SANITIZE_NUMBER_INT,
-            "besoin"       => FILTER_SANITIZE_STRING,
-        ]
+  number:
+    valid: /^[\p{Latin}\p{N}\p{P} -]*$/
+    sanitize:
+    - regex: /[^p{N}()+]*/

@@ -212,7 +212,12 @@ body{
 }
 .home .articles .title{
     margin-bottom: 15px;
-    margin-top: 11px;
+    margin-top: 32px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 .home .articles .first-articles{
     width: 40rem;
@@ -241,7 +246,7 @@ body{
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     padding: 0px 15px;
 }
@@ -266,11 +271,18 @@ body{
 }
 .articles .others .others-articles.img img{
     width: 100%;
-    height: auto;
+    height: 256px;
     object-fit: cover;
 }
 .articles .others .others-articles .info-article{
-    height: 176px;
+    height: 148px;
+}
+.articles .others .others-articles .info-article h2{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 .articles .others .others-articles .info-article a{
     text-decoration: none;
@@ -282,7 +294,7 @@ body{
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     padding: 0px 15px;
 }
@@ -299,6 +311,12 @@ body{
     flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 54px;
+}
+@media(max-width: 1324px){
+    .categories{
+        width: 75%;
+        margin: 54px auto;
+    }
 }
 .categories .category-btn{
     border: solid 1px;
@@ -319,9 +337,15 @@ body{
 /*contact*/
 .contacts img{
     width: 100%;
-    height: 200px;
+    height: 390px;
     object-fit: cover;
     margin-top: 50px;
+    object-position: bottom right;
+}
+@media(max-width: 425px){
+    .contacts img{
+        height: 253px;
+    }
 }
 .contacts .contact{
     display: flex;
@@ -332,6 +356,7 @@ body{
     border-radius: 10px;
     padding: 27px 0px;
 }
+
 .contacts .contact .info{
     width: 50%;
 }
@@ -716,7 +741,7 @@ ul#notifications {
     }
     /*contact*/
     .contacts .contact{
-        margin: 49px 0px;
+        margin: 0px 0px;
         border-radius: 0px;
     }
     .contacts .contact .contact-form form p {
