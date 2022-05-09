@@ -5,10 +5,10 @@ require "vendor/autoload.php";
 use App\Ctrl\SecurizedRequest;
 use App\Ctrl\Back;
 use App\Ctrl\Front;
-
+use App\Ctrl\Tools;
 
 try {
-    
+    $tools = new Tools;
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
     $request = new SecurizedRequest(__DIR__."/security.yaml");

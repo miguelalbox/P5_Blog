@@ -4,7 +4,7 @@ namespace App\Ctrl;
 
 class Tools
 {
-    static function redirect($newUrl)
+    function redirect($newUrl)
     {
         header("Location:$newUrl");
         exit;
@@ -17,7 +17,7 @@ class Tools
      * @param   String  $message la notification
      * @return  void             complete la pile
      */
-    static function addNotification($type, $message){
+    function addNotification($type, $message){
         global $request;
         $request->session->addNotification($type, $message);
     }

@@ -63,7 +63,7 @@ class Front
 
         // die(var_dump($comments->getValidsComments($this->request->uri[1])));
         if ($this->request->method === "POST") {
-            //die(var_dump($this->request));
+            global $tools;
             try {
                 //apppeler model
                 $commentaire = new Commentaire();
@@ -74,12 +74,12 @@ class Front
                     "articleId" => $this->request->uri[1]
                 ]);
                 //$msg = "la categorie à bien été enregistré";
-                Tools::addNotification("succeed", "le commentaire à bien été enregistrée");
-                Tools::redirect("/article/" . $this->request->uri[1]);
+                $tools->addNotification("succeed", "le commentaire à bien été enregistrée");
+                $tools->redirect("/article/" . $this->request->uri[1]);
             } catch (\Throwable $err) {
                 //$error = true;
                 //$msg = "un problème est apparu lors de l'enregistrement";
-                Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+                $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
             }
         };
 
@@ -109,6 +109,7 @@ class Front
     private function contact()
     {
         if ($this->request->method === "POST") {
+            global $tools;
             try {
 
                 $mail = new PHPMailer();
@@ -161,11 +162,11 @@ class Front
                 // mail($to, $subject, $message, $headers);
 
                 //$msg = "le message à bien été enregistré";
-                Tools::addNotification("succeed", "Le message à bien été enregistrée, un mail a été envoye dans votre boite mail");
-                Tools::redirect("/contact");
+                $tools->addNotification("succeed", "Le message à bien été enregistrée, un mail a été envoye dans votre boite mail");
+                $tools->redirect("/contact");
             } catch (\Throwable $err) {
-                die(var_dump($err));
-                Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+                // die(var_dump($err));
+                $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
             }
         }
 
@@ -195,13 +196,14 @@ class Front
         // die(var_dump($this->request));
         //Auth::logout();
         if ($this->request->method === "POST") {
+            global $tools;
             try {
                 Auth::login($this->request->post["email"],  $this->request->post["password"]);
-                Tools::addNotification("succeed", "Authenfication avec succès");
+                $tools->addNotification("succeed", "Authenfication avec succès");
                 //die(var_dump($this->request->session));
-                Tools::redirect("/admin");
+                $tools->redirect("/admin");
             } catch (\Throwable $err) {
-                Tools::addNotification("error", "T'es sur que c'est toi?");
+                $tools->addNotification("error", "T'es sur que c'est toi?");
                 // $error = true;
                 // $msg   = "un problème est apparu lors de l'enregistrement";
                 // die(var_dump($err));

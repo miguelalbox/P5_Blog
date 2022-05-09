@@ -76,16 +76,16 @@ class Articles extends DataBase{
     $this->getTenLastPosts();
     }
 
-    public function getArticleInfo($id){
+    public function getArticleInfo($articleId){
       $req = $this->db->prepare("SELECT * FROM `articles` WHERE `id`=:id;");
-      $req->bindValue(":id", $id);
+      $req->bindValue(":id", $articleId);
       $req->execute();
       $this->hydrate($req->fetch());
     }
 
-    public function removeArticle($id){
+    public function removeArticle($articleId){
       $req = $this->db->prepare("DELETE FROM `articles` WHERE `articles`.`id` = :id LIMIT 1");
-      $req->bindValue(":id", $id["id"], \PDO::PARAM_INT);
+      $req->bindValue(":id", $articleId["id"], \PDO::PARAM_INT);
       $req->execute();
     }
 

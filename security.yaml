@@ -3,7 +3,7 @@ body:
   action: text
   ajouterAuteur: text
   besoin: text
-  categorie: number
+  category: number
   chapo: text
   civility: text
   commentId: number
@@ -11,7 +11,7 @@ body:
   email: email
   first_name: name
   idAuteur: number
-  image: text
+  image: image
   last_name: name
   name: text
   password: text
@@ -35,6 +35,8 @@ filters:
     sanitize:
     - regex: /[^p{N}()+]*/
   number:
-    valid: /^[\p{Latin}\p{N}\p{P} -]*$/
+    valid: /^[0-9]*$/
     sanitize:
-    - regex: /[^p{N}()+]*/
+    - regex: /[^0-9+]*/
+  image:
+    sanitize:

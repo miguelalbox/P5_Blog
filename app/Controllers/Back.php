@@ -22,8 +22,10 @@ class Back
         // $auth = Auth::login("mikyfiestas@gmail.com", "miguel123");
         // die(var_dump($request->session));
 
-
-       if(!$request->session->hasSession) Tools::redirect("/login"); //throw new Error("pas d'utilisateur connecté");
+        if(!$request->session->hasSession) {
+           global $tools;
+           $tools->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
+        }
 
         $this->request = $request;
         $fonction = $request->uri[1];
@@ -75,6 +77,7 @@ class Back
         $msg = "";
         if ($this->request->method === "POST") {
             //die(var_dump($this->request));
+            global $tools;
             try {
                 //apppeler model
                 $auteur = new Users();
@@ -87,12 +90,12 @@ class Back
                     "civility" => $this->request->post["civility"],
                 ]);
                 $msg = "l'auteur à bien été enregistré";
-                Tools::addNotification("succeed", "l'utilisateur à bien été ajouté");
-                Tools::redirect("/admin/auteurs");
+               $tools->addNotification("succeed", "l'utilisateur à bien été ajouté");
+               $tools->redirect("/admin/auteurs");
             } catch (\Throwable $err) {
                 //$error = true;
                 //$msg = "un problème est apparu lors de l'enregistrement";
-                Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+               $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
             }
         };
         $this->template = "backoffice/auteurs/ajouter-modifier-auteur";
@@ -114,6 +117,7 @@ class Back
     {
         $error = false;
         $msg = "";
+        global $tools;
         try {
             //apppeler model
             $auteur = new Users();
@@ -127,15 +131,15 @@ class Back
                     "id" => $this->request->uri[3]
                 ]);
                 $msg = "l'auteur à bien été modifié";
-                Tools::addNotification("succeed", "l'auteur à bien été modifié");
-                Tools::redirect("/admin/auteurs");
+                $tools->addNotification("succeed", "l'auteur à bien été modifié");
+                $tools->redirect("/admin/auteurs");
                 
             }
             $auteur->getUserInfo($this->request->uri[3]);
         } catch (\Throwable $err) {
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+            $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         }
         $this->template = "backoffice/auteurs/ajouter-modifier-auteur";
         $this->data = [
@@ -156,9 +160,9 @@ class Back
     {
         $error = false;
         $msg = "";
+        global $tools;
         try {
             //apppeler model
-
             $user = new Users();
 
                 $user->removeUser([
@@ -167,8 +171,8 @@ class Back
                 //die(var_dump($article));
                 
                 //$msg = "l'auteur à bien été suprimé";
-                Tools::addNotification("succeed", "L'auteur a bien été suprimé");
-                Tools::redirect("/admin/auteurs");
+               $tools->addNotification("succeed", "L'auteur a bien été suprimé");
+               $tools->redirect("/admin/auteurs");
             
             
                 
@@ -176,7 +180,7 @@ class Back
             //die(var_dump($err));
            //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+           $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         } finally {
             // die(var_dump($article));
             $this->template = "backoffice/auteurs/auteurs";
@@ -217,6 +221,7 @@ class Back
         $msg = "";
         if ($this->request->method === "POST") {
             //die(var_dump($this->request));
+            global $tools;
             try {
                 //apppeler model
                 $auteur = new Users();
@@ -228,14 +233,14 @@ class Back
                     "civility" => $this->request->post["civility"],
                 ]);
                 $msg = "l'utilisateur à bien été enregistré";
-                Tools::addNotification("succeed", "l'utilisateur à bien été enregistré");
-                Tools::redirect("/admin/users");
+                $tools->addNotification("succeed", "l'utilisateur à bien été enregistré");
+                $tools->redirect("/admin/users");
                 
                 
             } catch (\Throwable $err) {
                 //$error = true;
                 //$msg = "un problème est apparu lors de l'enregistrement";
-                Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+                $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
             }
         };
         $this->template = "backoffice/users/ajouter-modifier-user";
@@ -257,8 +262,8 @@ class Back
     {
         $error = false;
         $msg = "";
+        global $tools;
         try {
-            //apppeler model
             $user = new Users();
             if ($this->request->method === "POST") {
                 $user->modifierUtilisateur([
@@ -270,15 +275,15 @@ class Back
                     "id" => $this->request->uri[3]
                 ]);
                 $msg = "l'utilisateur à bien été modifié";
-                Tools::addNotification("succeed", "l'utilisateur à bien été modifié");
-                Tools::redirect("/admin/users");
+               $tools->addNotification("succeed", "l'utilisateur à bien été modifié");
+               $tools->redirect("/admin/users");
             }
             $user->getUserInfo($this->request->uri[3]);
             
         } catch (\Throwable $err) {
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+           $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         }
         $this->template = "backoffice/users/ajouter-modifier-user";
         $this->data = [
@@ -300,9 +305,9 @@ class Back
     {
         $error = false;
         $msg = "";
+        global $tools;
         try {
             //apppeler model
-
             $user = new Users();
 
                 $user->removeUser([
@@ -311,8 +316,8 @@ class Back
                 //die(var_dump($article));
                 
                 //$msg = "l'utilisateur à bien été suprimé";
-                Tools::addNotification("succeed", "L'utilisateur a bien été suprimé");
-                Tools::redirect("/admin/users");
+               $tools->addNotification("succeed", "L'utilisateur a bien été suprimé");
+               $tools->redirect("/admin/users");
             
             
                 
@@ -320,7 +325,7 @@ class Back
             //die(var_dump($err));
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+           $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         } finally {
             // die(var_dump($article));
             $this->template = "backoffice/users/users";
@@ -364,7 +369,8 @@ class Back
         $msg = "";
         $categorie = new Categorie();
         if ($this->request->method === "POST") {
-            //die(var_dump($this->request->session));
+            // die(var_dump($this->request->post));
+            global $tools;
             try {
                 $image =  new Image($_FILES);
                 if (!$image->isValid() || !$image->hasImage) throw (["msg" => "l'image n'est pas valide"]);
@@ -380,11 +386,11 @@ class Back
                     "chapo" => $this->request->post["chapo"],
                 ]);
                 //$msg = "l'article à bien été enregistré";
-                Tools::addNotification("succeed", "l'article à bien été enregistré");
-                Tools::redirect("/admin/articles");
+                $tools->addNotification("succeed", "l'article à bien été enregistré");
+                $tools->redirect("/admin/articles");
                 
             } catch (\Throwable $err) {
-                Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+                $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
                 //die(var_dump($err));
                 //$error = true;
                 //$msg= $err["msg"] ? $err["msg"] : "un problème est apparu lors de l'enregistrement";
@@ -411,9 +417,9 @@ class Back
     {
         $error = false;
         $msg = "";
+        global $tools;
         try {
             //apppeler model
-
             $article = new Articles();
             $categorie = new Categorie();
             $article->getArticleInfo($this->request->uri[3]);
@@ -425,17 +431,11 @@ class Back
                     // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
                     if (!$image->isValid()) throw (["msg" => "l'image n'est pas valide"]);
                     $image->removePrevious($this->request->uri[3]);
-                    $currentImage = $image->getRelativePath();
                 }
-                else {
-                    $currentImage = $article->image;
-                }
-
                 //apppeler model
-
                 $article->updateArticle([
                     "title" => $this->request->post["title"],
-                    "image" => $currentImage,
+                    "image" => $image->hasImage ? $image->getRelativePath() : $article->image,
                     "content" => $this->request->post["content"],
                     "category" => intval($this->request->post["category"]),
                     "id" => $this->request->uri[3],
@@ -443,9 +443,9 @@ class Back
                     "chapo" => $this->request->post["chapo"],
                 ]);
                 $msg = "l'article à bien été modifié";
-                Tools::addNotification("succeed", "l'article à bien été modifié");
-                Tools::redirect("/admin/articles");
-                //Tools::addNotification("succeed", "l'utilisateur à bien été enregistré");
+                $tools->addNotification("succeed", "l'article à bien été modifié");
+                $tools->redirect("/admin/articles");
+                //$tools->addNotification("succeed", "l'utilisateur à bien été enregistré");
             }
             
                 
@@ -453,7 +453,7 @@ class Back
             //die(var_dump($err));
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+            $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         } finally {
             // die(var_dump($article));
             $auteurs = new Users();
@@ -480,6 +480,7 @@ class Back
     {
         $error = false;
         $msg = "";
+        global $tools;
         try {
             //apppeler model
 
@@ -498,15 +499,15 @@ class Back
                 //die(var_dump($article));
                 
                 //$msg = "l'article à bien été suprimé";
-                Tools::addNotification("succeed", "l'article à bien été suprimé");
-                Tools::redirect("/admin/articles");
+               $tools->addNotification("succeed", "l'article à bien été suprimé");
+               $tools->redirect("/admin/articles");
             
                 
         } catch (\Throwable $err) {
             //die(var_dump($err));
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            Tools::addNotification("error", "Un problème est apparu lors de la supression");
+           $tools->addNotification("error", "Un problème est apparu lors de la supression");
         } finally {
             // die(var_dump($article));
             $this->template = "backoffice/articles/articles";
@@ -548,6 +549,7 @@ class Back
         $msg = "";
         if ($this->request->method === "POST") {
             //die(var_dump($this->request));
+            global $tools;
             try {
                 //apppeler model
                 $category = new Categorie();
@@ -556,14 +558,14 @@ class Back
                     "name" => $this->request->post["name"],
                 ]);
                 $msg = "la categorie à bien été enregistré";
-                Tools::addNotification("succeed", "la categorie à bien été enregistrée");
-                Tools::redirect("/admin/categories");
+                $tools->addNotification("succeed", "la categorie à bien été enregistrée");
+                $tools->redirect("/admin/categories");
                 
                 
             } catch (\Throwable $err) {
                 //$error = true;
                 //$msg = "un problème est apparu lors de l'enregistrement";
-                Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+                $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
             }
         };
         $this->template = "backoffice/categories/ajouter-modifier-categorie";
@@ -585,6 +587,7 @@ class Back
     {
         $error = false;
         $msg = "";
+        global $tools;
         try {
             //apppeler model
             $categorie = new Categorie();
@@ -594,14 +597,14 @@ class Back
                     "id" => $this->request->uri[3]
                 ]);
                 //$msg = "la categorie à bien été modifié";
-                Tools::addNotification("succeed", "la categorie à bien été modifié");
-                Tools::redirect("/admin/categories");
+                $tools->addNotification("succeed", "la categorie à bien été modifié");
+                $tools->redirect("/admin/categories");
             }
             $categorie->getCategorieInfo($this->request->uri[3]);
         } catch (\Throwable $err) {
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+            $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         }
         $this->template = "backoffice/categories/ajouter-modifier-categorie";
         $this->data = [
@@ -619,6 +622,7 @@ class Back
     {
         $error = false;
         $msg = "";
+        global $tools;
         try {
             //apppeler model
 
@@ -630,15 +634,15 @@ class Back
                 //die(var_dump($article));
                 
                 //$msg = "la categorie à bien été suprimé";
-                Tools::addNotification("succeed", "La categorie a bien été suprimé");
-                Tools::redirect("/admin/categories");
+                $tools->addNotification("succeed", "La categorie a bien été suprimé");
+                $tools->redirect("/admin/categories");
             
                 
         } catch (\Throwable $err) {
             //die(var_dump($err));
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+            $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         } finally {
             // die(var_dump($article));
             $this->template = "backoffice/categories/categories";
@@ -695,6 +699,7 @@ class Back
     {
         $error = false;
         $msg = "";
+        global $tools;
         try {
             //apppeler model
 
@@ -706,15 +711,15 @@ class Back
                 //die(var_dump($article));
                 
                 //$msg = "la categorie à bien été suprimé";
-                Tools::addNotification("succeed", "Le commentaire a bien été suprimé");
-                Tools::redirect("/admin/commentaires");
+               $tools->addNotification("succeed", "Le commentaire a bien été suprimé");
+               $tools->redirect("/admin/commentaires");
             
                 
         } catch (\Throwable $err) {
             //die(var_dump($err));
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            Tools::addNotification("error", "Un problème est apparu lors de l'enregistrement");
+           $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         } finally {
             // die(var_dump($article));
             $this->template = "backoffice/commentaires/commentaires";
@@ -729,9 +734,10 @@ class Back
     
 
     private function deconnexion(){
+        global $tools;
         $this->request->session->delete();
-        Tools::addNotification("succeed", "vous êtes bien déconnecté");
-        Tools::redirect("/login");
+        $tools->addNotification("succeed", "vous êtes bien déconnecté");
+        $tools->redirect("/login");
     }
 
 
