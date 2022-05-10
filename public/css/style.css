@@ -1,5 +1,5 @@
-/*Header*/
-/*Header burger*/
+/* Header */
+/* Header burger */
   /* Icon 1 */
   .animated-icon1, .animated-icon2, .animated-icon3 {
     width: 30px;
@@ -58,7 +58,7 @@
     -moz-transform: rotate(-135deg);
     -o-transform: rotate(-135deg);
     transform: rotate(-135deg); }
-  /*Code maisson*/
+  /* Code maisson */
   .mb-4 {
     margin-bottom: 0rem !important;
     background-color: transparent;
@@ -131,7 +131,7 @@ body{
     border-radius: 10px;
     background-color: #ffffffcf;
 }
-/*BO*/
+/* BO */
 .awesome-btn{
  padding-top: 7px;
 }
@@ -139,7 +139,7 @@ body{
     width: 90%;
     margin-bottom: 13px;
 }
-/*Alert*/
+/* Alert */
 #notifications{
     margin-right: 18px;
     list-style-type: none;
@@ -157,7 +157,7 @@ body{
 }
 
 
-/*Home page*/
+/* Home page */
 .home{
     background-image: url(/public/images/background.jpg);
     background-repeat: repeat;
@@ -334,7 +334,7 @@ body{
     
     
 }
-/*contact*/
+/* contact */
 .contacts img{
     width: 100%;
     height: 390px;
@@ -431,7 +431,7 @@ body{
 .contacts .bloc-textarea{
     width: 90%;
 }
-/*Mentions legales*/
+/* Mentions legales */
 .mentions h2{
     text-align: center;
     margin: 50px 0px;
@@ -440,7 +440,7 @@ body{
     width: 70%;
     margin: auto;
 }
-/*footer*/
+/* footer */
 
 .footer{
     display: flex;
@@ -470,7 +470,7 @@ ul#notifications {
     bottom: 0;
     right: 0;
 }
-/*Articles*/
+/* Articles */
 .mentions-articles{
     margin-top: 65px;
 }
@@ -490,7 +490,7 @@ ul#notifications {
 .mentions-articles .others .others-articles{
     width: 33%;
 }
-/*Article*/
+/* Article */
 .article{
     text-align: center;
     margin: 65px 0px;
@@ -546,7 +546,7 @@ ul#notifications {
     .mentions-articles .others .others-articles{
         width: 49%;
     }
-    /*Commentaires*/
+    /* Commentaires */
     .commentaires-form-article{
         width: 100%;
         margin: 50px auto;
@@ -614,7 +614,7 @@ ul#notifications {
         margin-top: -68px;
     }
     @media(max-width: 425px){
-        /*Commentaires*/
+        /* Commentaires */
         .commentaires-form-article{
             width: 100%;
             margin: 50px auto;
@@ -632,7 +632,7 @@ ul#notifications {
             
         }
     }
-    /*contact*/
+    /* contact */
     .contacts .img-covert{
         margin-top: 50px;
     }
@@ -681,7 +681,7 @@ ul#notifications {
     .contacts .contact .contact-form form .btn-form{
         width: auto;
     }
-    /*Mentions legales*/
+    /* Mentions legales */
 .mentions h2{
     
     margin: 85px 0px 50px 0px;
@@ -739,7 +739,7 @@ ul#notifications {
         align-self: center;
         margin-top: 11px;
     }
-    /*contact*/
+    /* contact */
     .contacts .contact{
         margin: 0px 0px;
         border-radius: 0px;
