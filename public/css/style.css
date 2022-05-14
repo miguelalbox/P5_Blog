@@ -86,7 +86,7 @@
 
 /* Code maisson */
 .mb-4 {
-    margin-bottom: 0rem !important;
+    margin-bottom: 0rem;
     background-color: transparent;
     position: fixed;
     width: 100%;
@@ -120,7 +120,7 @@
 
 body {
     max-width: 1920px;
-    margin: auto !important;
+    margin: auto;
 }
 
 .navbar {
@@ -415,7 +415,9 @@ body {
     margin-top: 50px;
     object-position: bottom right;
 }
-
+.contacts .contact .contact-form form input{
+    width: 100%;
+}
 @media(max-width: 425px) {
     .contacts img {
         height: 253px;
@@ -483,7 +485,7 @@ body {
 }
 
 .contacts .contact .contact-form form input {
-    width: 40%;
+    width: 100%;
     margin-bottom: 16px;
 }
 
@@ -512,10 +514,6 @@ body {
 
 .contacts .bloc-form label {
     color: white;
-}
-
-.contacts .bloc-form input {
-    width: 100% !important;
 }
 
 .contacts .bloc-textarea {
@@ -816,7 +814,7 @@ ul#notifications {
     }
 
     .contacts .contact .contact-form form input {
-        width: 50%;
+        width: 100%;
         margin-bottom: 16px;
     }
 
@@ -901,7 +899,7 @@ ul#notifications {
     }
 
     .contacts .contact .contact-form form input {
-        width: 70%;
+        width: 100%;
     }
 
     @media(max-width: 398px) {

@@ -12,7 +12,7 @@ class Articles extends DataBase{
   public $date;
   public $category;
   public $listPosts;
-  public $id;
+  public $articleId;
 
   /**
    * retourne les 10 articles à partir d'un point de départ
@@ -22,7 +22,7 @@ class Articles extends DataBase{
    * @return  void              met à jour la valeur de  $this->listPosts
    */
     public function getTenLastPosts($start=0){
-        $req = $this->db->prepare("SELECT * FROM `articles` ORDER BY id DESC LIMIT :debut, :fin");
+        $req = $this->bdd->prepare("SELECT * FROM `articles` ORDER BY id DESC LIMIT :debut, :fin");
         $req->bindValue(":debut", $start, \PDO::PARAM_INT);
         $req->bindValue(":fin", $start+10, \PDO::PARAM_INT);
         $req->execute();
@@ -30,13 +30,13 @@ class Articles extends DataBase{
     }
 
     public function getArticles(){
-      $req = $this->db->prepare("SELECT * FROM `articles` ORDER BY id ASC");
+      $req = $this->bdd->prepare("SELECT * FROM `articles` ORDER BY id ASC");
       $req->execute();
       return $req->fetchAll();
   }
-  public function getArticle($id){
-    $req = $this->db->prepare("SELECT * FROM `articles` WHERE `articles`.`id` = :id");
-    $req->bindValue(":id", $id, \PDO::PARAM_INT);
+  public function getArticle($getId){
+    $req = $this->bdd->prepare("SELECT * FROM `articles` WHERE `articles`.`id` = :id");
+    $req->bindValue(":id", $getId, \PDO::PARAM_INT);
     $req->execute();
     $this->hydrate($req->fetch());
 
@@ -53,7 +53,7 @@ class Articles extends DataBase{
      */
     public function ajouteArticle($nouvelArticle){
       // die(var_dump($nouvelArticle));
-        $req = $this->db->prepare("INSERT INTO `articles` (`title`, `chapo`, `image`, `content`, `date`, `category`, `id_user`) VALUES (:titre, :chapo, :image, :contenu, NOW(), :idCategorie, :idAuteur);");
+        $req = $this->bdd->prepare("INSERT INTO `articles` (`title`, `chapo`, `image`, `content`, `date`, `category`, `id_user`) VALUES (:titre, :chapo, :image, :contenu, NOW(), :idCategorie, :idAuteur);");
         $req->bindValue(":titre", $nouvelArticle["title"], \PDO::PARAM_STR_CHAR);
         $req->bindValue(":image", $nouvelArticle["image"], \PDO::PARAM_STR_CHAR);
         $req->bindValue(":contenu", $nouvelArticle["content"], \PDO::PARAM_STR_CHAR);
@@ -64,7 +64,7 @@ class Articles extends DataBase{
       $this->getTenLastPosts();
     }
     public function updateArticle($updateArticle){
-      $req = $this->db->prepare("UPDATE `articles` SET `title` = :titre, `chapo` = :chapo, `image`= :image,  `content`=:contenu, `category`=:idCategorie, `id_user`=:idAuteur, `date_update`=NOW() WHERE `articles`.`id` = :id");
+      $req = $this->bdd->prepare("UPDATE `articles` SET `title` = :titre, `chapo` = :chapo, `image`= :image,  `content`=:contenu, `category`=:idCategorie, `id_user`=:idAuteur, `date_update`=NOW() WHERE `articles`.`id` = :id");
       $req->bindValue(":titre", $updateArticle["title"], \PDO::PARAM_STR_CHAR);
       $req->bindValue(":image", $updateArticle["image"], \PDO::PARAM_STR_CHAR);
       $req->bindValue(":contenu", $updateArticle["content"], \PDO::PARAM_STR_CHAR);
@@ -77,20 +77,20 @@ class Articles extends DataBase{
     }
 
     public function getArticleInfo($articleId){
-      $req = $this->db->prepare("SELECT * FROM `articles` WHERE `id`=:id;");
+      $req = $this->bdd->prepare("SELECT * FROM `articles` WHERE `id`=:id;");
       $req->bindValue(":id", $articleId);
       $req->execute();
       $this->hydrate($req->fetch());
     }
 
     public function removeArticle($articleId){
-      $req = $this->db->prepare("DELETE FROM `articles` WHERE `articles`.`id` = :id LIMIT 1");
+      $req = $this->bdd->prepare("DELETE FROM `articles` WHERE `articles`.`id` = :id LIMIT 1");
       $req->bindValue(":id", $articleId["id"], \PDO::PARAM_INT);
       $req->execute();
     }
 
     public function getArticlesFromCategorie($categorieName){
-      $req = $this->db->prepare("SELECT A.title, A.content, A.chapo, A.date, A.image, A.id FROM articles as A INNER JOIN categories as C ON a.category = C.id  WHERE C.name= :catName ORDER BY A.date");
+      $req = $this->bdd->prepare("SELECT A.title, A.content, A.chapo, A.date, A.image, A.id FROM articles as A INNER JOIN categories as C ON a.category = C.id  WHERE C.name= :catName ORDER BY A.date");
       $req->bindValue(":catName", $categorieName, \PDO::PARAM_STR);
       $req->execute();
       return $req->fetchAll();

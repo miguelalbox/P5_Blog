@@ -6,8 +6,8 @@ namespace App\Ctrl;
 use App\Ctrl\Auth;
 use App\Models\Articles;
 use App\Ctrl\Tools;
-use App\Models\Categorie;
-use App\Models\Commentaire;
+use App\Models\Categories;
+use App\Models\Commentaires;
 use PHPMailer\PHPMailer\PHPMailer;
 // use PHPMailer\PHPMailer\Exception;
 
@@ -27,11 +27,11 @@ class Front
         $this->$fonction();
     }
 
-    private function home()
+    public function home()
     {
         $posts = new Articles();
         $posts->getTenLastPosts();
-        $categories = new Categorie();
+        $categories = new Categories();
         $categories->getCategoriesHome();
 
 
@@ -42,11 +42,11 @@ class Front
         ];
     }
 
-    private function articles()
+    public function articles()
     {
         $posts = new Articles();
         $posts->getTenLastPosts();
-        $categories = new Categorie();
+        $categories = new Categories();
         $categories->getCategoriesHome();
 
         $this->template = "articles";
@@ -55,18 +55,18 @@ class Front
             "categories" => $categories->listCategorie,
         ];
     }
-    private function article()
+    public function article()
     {
         $post = new Articles();
         $post->getArticle($this->request->uri[1]);
-        $comments = new Commentaire();
+        $comments = new Commentaires();
 
         // die(var_dump($comments->getValidsComments($this->request->uri[1])));
         if ($this->request->method === "POST") {
             global $tools;
             try {
                 //apppeler model
-                $commentaire = new Commentaire();
+                $commentaire = new Commentaires();
 
                 $commentaire->addCommentaire([
                     "name" => $this->request->post["name"],
@@ -92,10 +92,10 @@ class Front
         ];
     }
 
-    private function categorie()
+    public function categorie()
     {
         $posts = new Articles();
-        $categories = new Categorie();
+        $categories = new Categories();
         $categories->getCategoriesHome();
         $this->template = "articles";
         $this->data     = [
@@ -106,7 +106,7 @@ class Front
         // die(var_dump($this->data));
     }
 
-    private function contact()
+    public function contact()
     {
         if ($this->request->method === "POST") {
             global $tools;
@@ -176,7 +176,7 @@ class Front
             //"test"=>"Miguel"
         ];
     }
-    private function mentions_legales()
+    public function mentions_legales()
     {
         $this->template = "mentions-legales";
         $this->data     = [
@@ -184,11 +184,11 @@ class Front
         ];
     }
 
-    private function page404()
+    public function page404()
     {
         $this->template = "404";
     }
-    private function login()
+    public function login()
     {
         // si method === POST
         // appel méthode login dans App\Models\Users
@@ -201,7 +201,7 @@ class Front
                 Auth::login($this->request->post["email"],  $this->request->post["password"]);
                 $tools->addNotification("succeed", "Authenfication avec succès");
                 //die(var_dump($this->request->session));
-                $tools->redirect("/admin");
+                $tools->redirect("/admin/backoffice");
             } catch (\Throwable $err) {
                 $tools->addNotification("error", "T'es sur que c'est toi?");
                 // $error = true;

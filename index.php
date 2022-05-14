@@ -6,6 +6,11 @@ use App\Ctrl\SecurizedRequest;
 use App\Ctrl\Back;
 use App\Ctrl\Front;
 use App\Ctrl\Tools;
+use App\Ctrl\Author;
+use App\Ctrl\User;
+use App\Ctrl\Article;
+use App\Ctrl\Categorie;
+use App\Ctrl\Commentary;
 
 try {
     $tools = new Tools;
@@ -20,10 +25,55 @@ try {
             // case "api" : 
             //     $page = new API($request);
             //     break;
+            
         default:
             $page = new Front($request);
             break;
     }
+    switch ($request->uri[1]) {
+                case "backoffice":
+                $page = new Back($request);
+                break;
+                // case "api" : 
+                //     $page = new API($request);
+                //     break;
+                case "commentaires":
+                $page = new Commentary($request);
+                break;
+                // case "api" : 
+                //     $page = new API($request);
+                //     break;
+                case "categories":
+                $page = new Categorie($request);
+                break;
+                // case "api" : 
+                //     $page = new API($request);
+                //     break;
+                case "articles":
+                $page = new Article($request);
+                break;
+                // case "api" : 
+                //     $page = new API($request);
+                //     break;
+                case "users":
+                    $page = new User($request);
+                    break;
+                    // case "api" : 
+                    //     $page = new API($request);
+                    //     break;
+                case "auteurs":
+                    $page = new Author($request);
+                    break;
+                    // case "api" : 
+                    //     $page = new API($request);
+                    //     break;
+
+            
+                
+                default:
+                    $page = new Front($request);
+                    break;
+            }
 
 
     //twig

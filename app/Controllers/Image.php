@@ -8,7 +8,6 @@ class Image {
 
     private $valide = true;
     private $name;
-    private $ruta;
     private $routeRelative = "public/images/";
     public  $hasImage = false;
 
@@ -42,7 +41,7 @@ class Image {
 
 
   
-  private function updateName(){
+  public function updateName(){
 
   }
   public function isValid(){

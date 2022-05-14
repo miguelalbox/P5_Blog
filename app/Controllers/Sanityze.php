@@ -81,7 +81,7 @@ class Sanityze
     return in_array($inputName, $this->postDataModified);
   }
 
-  private function safeOutput($value)
+  public function safeOutput($value)
   {
     return htmlentities($value, ENT_COMPAT, 'utf-8');
   }

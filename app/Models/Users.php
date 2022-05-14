@@ -37,7 +37,7 @@ class Users extends DataBase
    
 
   private function addUser($newUser, $role){
-    $req = $this->db->prepare("INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `civility`, role) VALUES (:first_name, :last_name, :email, :password, :civility, :role);");
+    $req = $this->bdd->prepare("INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `civility`, role) VALUES (:first_name, :last_name, :email, :password, :civility, :role);");
     $req->bindValue(":first_name", $newUser["first_name"], \PDO::PARAM_STR_CHAR);
     $req->bindValue(":last_name", $newUser["last_name"], \PDO::PARAM_STR_CHAR);
     $req->bindValue(":email", $newUser["email"], \PDO::PARAM_STR_CHAR);
@@ -48,7 +48,7 @@ class Users extends DataBase
   }
   
   private function updateUser($updateUser){
-    $req = $this->db->prepare("UPDATE `users` SET `last_name` = :last_name, `first_name`= :first_name,  `email`=:email, `password`=:password, `civility`=:civility WHERE `users`.`id` = :id");
+    $req = $this->bdd->prepare("UPDATE `users` SET `last_name` = :last_name, `first_name`= :first_name,  `email`=:email, `password`=:password, `civility`=:civility WHERE `users`.`id` = :id");
     $req->bindValue(":first_name", $updateUser["first_name"], \PDO::PARAM_STR_CHAR);
     $req->bindValue(":last_name", $updateUser["last_name"], \PDO::PARAM_STR_CHAR);
     $req->bindValue(":email", $updateUser["email"], \PDO::PARAM_STR_CHAR);
@@ -58,7 +58,7 @@ class Users extends DataBase
     $req->execute();
   }
   public function removeUser($id){
-    $req = $this->db->prepare("DELETE FROM `users` WHERE `users`.`id` = :id LIMIT 1");
+    $req = $this->bdd->prepare("DELETE FROM `users` WHERE `users`.`id` = :id LIMIT 1");
     $req->bindValue(":id", $id["id"], \PDO::PARAM_INT);
     $req->execute();
   }
@@ -73,24 +73,24 @@ class Users extends DataBase
   }
 
   public function getUserInfo($id){
-    $req = $this->db->prepare("SELECT * FROM `users` WHERE `id`=:id;");
+    $req = $this->bdd->prepare("SELECT * FROM `users` WHERE `id`=:id;");
     $req->bindValue(":id", $id);
     $req->execute();
     $this->hydrate($req->fetch());
   }
   public function getUsers(){
-    $req = $this->db->prepare("SELECT * FROM `users`  WHERE `role`=1 ORDER BY id ASC");
+    $req = $this->bdd->prepare("SELECT * FROM `users`  WHERE `role`=1 ORDER BY id ASC");
     $req->execute();
     return $req->fetchAll();
 }
 public function getAuthors(){
-  $req = $this->db->prepare("SELECT * FROM `users`  WHERE `role`=3 ORDER BY id ASC");
+  $req = $this->bdd->prepare("SELECT * FROM `users`  WHERE `role`=3 ORDER BY id ASC");
   $req->execute();
   return $req->fetchAll();
 }
 
   public function login($email){
-    $req = $this->db->prepare("SELECT * FROM `users` WHERE `email`=:email LIMIT 1");
+    $req = $this->bdd->prepare("SELECT * FROM `users` WHERE `email`=:email LIMIT 1");
     $req->bindValue(":email", $email, \PDO::PARAM_STR_CHAR);
     $req->execute();
     $result = $req->fetch();

@@ -4,16 +4,16 @@ namespace App\Models;
 
 class DataBase
 {
-    public $db;
+    public $bdd;
 
     public function __construct()
     {
         //PDO
         try {
             $dsn = "mysql:host=".$_ENV["DB_HOST"].";dbname=".$_ENV["DB_DBNAME"];
-            $this->db = new \PDO($dsn, $_ENV["DB_USER"], $_ENV["DB_PASSWORD"]);
-            $this->db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
-            $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $this->bdd = new \PDO($dsn, $_ENV["DB_USER"], $_ENV["DB_PASSWORD"]);
+            $this->bdd->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+            $this->bdd->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e) {
             throw $e->getMessage();
         }
