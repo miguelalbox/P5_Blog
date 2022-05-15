@@ -12,10 +12,10 @@
     -moz-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     transform: rotate(0deg);
-    -webkit-transition: .5s ease-in-out;
-    -moz-transition: .5s ease-in-out;
-    -o-transition: .5s ease-in-out;
-    transition: .5s ease-in-out;
+    -webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
     cursor: pointer;
 }
 
@@ -33,10 +33,10 @@
     -moz-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     transform: rotate(0deg);
-    -webkit-transition: .25s ease-in-out;
-    -moz-transition: .25s ease-in-out;
-    -o-transition: .25s ease-in-out;
-    transition: .25s ease-in-out;
+    -webkit-transition: 0.25s ease-in-out;
+    -moz-transition: 0.25s ease-in-out;
+    -o-transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
 }
 
 .animated-icon1 span {
@@ -228,9 +228,7 @@ body {
 }
 
 @media (max-width: 783px) {
-
     .home .personal-img {
-
         margin-top: 81px;
     }
 }
@@ -415,9 +413,11 @@ body {
     margin-top: 50px;
     object-position: bottom right;
 }
-.contacts .contact .contact-form form input{
+
+.contacts .contact .contact-form form input {
     width: 100%;
 }
+
 @media(max-width: 425px) {
     .contacts img {
         height: 253px;
@@ -547,7 +547,7 @@ body {
     padding: 20px;
 }
 
-.footer a {
+.footer .btn-footer a {
     text-decoration: none;
     color: black;
     font-weight: 600;
@@ -576,7 +576,7 @@ ul#notifications {
     margin-bottom: 40px;
 }
 
-@media(max-width: 500px) {
+@media (max-width: 500px) {
     .mentions-articles .others {
         width: 100%;
     }
