@@ -68,7 +68,7 @@ class Article{
                     "title" => $this->request->post["title"],
                     "image" => $image->getRelativePath(),
                     "content" => $this->request->post["content"],
-                    "category" => intval($this->request->post["category"]),
+                    "category" => (int)($this->request->post["category"]),
                     "idAuteur" => $this->request->post["idAuteur"],
                     "chapo" => $this->request->post["chapo"],
                 ]);

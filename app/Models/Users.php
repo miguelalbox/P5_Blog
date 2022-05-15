@@ -13,7 +13,8 @@ class Users extends DataBase
   // public $password;
   public $civility;
   public $role;
-  public $id;
+  public $getId;
+  public $removeId;
 
   
   public function ajouteAuteur($newUser)
@@ -57,9 +58,9 @@ class Users extends DataBase
     $req->bindValue(":id", $updateUser["id"], \PDO::PARAM_INT);
     $req->execute();
   }
-  public function removeUser($id){
+  public function removeUser($removeId){
     $req = $this->bdd->prepare("DELETE FROM `users` WHERE `users`.`id` = :id LIMIT 1");
-    $req->bindValue(":id", $id["id"], \PDO::PARAM_INT);
+    $req->bindValue(":id", $removeId["id"], \PDO::PARAM_INT);
     $req->execute();
   }
   
@@ -72,9 +73,9 @@ class Users extends DataBase
     $this->updateUser($updateUser);
   }
 
-  public function getUserInfo($id){
+  public function getUserInfo($getId){
     $req = $this->bdd->prepare("SELECT * FROM `users` WHERE `id`=:id;");
-    $req->bindValue(":id", $id);
+    $req->bindValue(":id", $getId);
     $req->execute();
     $this->hydrate($req->fetch());
   }

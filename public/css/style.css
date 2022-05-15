@@ -1,5 +1,7 @@
 /* Header */
+
 /* Header burger */
+
 /* Icon 1 */
 .animated-icon1,
 .animated-icon2,
@@ -110,13 +112,10 @@
     padding: 10px;
 }
 
-.mb-4 .navbar-collapse ul>li>a {
+.mb-4 .navbar-collapse ul > li > a {
     font-size: 20px;
     font-weight: 400;
 }
-
-
-
 
 body {
     max-width: 1920px;
@@ -224,7 +223,6 @@ body {
     border-radius: 10px;
     margin-top: 43px;
     margin-bottom: -29px;
-
 }
 
 @media (max-width: 783px) {
@@ -238,7 +236,6 @@ body {
     border-bottom: solid 3px #ffaf99;
     width: 42%;
     margin: 70px auto;
-    text-align: center;
 }
 
 .home .title p {
@@ -250,7 +247,7 @@ body {
 .home .title a {
     color: #3e3e3e;
     font-size: 17px;
-    border: solid 1px #FFAF99;
+    border: solid 1px #ffaf99;
     padding: 7px;
     border-radius: 10px;
 }
@@ -381,7 +378,7 @@ body {
     margin-top: 54px;
 }
 
-@media(max-width: 1324px) {
+@media (max-width: 1324px) {
     .categories {
         width: 75%;
         margin: 54px auto;
@@ -414,11 +411,8 @@ body {
     object-position: bottom right;
 }
 
-.contacts .contact .contact-form form input {
-    width: 100%;
-}
 
-@media(max-width: 425px) {
+@media (max-width: 425px) {
     .contacts img {
         height: 253px;
     }
@@ -426,7 +420,6 @@ body {
 
 .contacts .contact {
     display: flex;
-    margin: auto;
     justify-content: center;
     background-color: gray;
     margin: 49px 18%;
@@ -506,7 +499,7 @@ body {
     padding: 10px;
 }
 
-@media(max-width: 783px) {
+@media (max-width: 783px) {
     .contacts .bloc-form {
         width: 90%;
     }
@@ -553,7 +546,6 @@ body {
     font-weight: 600;
     border: solid 1px black;
     padding: 11px 18px;
-    margin: 0 12px;
     border-radius: 10px;
     background-color: #ffffffcf;
     margin: 6px 7px;
@@ -654,7 +646,7 @@ ul#notifications {
     font-style: italic;
 }
 
-@media(max-width: 1498px) {
+@media (max-width: 1498px) {
     .mentions-articles .others .others-articles {
         width: 49%;
     }
@@ -681,7 +673,7 @@ ul#notifications {
     }
 }
 
-@media(max-width: 1295px) {
+@media (max-width: 1295px) {
     .home .articles .first-articles img {
         height: 450px;
     }
@@ -707,14 +699,14 @@ ul#notifications {
     }
 }
 
-@media(max-width: 1281px) {
+@media (max-width: 1281px) {
     .home .articles .others {
         margin-top: 4px;
 
     }
 }
 
-@media(max-width: 783px) {
+@media (max-width: 783px) {
     .header {
         display: none;
     }
@@ -741,7 +733,7 @@ ul#notifications {
         margin-top: -68px;
     }
 
-    @media(max-width: 425px) {
+    @media (max-width: 425px) {
 
         /* Commentaires */
         .commentaires-form-article {
@@ -772,7 +764,6 @@ ul#notifications {
 
     .contacts .contact {
         display: flex;
-        margin: auto;
         justify-content: center;
         background-color: gray;
         margin: 49px 18%;
@@ -824,7 +815,6 @@ ul#notifications {
 
     /* Mentions legales */
     .mentions h2 {
-
         margin: 85px 0px 50px 0px;
     }
 
@@ -835,7 +825,7 @@ ul#notifications {
     }
 }
 
-@media(max-width: 649px) {
+@media (max-width: 649px) {
     .home .articles .first-articles {
         width: 100%;
         margin-right: 2px;
@@ -847,7 +837,7 @@ ul#notifications {
     }
 }
 
-@media(max-width: 498px) {
+@media (max-width: 498px) {
     .mentions-articles .others .others-articles {
         width: 100%;
     }
@@ -859,7 +849,7 @@ ul#notifications {
     }
 }
 
-@media(max-width: 613px) {
+@media (max-width: 613px) {
     .footer .btn-footer {
         display: flex;
         width: 100%;
@@ -869,7 +859,7 @@ ul#notifications {
     }
 }
 
-@media(max-width: 439px) {
+@media (max-width: 439px) {
     .footer {
         display: flex;
         flex-direction: column;
@@ -901,15 +891,15 @@ ul#notifications {
     .contacts .contact .contact-form form input {
         width: 100%;
     }
+}
 
-    @media(max-width: 398px) {
-        .home .articles .first-articles {
-            margin: 10px 10px;
-        }
+@media (max-width: 398px) {
+    .home .articles .first-articles {
+        margin: 10px 10px;
+    }
 
-        .home .articles .others .others-articles {
-            width: 100%;
-            margin: 10px 10px;
-        }
+    .home .articles .others .others-articles {
+        width: 100%;
+        margin: 10px 10px;
     }
 }
