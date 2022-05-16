@@ -6,7 +6,7 @@ use App\Models\Users;
 use \Error;
 
 class Auth{
-    public static function login($email, $password){
+    public function login($email, $password){
         $user = new Users();
         $hashedPwd = $user->login($email);
         if (!password_verify($password, $hashedPwd)) throw new Error("mot de passe non valide");
@@ -23,11 +23,11 @@ class Auth{
         // $request->session->setSession("hasSession", true);
     }
 
-    public static function hash($password){
+    public function hash($password){
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public static function logout(){
+    public function logout(){
         global $request;
         $request->session->delete();
     }

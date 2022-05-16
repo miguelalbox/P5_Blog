@@ -12,7 +12,7 @@ class Image {
     public  $hasImage = false;
 
 
-  public function __construct($image)
+  public function __construct( $image)
   {
     if ($image["image"]["size"] === 0) return;
     $this->hasImage = true;

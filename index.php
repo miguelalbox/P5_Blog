@@ -11,8 +11,12 @@ use App\Ctrl\User;
 use App\Ctrl\Article;
 use App\Ctrl\Categorie;
 use App\Ctrl\Commentary;
+use App\Ctrl\Auth;
+use App\Ctrl\SuperGlobals;
 
 try {
+    $auth = new Auth;
+    $superGlobals = new SuperGlobals;
     $tools = new Tools;
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
@@ -78,8 +82,8 @@ try {
 
     //twig
 } catch (\Throwable $err) {
-    die("index" . var_dump($err));
-    // $request->session->addNotification("error", $err);
+    //die("index" . var_dump($err));
+     $request->session->addNotification("error", $err);
 } finally {
     $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . "/app/views/");
     $twig   = new Twig\Environment($loader, [

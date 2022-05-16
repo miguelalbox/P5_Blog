@@ -34,16 +34,16 @@ class Sanityze
   private function sanityzeFied($filedName, $value)
   {
     $todo = $this->filters[$this->body[$filedName]]["sanitize"] ?? null;
-    if (is_null($todo)) {
+    if ($todo === null) {
       global $tools;
       $tools->addNotification("error", "la regle de nettoyage " . $filedName . " n'existe pas");
       return;
     }
     foreach ($todo as $cleaner) {
-      if (gettype($cleaner) === "array") {
+      if (is_array($cleaner)) {
         if ($cleaner["regex"]) $value = preg_replace($cleaner["regex"], "", $value);
       }
-      if (gettype($cleaner) === "string") {
+      if (is_string($cleaner)) {
         if (!method_exists($this, $cleaner)) {
           global $tools;
           $tools->addNotification("error", "la methode de nettoyage " . $cleaner . " n'existe pas");
@@ -86,10 +86,10 @@ class Sanityze
     return htmlentities($value, ENT_COMPAT, 'utf-8');
   }
 
-  private function avoidSqlInjection($value)
-  {
-    return str_replace("`", "", $value);
-  }
+  // private function avoidSqlInjection($value)
+  // {
+  //   return str_replace("`", "", $value);
+  // }
 
   // private function laTotale($value){
   //   $value = $this->avoidSqlInjection($value);

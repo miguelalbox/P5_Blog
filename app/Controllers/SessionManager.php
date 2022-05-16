@@ -11,8 +11,8 @@ class SessionManager
 
     public function __construct()
     {
-        session_start();
-        $this->data = $_SESSION;
+        global $superGlobals;
+        $this->data = $superGlobals->session;
         if ( ! isset($this->data["user"])) return;
         if ( ! count($this->data["user"]) >1) return;
         $this->hasSession = true;
@@ -27,8 +27,9 @@ class SessionManager
 
     private function saveSession()
     {
+        global $superGlobals;
         foreach ($this->data as $key => $value){
-            $_SESSION[$key] = $value;
+            $superGlobals->session[$key] = $value;
         }
     }
 

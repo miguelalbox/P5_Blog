@@ -59,7 +59,8 @@ class Article{
             // die(var_dump($this->request->post));
             global $tools;
             try {
-                $image =  new Image($_FILES);
+                global $superGlobals;
+                $image =  new Image($superGlobals->files);
                 if (!$image->isValid() || !$image->hasImage) throw (["msg" => "l'image n'est pas valide"]);
                 //apppeler model
                 $article = new Articles();
@@ -110,9 +111,10 @@ class Article{
             $categorie = new Categories();
             $article->getArticleInfo($this->request->uri[3]);
             if ($this->request->method === "POST") {
-                // die(var_dump($_FILES));
-                $image =  new Image($_FILES);
-                // die(var_dump($image->hasImage));
+                
+                global $superGlobals;
+                $image =  new Image($superGlobals->files);
+                
                 if ($image->hasImage) {
                     // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
                     if (!$image->isValid()) throw (["msg" => "l'image n'est pas valide"]);
@@ -123,7 +125,7 @@ class Article{
                     "title" => $this->request->post["title"],
                     "image" => $image->hasImage ? $image->getRelativePath() : $article->image,
                     "content" => $this->request->post["content"],
-                    "category" => intval($this->request->post["category"]),
+                    "category" => (int)($this->request->post["category"]),
                     "id" => $this->request->uri[3],
                     "idAuteur" => $this->request->post["idAuteur"],
                     "chapo" => $this->request->post["chapo"],
@@ -166,11 +168,11 @@ class Article{
         $msg = "";
         global $tools;
         try {
-            //apppeler model
-
+            global $superGlobals;
+            
             $article = new Articles();
 
-            $image =  new Image($_FILES);
+            $image =  new Image($superGlobals->files);
 
             // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
 

@@ -110,6 +110,7 @@ class Front
     {
         if ($this->request->method === "POST") {
             global $tools;
+            global $superGlobals;
             try {
 
                 $mail = new PHPMailer();
@@ -120,11 +121,11 @@ class Front
                 $mail->SMTPSecure="tls";
                 $mail->Port=587;
                 $mail->Host="smtp.gmail.com";
-                $mail->Username=$_ENV["EMAIL"];
-                $mail->Password=$_ENV["PASSWORD"];
+                $mail->Username=$superGlobals->env["EMAIL"];
+                $mail->Password=$superGlobals->env["PASSWORD"];
 
                 $mail->IsHTML(true);
-                $mail->AddAddress($_ENV["EMAIL"], "Miguel");
+                $mail->AddAddress($superGlobals->env["EMAIL"], "Miguel");
                 // die(var_dump($this->request->post));
                 $mail->AddReplyTo($this->request->post["email"], $this->request->post["first_name"]." ".$this->request->post["last_name"]);
                 $mail->Subject="nouveau message depuis le formulaire du site";
@@ -198,7 +199,8 @@ class Front
         if ($this->request->method === "POST") {
             global $tools;
             try {
-                Auth::login($this->request->post["email"],  $this->request->post["password"]);
+                global $auth;
+                $auth->login($this->request->post["email"],  $this->request->post["password"]);
                 $tools->addNotification("succeed", "Authenfication avec succès");
                 //die(var_dump($this->request->session));
                 $tools->redirect("/admin/backoffice");
