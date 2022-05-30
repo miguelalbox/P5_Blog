@@ -2,9 +2,9 @@
 
 namespace App\Ctrl;
 
-use App\Ctrl\Auth;
-use App\Ctrl\Tools;
-use Error;
+// use App\Ctrl\Auth;
+// use App\Ctrl\Tools;
+// use Error;
 
 class Back
 {
@@ -16,11 +16,11 @@ class Back
     {
 
         // $auth = Auth::login("mikyfiestas@gmail.com", "miguel123");
-        // die(var_dump($request->session));
-
+        //die(var_dump($request));
+        
         if (!$request->session->hasSession) {
-            global $tools;
-            $tools->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
+            global $framework;
+            $framework->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
         }
 
         $this->request = $request;
@@ -30,7 +30,6 @@ class Back
         $this->$fonction();
     }
 
-
     public function backoffice()
     {
         $this->template = "backoffice/backoffice";
@@ -39,22 +38,13 @@ class Back
         ];
     }
 
-   
-
-
-    
-    
-
-
     public function deconnexion()
     {
-        global $tools;
+        global $framework;
         $this->request->session->delete();
-        $tools->addNotification("succeed", "vous êtes bien déconnecté");
-        $tools->redirect("/login");
+        $framework->addNotification("succeed", "vous êtes bien déconnecté");
+        $framework->redirect("/login");
     }
-
-
 
     public function page404()
     {

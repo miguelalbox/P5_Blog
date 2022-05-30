@@ -16,8 +16,8 @@ class Author{
         // die(var_dump($request->session));
 
         if (!$request->session->hasSession) {
-            global $tools;
-            $tools->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
+            global $framework;
+            $framework->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
         }
 
         $this->request = $request;
@@ -60,7 +60,7 @@ class Author{
         $msg = "";
         if ($this->request->method === "POST") {
             //die(var_dump($this->request));
-            global $tools;
+            global $framework;
             try {
                 //apppeler model
                 $auteur = new Users();
@@ -73,12 +73,12 @@ class Author{
                     "civility" => $this->request->post["civility"],
                 ]);
                 $msg = "l'auteur à bien été enregistré";
-                $tools->addNotification("succeed", "l'utilisateur à bien été ajouté");
-                $tools->redirect("/admin/auteurs");
+                $framework->addNotification("succeed", "l'utilisateur à bien été ajouté");
+                $framework->redirect("/admin/auteurs");
             } catch (\Throwable $err) {
                 //$error = true;
                 //$msg = "un problème est apparu lors de l'enregistrement";
-                $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
+                $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
             }
         };
         $this->template = "backoffice/auteurs/ajouter-modifier-auteur";
@@ -100,7 +100,7 @@ class Author{
     {
         $error = false;
         $msg = "";
-        global $tools;
+        global $framework;
         try {
             //apppeler model
             $auteur = new Users();
@@ -114,14 +114,14 @@ class Author{
                     "id" => $this->request->uri[3]
                 ]);
                 $msg = "l'auteur à bien été modifié";
-                $tools->addNotification("succeed", "l'auteur à bien été modifié");
-                $tools->redirect("/admin/auteurs");
+                $framework->addNotification("succeed", "l'auteur à bien été modifié");
+                $framework->redirect("/admin/auteurs");
             }
             $auteur->getUserInfo($this->request->uri[3]);
         } catch (\Throwable $err) {
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
+            $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         }
         $this->template = "backoffice/auteurs/ajouter-modifier-auteur";
         $this->data = [
@@ -142,7 +142,7 @@ class Author{
     {
         $error = false;
         $msg = "";
-        global $tools;
+        global $framework;
         try {
             //apppeler model
             $user = new Users();
@@ -153,13 +153,13 @@ class Author{
             //die(var_dump($article));
 
             //$msg = "l'auteur à bien été suprimé";
-            $tools->addNotification("succeed", "L'auteur a bien été suprimé");
-            $tools->redirect("/admin/auteurs");
+            $framework->addNotification("succeed", "L'auteur a bien été suprimé");
+            $framework->redirect("/admin/auteurs");
         } catch (\Throwable $err) {
             //die(var_dump($err));
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
+            $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         } finally {
             // die(var_dump($article));
             $this->template = "backoffice/auteurs/auteurs";

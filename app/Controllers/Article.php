@@ -18,8 +18,8 @@ class Article{
         // die(var_dump($request->session));
 
         if (!$request->session->hasSession) {
-            global $tools;
-            $tools->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
+            global $framework;
+            $framework->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
         }
 
         $this->request = $request;
@@ -57,10 +57,10 @@ class Article{
         $categorie = new Categories();
         if ($this->request->method === "POST") {
             // die(var_dump($this->request->post));
-            global $tools;
+            global $framework;
             try {
-                global $superGlobals;
-                $image =  new Image($superGlobals->files);
+                global $framework;
+                $image =  new Image($framework->files);
                 if (!$image->isValid() || !$image->hasImage) throw (["msg" => "l'image n'est pas valide"]);
                 //apppeler model
                 $article = new Articles();
@@ -74,10 +74,10 @@ class Article{
                     "chapo" => $this->request->post["chapo"],
                 ]);
                 //$msg = "l'article à bien été enregistré";
-                $tools->addNotification("succeed", "l'article à bien été enregistré");
-                $tools->redirect("/admin/articles");
+                $framework->addNotification("succeed", "l'article à bien été enregistré");
+                $framework->redirect("/admin/articles");
             } catch (\Throwable $err) {
-                $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
+                $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
                 //die(var_dump($err));
                 //$error = true;
                 //$msg= $err["msg"] ? $err["msg"] : "un problème est apparu lors de l'enregistrement";
@@ -104,7 +104,7 @@ class Article{
     {
         $error = false;
         $msg = "";
-        global $tools;
+        global $framework;
         try {
             //apppeler model
             $article = new Articles();
@@ -112,8 +112,8 @@ class Article{
             $article->getArticleInfo($this->request->uri[3]);
             if ($this->request->method === "POST") {
                 
-                global $superGlobals;
-                $image =  new Image($superGlobals->files);
+                global $framework;
+                $image =  new Image($framework->files);
                 
                 if ($image->hasImage) {
                     // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
@@ -131,15 +131,15 @@ class Article{
                     "chapo" => $this->request->post["chapo"],
                 ]);
                 $msg = "l'article à bien été modifié";
-                $tools->addNotification("succeed", "l'article à bien été modifié");
-                $tools->redirect("/admin/articles");
-                //$tools->addNotification("succeed", "l'utilisateur à bien été enregistré");
+                $framework->addNotification("succeed", "l'article à bien été modifié");
+                $framework->redirect("/admin/articles");
+                //$framework->addNotification("succeed", "l'utilisateur à bien été enregistré");
             }
         } catch (\Throwable $err) {
             //die(var_dump($err));
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
+            $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         } finally {
             // die(var_dump($article));
             $auteurs = new Users();
@@ -166,13 +166,13 @@ class Article{
     {
         $error = false;
         $msg = "";
-        global $tools;
+        global $framework;
         try {
-            global $superGlobals;
+            global $framework;
             
             $article = new Articles();
 
-            $image =  new Image($superGlobals->files);
+            $image =  new Image($framework->files);
 
             // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
 
@@ -185,13 +185,13 @@ class Article{
             //die(var_dump($article));
 
             //$msg = "l'article à bien été suprimé";
-            $tools->addNotification("succeed", "l'article à bien été suprimé");
-            $tools->redirect("/admin/articles");
+            $framework->addNotification("succeed", "l'article à bien été suprimé");
+            $framework->redirect("/admin/articles");
         } catch (\Throwable $err) {
             //die(var_dump($err));
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            $tools->addNotification("error", "Un problème est apparu lors de la supression");
+            $framework->addNotification("error", "Un problème est apparu lors de la supression");
         } finally {
             // die(var_dump($article));
             $this->template = "backoffice/articles/articles";

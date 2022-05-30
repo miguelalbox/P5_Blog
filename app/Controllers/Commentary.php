@@ -16,8 +16,8 @@ class Commentary{
         // die(var_dump($request->session));
 
         if (!$request->session->hasSession) {
-            global $tools;
-            $tools->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
+            global $framework;
+            $framework->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
         }
 
         $this->request = $request;
@@ -42,8 +42,8 @@ class Commentary{
                 } catch (\Throwable $err) {
                     //die(var_dump($err));
 
-                    global $tools;
-                    $tools->addNotification("error", "echec lors de l'ajout d'un commentaire");
+                    global $framework;
+                    $framework->addNotification("error", "echec lors de l'ajout d'un commentaire");
                 }
             }
         }
@@ -72,7 +72,7 @@ class Commentary{
     {
         $error = false;
         $msg = "";
-        global $tools;
+        global $framework;
         try {
             //apppeler model
 
@@ -84,13 +84,13 @@ class Commentary{
             //die(var_dump($article));
 
             //$msg = "la categorie à bien été suprimé";
-            $tools->addNotification("succeed", "Le commentaire a bien été suprimé");
-            $tools->redirect("/admin/commentaires");
+            $framework->addNotification("succeed", "Le commentaire a bien été suprimé");
+            $framework->redirect("/admin/commentaires");
         } catch (\Throwable $err) {
             //die(var_dump($err));
             //$error = true;
             //$msg = "un problème est apparu lors de l'enregistrement";
-            $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
+            $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         } finally {
             // die(var_dump($article));
             $this->template = "backoffice/commentaires/commentaires";

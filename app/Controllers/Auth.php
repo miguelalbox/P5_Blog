@@ -10,8 +10,8 @@ class Auth{
         $user = new Users();
         $hashedPwd = $user->login($email);
         if (!password_verify($password, $hashedPwd)) throw new Error("mot de passe non valide");
-        global $request;
-        $request->session->setSession("user", [
+        global $framework;
+        $framework->session->setSession("user", [
             "first_name"=> $user->first_name,
             "last_name"=> $user->last_name,
             "email"=> $user->email,
@@ -19,8 +19,9 @@ class Auth{
             "role"=> $user->role,
             "id"=> $user->id,
         ]);
-        // $request->session->setSession("user", $user);
-        // $request->session->setSession("hasSession", true);
+        //die(var_dump($framework->session));
+        // $framework->session->setSession("user", $user);
+        // $framework->session->setSession("hasSession", true);
     }
 
     public function hash($password){
@@ -28,7 +29,7 @@ class Auth{
     }
 
     public function logout(){
-        global $request;
-        $request->session->delete();
+        global $framework;
+        $framework->session->delete();
     }
 }

@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Ctrl;
+namespace Core;
 
 class SessionManager
 {
     public $data = [
         "notifications" => []
     ];
+    public $globalSession;
     public $hasSession = false;
 
     public function __construct()
     {
-        global $superGlobals;
-        $this->data = $superGlobals->session;
+        $this->globalSession = &$_SESSION;
+        $this->data["user"] = $this->globalSession["user"];
         if ( ! isset($this->data["user"])) return;
         if ( ! count($this->data["user"]) >1) return;
         $this->hasSession = true;
@@ -27,9 +28,8 @@ class SessionManager
 
     private function saveSession()
     {
-        global $superGlobals;
         foreach ($this->data as $key => $value){
-            $superGlobals->session[$key] = $value;
+            $this->globalSession[$key] = $value;
         }
     }
 

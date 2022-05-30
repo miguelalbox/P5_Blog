@@ -5,7 +5,6 @@ namespace App\Ctrl;
 // use App\Models\Users;
 use App\Ctrl\Auth;
 use App\Models\Articles;
-use App\Ctrl\Tools;
 use App\Models\Categories;
 use App\Models\Commentaires;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -63,7 +62,7 @@ class Front
 
         // die(var_dump($comments->getValidsComments($this->request->uri[1])));
         if ($this->request->method === "POST") {
-            global $tools;
+            global $framework;
             try {
                 //apppeler model
                 $commentaire = new Commentaires();
@@ -74,12 +73,12 @@ class Front
                     "articleId" => $this->request->uri[1]
                 ]);
                 //$msg = "la categorie à bien été enregistré";
-                $tools->addNotification("succeed", "le commentaire à bien été enregistrée");
-                $tools->redirect("/article/" . $this->request->uri[1]);
+                $framework->addNotification("succeed", "le commentaire à bien été enregistrée");
+                $framework->redirect("/article/" . $this->request->uri[1]);
             } catch (\Throwable $err) {
                 //$error = true;
                 //$msg = "un problème est apparu lors de l'enregistrement";
-                $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
+                $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
             }
         };
 
@@ -109,8 +108,7 @@ class Front
     public function contact()
     {
         if ($this->request->method === "POST") {
-            global $tools;
-            global $superGlobals;
+            global $framework;
             try {
 
                 $mail = new PHPMailer();
@@ -121,11 +119,11 @@ class Front
                 $mail->SMTPSecure="tls";
                 $mail->Port=587;
                 $mail->Host="smtp.gmail.com";
-                $mail->Username=$superGlobals->env["EMAIL"];
-                $mail->Password=$superGlobals->env["PASSWORD"];
+                $mail->Username=$framework->env["EMAIL"];
+                $mail->Password=$framework->env["PASSWORD"];
 
                 $mail->IsHTML(true);
-                $mail->AddAddress($superGlobals->env["EMAIL"], "Miguel");
+                $mail->AddAddress($framework->env["EMAIL"], "Miguel");
                 // die(var_dump($this->request->post));
                 $mail->AddReplyTo($this->request->post["email"], $this->request->post["first_name"]." ".$this->request->post["last_name"]);
                 $mail->Subject="nouveau message depuis le formulaire du site";
@@ -163,11 +161,11 @@ class Front
                 // mail($to, $subject, $message, $headers);
 
                 //$msg = "le message à bien été enregistré";
-                $tools->addNotification("succeed", "Le message à bien été enregistrée, un mail a été envoye dans votre boite mail");
-                $tools->redirect("/contact");
+                $framework->addNotification("succeed", "Le message à bien été enregistrée, un mail a été envoye dans votre boite mail");
+                $framework->redirect("/contact");
             } catch (\Throwable $err) {
                 // die(var_dump($err));
-                $tools->addNotification("error", "Un problème est apparu lors de l'enregistrement");
+                $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
             }
         }
 
@@ -197,18 +195,17 @@ class Front
         // die(var_dump($this->request));
         //Auth::logout();
         if ($this->request->method === "POST") {
-            global $tools;
+            global $framework;
             try {
                 global $auth;
                 $auth->login($this->request->post["email"],  $this->request->post["password"]);
-                $tools->addNotification("succeed", "Authenfication avec succès");
+                $framework->addNotification("succeed", "Authenfication avec succès");
                 //die(var_dump($this->request->session));
-                $tools->redirect("/admin/backoffice");
+                $framework->redirect("/admin/backoffice");
             } catch (\Throwable $err) {
-                $tools->addNotification("error", "T'es sur que c'est toi?");
+                $framework->addNotification("error", "T'es sur que c'est toi?");
                 // $error = true;
                 // $msg   = "un problème est apparu lors de l'enregistrement";
-                // die(var_dump($err));
             }
         }
         $this->template = "login";

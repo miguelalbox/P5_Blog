@@ -1,15 +1,15 @@
 {% extends "backoffice/base.twig" %}
 
 {% block meta %}
-    <meta name="description" content="Backoffice">
+	<meta name="description" content="Backoffice">
 {% endblock %}
 
 
 {% block main %}
-<div class="page-inner">
-		
-        <div class="row">
-            <div class="col-md-8">
+	<div class="page-inner">
+
+		<div class="row">
+			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header d-flex space-between">
 						<div class="card-title">Tous les Commentaires</div>
@@ -18,90 +18,94 @@
 
 						{% if commentaires | length > 0 %}
 
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th scope="col">Auteur</th>
-									<th scope="col">Message</th>
-									<th scope="col">Valider</th>
-                                    <th scope="col">Suprimer</th>
-								</tr>
-							</thead>
-							<tbody id="sliders">
-
-
-								{% for commentaire in commentaires %}
-
-									<tr data-order="{#{{ carriere.number }}#}">
-										<td>
-                                            <div class="project">
-												<span class="project-title">{{ commentaire.name }}</span>
-											</div>
-                                        </td>
-										<td>
-                                            <div class="project">
-												<span class="project-title">{{ commentaire.content }}</span>
-											</div>
-                                        </td>
-										<td>
-                                            <div class="project">
-											<form method="POST">
-												<input type="hidden" name="commentId" value="{{ commentaire.id }}" />
-												<input type="hidden" name="action" value="validate" />
-												<input class=" awesome-btn btn btn-icon btn-round btn-primary btn-sm fa-solid fa-pen-to-square" type="submit" />
-											</form>
-											</div>
-                                        </td>
-										<td>
-
-                                            <button class="btn btn-icon btn-round btn-primary btn-sm"  data-toggle="modal" data-target="#delete-{{ commentaire.id }}" data-backdrop="static" data-keyboard="false">
-												<i class="fa-solid fa-trash"></i>
-											</button>
-
-											<!-- Modal delete -->
-                                            <div class="modal fade" id="delete-{{commentaire.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <form action="{#{{ path('delete_carriere') }}#}" method="post">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Suppression d'un commentaires</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-
-                                                                <p>Êtes vous sure de vouloir supprimer le commentaires <b>{#{{ carriere.slug }}#}</b>? </p>
-
-																<input type="hidden" name="carriere_id" value="{#{{ carriere.id }}#}">
-                                                            
-                                                            </div>
-                                                            <div class="modal-footer left">
-                                                                <a href="/admin/commentaires/suprimer/{{commentaire.id}}" class="btn btn-primary btn-sm">Oui, Supprimer</a>
-                                                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Annuler</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            
-
-										</td>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">Auteur</th>
+										<th scope="col">Message</th>
+										<th scope="col">Valider</th>
+										<th scope="col">Suprimer</th>
 									</tr>
+								</thead>
+								<tbody id="sliders">
 
-							{% endfor %}
-							</tbody>
-						</table>
+
+									{% for commentaire in commentaires %}
+
+										<tr data-order="{#{{ carriere.number }}#}">
+											<td>
+												<div class="project">
+													<span class="project-title">{{ commentaire.name }}</span>
+												</div>
+											</td>
+											<td>
+												<div class="project">
+													<span class="project-title">{{ commentaire.content }}</span>
+												</div>
+											</td>
+											<td>
+												<div class="project">
+													<form method="POST" style="margin-bottom: 0;">
+														<input type="hidden" name="commentId" value="{{ commentaire.id }}"/>
+														<input type="hidden" name="action" value="validate"/>
+														<input type="hidden" class="btn btn-icon btn-round btn-primary btn-sm" type="submit"/>
+														<button class="btn btn-icon btn-round btn-primary btn-sm mt-1" style="margin-top: 0 !important;">
+															<em class="fa-solid fa-check"></em>
+														</button>
+													</form>
+												</div>
+											</td>
+											<td>
+
+												<button class="btn btn-icon btn-round btn-primary btn-sm" data-toggle="modal" data-target="#delete-{{ commentaire.id }}" data-backdrop="static" data-keyboard="false">
+													<em class="fa-solid fa-trash"></em>
+												</button>
+
+												<!-- Modal delete -->
+												<div class="modal fade" id="delete-{{commentaire.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+													<div class="modal-dialog modal-dialog-centered" role="document">
+														<div class="modal-content">
+															<form action="{#{{ path('delete_carriere') }}#}" method="post">
+																<div class="modal-header">
+																	<h5 class="modal-title" id="exampleModalLongTitle">Suppression d'un commentaires</h5>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+
+																	<p>Êtes vous sure de vouloir supprimer le commentaires
+																		<b>{#{{ carriere.slug }}#}</b>?
+																	</p>
+
+																	<input type="hidden" name="carriere_id" value="{#{{ carriere.id }}#}">
+
+																</div>
+																<div class="modal-footer left">
+																	<a href="/admin/commentaires/suprimer/{{commentaire.id}}" class="btn btn-primary btn-sm">Oui, Supprimer</a>
+																	<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Annuler</button>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+
+
+											</td>
+										</tr>
+
+									{% endfor %}
+								</tbody>
+							</table>
 
 						{% else %}
 
-						<div class="my-5 py-5 text-center">
+							<div class="my-5 py-5 text-center">
 
-							<h2>Aucun Commentaire</h2>
+								<h2>Aucun Commentaire</h2>
 
-						</div>
-							
+							</div>
+
 						{% endif %}
 
 					</div>
@@ -109,9 +113,8 @@
 				</div>
 			</div>
 
-			
 
-        </div>
+		</div>
 
 	</div>
 
@@ -124,36 +127,33 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
 	<script>
-		$( "#sliders" ).sortable({
-		placeholder : "ui-state-highlight",
-		update  : function(event, ui)
-		{
-		var slider_order_ids = new Array();
+		$("#sliders").sortable({
+placeholder: "ui-state-highlight",
+update: function (event, ui) {
+var slider_order_ids = new Array();
 
-		$('#sliders tr').each(function(){
-			slider_order_ids.push($(this).data("order"));
-			$("#alert-place").text('');
-		});
+$('#sliders tr').each(function () {
+slider_order_ids.push($(this).data("order"));
+$("#alert-place").text('');
+});
 
-		fetch("/reorder-slider-carriers", {
-			method: 'post',
-			headers: {
-				'Content-type': 'application/json',
-			},
-			body: JSON.stringify({
-				slider_order_ids: slider_order_ids
-			}),
-		})
-        .then((response) => {
+fetch("/reorder-slider-carriers", {
+method: 'post',
+headers: {
+'Content-type': 'application/json'
+},
+body: JSON.stringify(
+{slider_order_ids: slider_order_ids}
+)
+}).then((response) => {
 
-            return response.json();
+return response.json();
 
-        })
-        .then((result) => {
-			location.reload();
-        })
+}).then((result) => {
+location.reload();
+})
 
-		}
-		});
+}
+});
 	</script>
 {% endblock %}

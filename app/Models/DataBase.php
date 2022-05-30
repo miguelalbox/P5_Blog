@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Ctrl\SuperGlobals;
+
 class DataBase
 {
     public $bdd;
@@ -9,10 +11,12 @@ class DataBase
     public function __construct()
     {
         //PDO
-        global $superGlobals;
         try {
-            $dsn = "mysql:host=localhost;dbname=".$superGlobals->env["DB_DBNAME"];
-            $this->bdd = new \PDO($dsn, $superGlobals->env["DB_USER"], $superGlobals->env["DB_PASSWORD"]);
+            global $framework;
+           
+            //die(var_dump($framework->env["DB_DBNAME"]));
+            $dsn = "mysql:host=localhost;dbname=".$framework->env["DB_DBNAME"];
+            $this->bdd = new \PDO($dsn, $framework->env["DB_USER"], $framework->env["DB_PASSWORD"]);
             $this->bdd->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
             $this->bdd->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e) {

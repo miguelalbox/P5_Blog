@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Ctrl;
-use App\Ctrl\SessionManager;
-use App\Ctrl\Sanityze;
+namespace Core;
+use Core\Sanityze;
 
 class SecurizedRequest{
     public $uri;
     public $method;
-    public $session;
     public $post;
     private $sanitize; 
+    public $session;
 
     public function __construct($src){
-        $this->session = new SessionManager();
         $this->method = filter_input(
             INPUT_SERVER,
             "REQUEST_METHOD",

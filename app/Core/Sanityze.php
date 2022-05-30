@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ctrl;
+namespace Core;
 
 // use App\Ctrl\SanizedField;
 use Symfony\Component\Yaml\Yaml;
@@ -26,8 +26,8 @@ class Sanityze
       if (isset($data["filters"])) $this->filters = $data["filters"];
     } catch (ParseException $exception) {
       //die("error parse security YAML".var_dump($exception->getMessage));
-      global $tools;
-      $tools->addNotification("error", "error parse security YAML");
+      global $framework;
+      $framework->addNotification("error", "error parse security YAML");
     }
   }
 
@@ -35,8 +35,9 @@ class Sanityze
   {
     $todo = $this->filters[$this->body[$filedName]]["sanitize"] ?? null;
     if ($todo === null) {
-      global $tools;
-      $tools->addNotification("error", "la regle de nettoyage " . $filedName . " n'existe pas");
+      global $framework;
+      die("sanityzeFied:39 ...".var_dump($framework));
+      $framework->addNotification("error", "la regle de nettoyage " . $filedName . " n'existe pas");
       return;
     }
     foreach ($todo as $cleaner) {
@@ -45,8 +46,8 @@ class Sanityze
       }
       if (is_string($cleaner)) {
         if (!method_exists($this, $cleaner)) {
-          global $tools;
-          $tools->addNotification("error", "la methode de nettoyage " . $cleaner . " n'existe pas");
+          global $framework;
+          $framework->addNotification("error", "la methode de nettoyage " . $cleaner . " n'existe pas");
           return;
         }
         $value = $this->$cleaner($value);
@@ -86,10 +87,10 @@ class Sanityze
     return htmlentities($value, ENT_COMPAT, 'utf-8');
   }
 
-  // private function avoidSqlInjection($value)
-  // {
-  //   return str_replace("`", "", $value);
-  // }
+  public function avoidSqlInjection($value)
+  {
+    return str_replace("`", "", $value);
+  }
 
   // private function laTotale($value){
   //   $value = $this->avoidSqlInjection($value);
