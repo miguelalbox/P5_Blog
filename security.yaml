@@ -28,7 +28,7 @@ filters:
   text:
     valid: /^[\p{Latin}\p{N}\p{P} -]*$/
     sanitize:
-    - regex: /[^\p{Latin}\p{N}\p{P} -]/
+    - regex: /^[^\p{Latin}\p{N}\p{P} -]/
     - avoidSqlInjection
   telephone:
     valid: /^[\p{Latin}\p{N}\p{P} -]*$/

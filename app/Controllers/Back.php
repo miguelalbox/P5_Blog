@@ -2,6 +2,10 @@
 
 namespace App\Ctrl;
 
+use App\Models\Articles;
+use App\Models\Commentaires;
+use App\Models\Users;
+
 // use App\Ctrl\Auth;
 // use App\Ctrl\Tools;
 // use Error;
@@ -15,7 +19,6 @@ class Back
     public function __construct($request)
     {
 
-        // $auth = Auth::login("mikyfiestas@gmail.com", "miguel123");
         //die(var_dump($request));
         
         if (!$request->session->hasSession) {
@@ -32,9 +35,16 @@ class Back
 
     public function backoffice()
     {
+        $articles = new Articles();
+        $authors = new Users();
+        $comments = new Commentaires();
         $this->template = "backoffice/backoffice";
         $this->data = [
-            'menu' => 'backoffice'
+            'menu' => 'backoffice',
+            "articles" => $articles->getArticles(),
+            "authors" => $authors->getAuthors(),
+            "users" => $authors->getUsers(),
+            "comments" => $comments->getCommentaire(),
         ];
     }
 
