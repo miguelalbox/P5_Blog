@@ -6,20 +6,17 @@ use App\Models\Articles;
 use App\Models\Users;
 use App\Models\Categories;
 
-class Article{
+class Article
+{
     private $request;
     public $template;
     public $data = [];
     public $current;
     public function __construct($request)
     {
-
-        // $auth = Auth::login("mikyfiestas@gmail.com", "miguel123");
-        // die(var_dump($request->session));
-
         if (!$request->session->hasSession) {
             global $framework;
-            $framework->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
+            $framework->redirect("/login");
         }
 
         $this->request = $request;
@@ -43,26 +40,24 @@ class Article{
             ];
             return;
         }
-        //die(var_dump($this->request->uri));
-        $fonction = "article_" . $this->request->uri[2];
-        // die(var_dump($fonction));
+        $fonction = "article" . ucfirst($this->request->uri[2]);
+
         if (!method_exists($this, $fonction)) $fonction = "page404";
         $this->$fonction();
     }
 
-    public function article_ajouter()
+    public function articleAjouter()
     {
         $error = false;
         $msg = "";
         $categorie = new Categories();
         if ($this->request->method === "POST") {
-            // die(var_dump($this->request->post));
             global $framework;
             try {
                 global $framework;
                 $image =  new Image($framework->files);
                 if (!$image->isValid() || !$image->hasImage) throw (["msg" => "l'image n'est pas valide"]);
-                //apppeler model
+
                 $article = new Articles();
 
                 $article->ajouteArticle([
@@ -73,14 +68,11 @@ class Article{
                     "idAuteur" => $this->request->post["idAuteur"],
                     "chapo" => $this->request->post["chapo"],
                 ]);
-                //$msg = "l'article à bien été enregistré";
                 $framework->addNotification("succeed", "l'article à bien été enregistré");
                 $framework->redirect("/admin/articles");
-            } catch (\Throwable $err) {
+            } 
+            catch (\Throwable $err) {
                 $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
-                //die(var_dump($err));
-                //$error = true;
-                //$msg= $err["msg"] ? $err["msg"] : "un problème est apparu lors de l'enregistrement";
             }
         };
         $auteurs = new Users();
@@ -100,7 +92,7 @@ class Article{
         ];
     }
 
-    public function article_editer()
+    public function articleEditer()
     {
         $error = false;
         $msg = "";
@@ -111,12 +103,11 @@ class Article{
             $categorie = new Categories();
             $article->getArticleInfo($this->request->uri[3]);
             if ($this->request->method === "POST") {
-                
                 global $framework;
                 $image =  new Image($framework->files);
-                
+
                 if ($image->hasImage) {
-                    // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
+                    
                     if (!$image->isValid()) throw (["msg" => "l'image n'est pas valide"]);
                     $image->removePrevious($this->request->uri[3]);
                 }
@@ -133,15 +124,13 @@ class Article{
                 $msg = "l'article à bien été modifié";
                 $framework->addNotification("succeed", "l'article à bien été modifié");
                 $framework->redirect("/admin/articles");
-                //$framework->addNotification("succeed", "l'utilisateur à bien été enregistré");
+                
             }
-        } catch (\Throwable $err) {
-            //die(var_dump($err));
-            //$error = true;
-            //$msg = "un problème est apparu lors de l'enregistrement";
+        } 
+        catch (\Throwable $err) {
             $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
-        } finally {
-            // die(var_dump($article));
+        } 
+        finally {
             $auteurs = new Users();
             $this->template = "backoffice/articles/ajouter-modifier-articles";
             $this->data = [
@@ -162,38 +151,31 @@ class Article{
         }
     }
 
-    public function article_suprimer()
+    public function articleSuprimer()
     {
         $error = false;
         $msg = "";
         global $framework;
         try {
             global $framework;
-            
+
             $article = new Articles();
 
             $image =  new Image($framework->files);
 
-            // die(var_dump($image->isValid()).var_dump($image->getRelativePath()));
-
             $image->removePrevious($this->request->uri[3]);
-            //apppeler model
 
             $article->removeArticle([
                 "id" => $this->request->uri[3]
             ]);
-            //die(var_dump($article));
-
-            //$msg = "l'article à bien été suprimé";
+            
             $framework->addNotification("succeed", "l'article à bien été suprimé");
             $framework->redirect("/admin/articles");
-        } catch (\Throwable $err) {
-            //die(var_dump($err));
-            //$error = true;
-            //$msg = "un problème est apparu lors de l'enregistrement";
+        } 
+        catch (\Throwable $err) {
             $framework->addNotification("error", "Un problème est apparu lors de la supression");
-        } finally {
-            // die(var_dump($article));
+        } 
+        finally {
             $this->template = "backoffice/articles/articles";
             $this->data = [
                 'menu' => 'articles',

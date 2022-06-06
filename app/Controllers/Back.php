@@ -6,10 +6,6 @@ use App\Models\Articles;
 use App\Models\Commentaires;
 use App\Models\Users;
 
-// use App\Ctrl\Auth;
-// use App\Ctrl\Tools;
-// use Error;
-
 class Back
 {
     private $request;
@@ -19,11 +15,9 @@ class Back
     public function __construct($request)
     {
 
-        //die(var_dump($request));
-        
         if (!$request->session->hasSession) {
             global $framework;
-            $framework->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
+            $framework->redirect("/login");
         }
 
         $this->request = $request;

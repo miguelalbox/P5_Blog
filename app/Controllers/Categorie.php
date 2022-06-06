@@ -4,7 +4,8 @@ namespace App\Ctrl;
 
 use App\Models\Categories;
 
-class Categorie{
+class Categorie
+{
     private $request;
     public $template;
     public $data = [];
@@ -12,12 +13,9 @@ class Categorie{
     public function __construct($request)
     {
 
-        // $auth = Auth::login("mikyfiestas@gmail.com", "miguel123");
-        // die(var_dump($request->session));
-
         if (!$request->session->hasSession) {
             global $framework;
-            $framework->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
+            $framework->redirect("/login");
         }
 
         $this->request = $request;
@@ -32,7 +30,6 @@ class Categorie{
 
         $categoriesList = $categories->getCategories();
 
-        //die(var_dump($categories));
         if (count($this->request->uri) === 2) {
             $this->template = "backoffice/categories/categories";
             $this->data = [
@@ -41,22 +38,19 @@ class Categorie{
             ];
             return;
         }
-        //die(var_dump($this->request->uri));
-        $fonction = "categorie_" . $this->request->uri[2];
-        // die(var_dump($fonction));
+        $fonction = "categorie" . ucfirst($this->request->uri[2]);
+
         if (!method_exists($this, $fonction)) $fonction = "page404";
         $this->$fonction();
     }
 
-    public function categorie_ajouter()
+    public function categorieAjouter()
     {
         $error = false;
         $msg = "";
         if ($this->request->method === "POST") {
-            //die(var_dump($this->request));
             global $framework;
             try {
-                //apppeler model
                 $category = new Categories();
 
                 $category->addCategory([
@@ -65,9 +59,8 @@ class Categorie{
                 $msg = "la categorie à bien été enregistré";
                 $framework->addNotification("succeed", "la categorie à bien été enregistrée");
                 $framework->redirect("/admin/categories");
-            } catch (\Throwable $err) {
-                //$error = true;
-                //$msg = "un problème est apparu lors de l'enregistrement";
+            } 
+            catch (\Throwable $err) {
                 $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
             }
         };
@@ -86,27 +79,24 @@ class Categorie{
         ];
     }
 
-    public function categorie_editer()
+    public function categorieEditer()
     {
         $error = false;
         $msg = "";
         global $framework;
         try {
-            //apppeler model
             $categorie = new Categories();
             if ($this->request->method === "POST") {
                 $categorie->updateCategory([
                     "name" => $this->request->post["name"],
                     "id" => $this->request->uri[3]
                 ]);
-                //$msg = "la categorie à bien été modifié";
                 $framework->addNotification("succeed", "la categorie à bien été modifié");
                 $framework->redirect("/admin/categories");
             }
             $categorie->getCategorieInfo($this->request->uri[3]);
-        } catch (\Throwable $err) {
-            //$error = true;
-            //$msg = "un problème est apparu lors de l'enregistrement";
+        } 
+        catch (\Throwable $err) {
             $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         }
         $this->template = "backoffice/categories/ajouter-modifier-categorie";
@@ -121,31 +111,25 @@ class Categorie{
         ];
     }
 
-    public function categorie_suprimer()
+    public function categorieSuprimer()
     {
         $error = false;
         $msg = "";
         global $framework;
         try {
-            //apppeler model
 
             $categorie = new Categories();
 
             $categorie->removeCategory([
                 "id" => $this->request->uri[3]
             ]);
-            //die(var_dump($article));
-
-            //$msg = "la categorie à bien été suprimé";
             $framework->addNotification("succeed", "La categorie a bien été suprimé");
             $framework->redirect("/admin/categories");
-        } catch (\Throwable $err) {
-            //die(var_dump($err));
-            //$error = true;
-            //$msg = "un problème est apparu lors de l'enregistrement";
+        } 
+        catch (\Throwable $err) {
             $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
-        } finally {
-            // die(var_dump($article));
+        } 
+        finally {
             $this->template = "backoffice/categories/categories";
             $this->data = [
                 'menu' => 'categories',

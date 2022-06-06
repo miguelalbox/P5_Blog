@@ -14,8 +14,8 @@ class SessionManager
     {
         $this->globalSession = &$_SESSION;
         $this->data["user"] = $this->globalSession["user"];
-        if ( ! isset($this->data["user"])) return;
-        if ( ! count($this->data["user"]) >1) return;
+        if (!isset($this->data["user"])) return;
+        if (!count($this->data["user"]) > 1) return;
         $this->hasSession = true;
     }
 
@@ -28,12 +28,13 @@ class SessionManager
 
     private function saveSession()
     {
-        foreach ($this->data as $key => $value){
+        foreach ($this->data as $key => $value) {
             $this->globalSession[$key] = $value;
         }
     }
 
-    public function delete(){
+    public function delete()
+    {
         $notifs = $this->getNotifications();
         session_unset();
         $this->data = [
@@ -43,7 +44,8 @@ class SessionManager
         $this->saveSession();
     }
 
-    public function update($clef, $valeur){
+    public function update($clef, $valeur)
+    {
         $this->data[$clef] = $valeur;
         $this->saveSession();
     }
@@ -55,12 +57,14 @@ class SessionManager
      * @param   String  $message la notification
      * @return  void             complete la pile
      */
-    public function addNotification($type, $message){
-        array_push($this->data["notifications"], ["type"=>$type, "msg"=>$message]);
+    public function addNotification($type, $message)
+    {
+        array_push($this->data["notifications"], ["type" => $type, "msg" => $message]);
         $this->saveSession();
     }
 
-    public function getNotifications(){
+    public function getNotifications()
+    {
         $data = $this->data["notifications"];
         $this->data["notifications"] = [];
         $this->saveSession();

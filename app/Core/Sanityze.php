@@ -18,14 +18,12 @@ class Sanityze
   public function __construct($file)
   {
     try {
-      // die(var_dump($file));
-      // $data = yaml_parse_file($file); //à utiliser à la place des imports symfony si le module est activé sur votre server
       $data = Yaml::parseFile($file);
 
       if (isset($data["body"])) $this->body       = $data["body"];
       if (isset($data["filters"])) $this->filters = $data["filters"];
-    } catch (ParseException $exception) {
-      //die("error parse security YAML".var_dump($exception->getMessage));
+    } 
+    catch (ParseException $exception) {
       global $framework;
       $framework->addNotification("error", "error parse security YAML");
     }
@@ -36,7 +34,6 @@ class Sanityze
     $todo = $this->filters[$this->body[$filedName]]["sanitize"] ?? null;
     if ($todo === null) {
       global $framework;
-      die("sanityzeFied:39 ...".var_dump($framework));
       $framework->addNotification("error", "la regle de nettoyage " . $filedName . " n'existe pas");
       return;
     }
@@ -91,9 +88,4 @@ class Sanityze
   {
     return str_replace("`", "", $value);
   }
-
-  // private function laTotale($value){
-  //   $value = $this->avoidSqlInjection($value);
-  //   return $this->safeOutput($value);
-  // }
 }

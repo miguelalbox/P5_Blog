@@ -4,7 +4,8 @@ namespace App\Ctrl;
 
 use App\Models\Commentaires;
 
-class Commentary{
+class Commentary
+{
     private $request;
     public $template;
     public $data = [];
@@ -12,12 +13,9 @@ class Commentary{
     public function __construct($request)
     {
 
-        // $auth = Auth::login("mikyfiestas@gmail.com", "miguel123");
-        // die(var_dump($request->session));
-
         if (!$request->session->hasSession) {
             global $framework;
-            $framework->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
+            $framework->redirect("/login");
         }
 
         $this->request = $request;
@@ -33,14 +31,13 @@ class Commentary{
         if ($this->request->method === "POST") {
 
             if ($this->request->post["action"] === "validate") {
-                // die(var_dump($this->request->post));
                 try {
                     $commentaire->updateCommentaire([
                         "valid" => 1,
                         "id" => $this->request->post["commentId"]
                     ]);
-                } catch (\Throwable $err) {
-                    //die(var_dump($err));
+                } 
+                catch (\Throwable $err) {
 
                     global $framework;
                     $framework->addNotification("error", "echec lors de l'ajout d'un commentaire");
@@ -50,7 +47,6 @@ class Commentary{
 
         $commentaireList = $commentaire->getCommentaire();
 
-        //die(var_dump($categories));
         if (count($this->request->uri) === 2) {
             $this->template = "backoffice/commentaires/commentaires";
             $this->data = [
@@ -59,40 +55,33 @@ class Commentary{
             ];
             return;
         }
-        //die(var_dump($this->request->uri));
-        $fonction = "commentaire_" . $this->request->uri[2];
-        // die(var_dump($fonction));
+        $fonction = "commentaire" . ucfirst($this->request->uri[2]);
         if (!method_exists($this, $fonction)) $fonction = "page404";
         $this->$fonction();
     }
     public function validatedCommentaire()
     {
     }
-    public function commentaire_suprimer()
+    public function commentaireSuprimer()
     {
         $error = false;
         $msg = "";
         global $framework;
         try {
-            //apppeler model
 
             $commentaire = new Commentaires();
 
             $commentaire->removeCommentaire([
                 "id" => $this->request->uri[3]
             ]);
-            //die(var_dump($article));
 
-            //$msg = "la categorie à bien été suprimé";
             $framework->addNotification("succeed", "Le commentaire a bien été suprimé");
             $framework->redirect("/admin/commentaires");
-        } catch (\Throwable $err) {
-            //die(var_dump($err));
-            //$error = true;
-            //$msg = "un problème est apparu lors de l'enregistrement";
+        } 
+        catch (\Throwable $err) {
             $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
-        } finally {
-            // die(var_dump($article));
+        } 
+        finally {
             $this->template = "backoffice/commentaires/commentaires";
             $this->data = [
                 'menu' => 'commentaires',

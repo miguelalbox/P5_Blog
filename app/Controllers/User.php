@@ -13,12 +13,9 @@ class User
     public function __construct($request)
     {
 
-        // $auth = Auth::login("mikyfiestas@gmail.com", "miguel123");
-        // die(var_dump($request->session));
-
         if (!$request->session->hasSession) {
             global $framework;
-            $framework->redirect("/login"); //throw new Error("pas d'utilisateur connecté");
+            $framework->redirect("/login");
         }
 
         $this->request = $request;
@@ -43,22 +40,18 @@ class User
             ];
             return;
         }
-        //die(var_dump($this->request->uri));
-        $fonction = "user_" . $this->request->uri[2];
-        // die(var_dump($fonction));
+        $fonction = "user" . ucfirst($this->request->uri[2]);
         if (!method_exists($this, $fonction)) $fonction = "page404";
         $this->$fonction();
     }
 
-    public function user_ajouter()
+    public function userAjouter()
     {
         $error = false;
         $msg = "";
         if ($this->request->method === "POST") {
-            //die(var_dump($this->request));
             global $framework;
             try {
-                //apppeler model
                 $auteur = new Users();
                 $auteur->ajouteUtilisateur([
                     "first_name" => $this->request->post["first_name"],
@@ -70,9 +63,8 @@ class User
                 $msg = "l'utilisateur à bien été enregistré";
                 $framework->addNotification("succeed", "l'utilisateur à bien été enregistré");
                 $framework->redirect("/admin/users");
-            } catch (\Throwable $err) {
-                //$error = true;
-                //$msg = "un problème est apparu lors de l'enregistrement";
+            } 
+            catch (\Throwable $err) {
                 $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
             }
         };
@@ -91,7 +83,7 @@ class User
         ];
     }
 
-    public function user_editer()
+    public function userEditer()
     {
         $error = false;
         $msg = "";
@@ -112,9 +104,8 @@ class User
                 $framework->redirect("/admin/users");
             }
             $user->getUserInfo($this->request->uri[3]);
-        } catch (\Throwable $err) {
-            //$error = true;
-            //$msg = "un problème est apparu lors de l'enregistrement";
+        } 
+        catch (\Throwable $err) {
             $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
         }
         $this->template = "backoffice/users/ajouter-modifier-user";
@@ -133,30 +124,24 @@ class User
         ];
     }
 
-    public function user_suprimer()
+    public function userSuprimer()
     {
         $error = false;
         $msg = "";
         global $framework;
         try {
-            //apppeler model
             $user = new Users();
 
             $user->removeUser([
                 "id" => $this->request->uri[3]
             ]);
-            //die(var_dump($article));
-
-            //$msg = "l'utilisateur à bien été suprimé";
             $framework->addNotification("succeed", "L'utilisateur a bien été suprimé");
             $framework->redirect("/admin/users");
-        } catch (\Throwable $err) {
-            //die(var_dump($err));
-            //$error = true;
-            //$msg = "un problème est apparu lors de l'enregistrement";
+        } 
+        catch (\Throwable $err) {
             $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
-        } finally {
-            // die(var_dump($article));
+        } 
+        finally {
             $this->template = "backoffice/users/users";
             $this->data = [
                 'menu' => 'utilisateurs',

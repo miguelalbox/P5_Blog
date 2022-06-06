@@ -2,13 +2,11 @@
 
 namespace App\Ctrl;
 
-// use App\Models\Users;
 use App\Ctrl\Auth;
 use App\Models\Articles;
 use App\Models\Categories;
 use App\Models\Commentaires;
 use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\Exception;
 
 
 class Front
@@ -20,7 +18,7 @@ class Front
     public function __construct($request)
     {
         $this->request                               = $request;
-        $fonction                                    = $request->uri[0];
+        $fonction                                    = $request->defineMethod( $request->uri[0]);
         if ($fonction === "") $fonction                 = "home";
         if (!method_exists($this, $fonction)) $fonction = "page404";
         $this->$fonction();
@@ -60,11 +58,9 @@ class Front
         $post->getArticle($this->request->uri[1]);
         $comments = new Commentaires();
 
-        // die(var_dump($comments->getValidsComments($this->request->uri[1])));
         if ($this->request->method === "POST") {
             global $framework;
             try {
-                //apppeler model
                 $commentaire = new Commentaires();
 
                 $commentaire->addCommentaire([
@@ -72,12 +68,10 @@ class Front
                     "content" => $this->request->post["content"],
                     "articleId" => $this->request->uri[1]
                 ]);
-                //$msg = "la categorie à bien été enregistré";
                 $framework->addNotification("succeed", "le commentaire à bien été enregistrée");
                 $framework->redirect("/article/" . $this->request->uri[1]);
-            } catch (\Throwable $err) {
-                //$error = true;
-                //$msg = "un problème est apparu lors de l'enregistrement";
+            } 
+            catch (\Throwable $err) {
                 $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
             }
         };
@@ -102,7 +96,6 @@ class Front
             "categories" => $categories->listCategorie,
         ];
 
-        // die(var_dump($this->data));
     }
 
     public function contact()
@@ -110,61 +103,35 @@ class Front
         if ($this->request->method === "POST") {
             global $framework;
             try {
-
                 $mail = new PHPMailer();
                 $mail->IsSMTP();
-                $mail->Mailer="smtp";
-                $mail->SMTPDebug=1;
-                $mail->SMTPAuth=true;
-                $mail->SMTPSecure="tls";
-                $mail->Port=587;
-                $mail->Host="smtp.gmail.com";
-                $mail->Username=$framework->env["EMAIL"];
-                $mail->Password=$framework->env["PASSWORD"];
+                $mail->Mailer = "smtp";
+                $mail->SMTPDebug = 1;
+                $mail->SMTPAuth = true;
+                $mail->SMTPSecure = "tls";
+                $mail->Port = 587;
+                $mail->Host = "smtp.gmail.com";
+                $mail->Username = $framework->env["EMAIL"];
+                $mail->Password = $framework->env["PASSWORD"];
 
                 $mail->IsHTML(true);
                 $mail->AddAddress($framework->env["EMAIL"], "Miguel");
-                // die(var_dump($this->request->post));
-                $mail->AddReplyTo($this->request->post["email"], $this->request->post["first_name"]." ".$this->request->post["last_name"]);
-                $mail->Subject="nouveau message depuis le formulaire du site";
-                // Le .= nous permet de concatene tout les variable $message
-                $message = "De la part de ".$this->request->post['last_name'];
-                $message .= " ".$this->request->post['first_name'];
-                $message .= "<br>Mail ".$this->request->post['email'];
-                $message .=",<br>Tel ".$this->request->post['tel'];
-                $message .=",<br>Exprime le besoin suivante: ".$this->request->post['besoin'];
+                $mail->AddReplyTo($this->request->post["email"], $this->request->post["first_name"] . " " . $this->request->post["last_name"]);
+                $mail->Subject = "nouveau message depuis le formulaire du site";
+                $message = "De la part de " . $this->request->post['last_name'];
+                $message .= " " . $this->request->post['first_name'];
+                $message .= "<br>Mail " . $this->request->post['email'];
+                $message .= ",<br>Tel " . $this->request->post['tel'];
+                $message .= ",<br>Exprime le besoin suivante: " . $this->request->post['besoin'];
                 $mail->MsgHTML($message);
-                if (!$mail->Send()){
+                if (!$mail->Send()) {
                     throw $mail;
                 }
 
-                // $nom = $_POST['lname'];
-                // $prenom = $_POST['fname'];
-                // $mail = $_POST['mail'];
-                // $tel = $_POST['tel'];
-                // $besoin = $_POST['besoin'];
-                // afficher le résultat
-                //echo '<h3>Informations récupérées en utilisant POST</h3>';
-                //echo 'lname : ' . $nom . 'fname:' . $prenom . ' mail : ' . $mail . ' tel : ' . $tel . 'besoin : ' . $besoin;
-                //exit;
-
-
-                // $to = "$mail";
-                // $subject = "Contact Blog";
-                // $message = wordwrap($message, 70, "r\n");
-                // $headers = [
-                //     "From" => "miguelsj.pro@gmail.com",
-                //     "Reply-To" => "miguelsj.pro@gmail.com",
-                //     "Bcc" => "miguelsj.pro@gmail.com",
-                // ];
-
-                // mail($to, $subject, $message, $headers);
-
-                //$msg = "le message à bien été enregistré";
                 $framework->addNotification("succeed", "Le message à bien été enregistrée, un mail a été envoye dans votre boite mail");
                 $framework->redirect("/contact");
-            } catch (\Throwable $err) {
-                // die(var_dump($err));
+            } 
+            catch (\Throwable $err) {
                 $framework->addNotification("error", "Un problème est apparu lors de l'enregistrement");
             }
         }
@@ -172,14 +139,12 @@ class Front
 
         $this->template = "contact";
         $this->data     = [
-            //"test"=>"Miguel"
         ];
     }
-    public function mentions_legales()
+    public function mentionsLegales()
     {
         $this->template = "mentions-legales";
         $this->data     = [
-            //"test"=>"Miguel"
         ];
     }
 
@@ -189,23 +154,16 @@ class Front
     }
     public function login()
     {
-        // si method === POST
-        // appel méthode login dans App\Models\Users
-        // si c'est juste -> mettre à jour la session + redirection vers  /admin
-        // die(var_dump($this->request));
-        //Auth::logout();
         if ($this->request->method === "POST") {
             global $framework;
             try {
                 global $auth;
                 $auth->login($this->request->post["email"],  $this->request->post["password"]);
                 $framework->addNotification("succeed", "Authenfication avec succès");
-                //die(var_dump($this->request->session));
                 $framework->redirect("/admin/backoffice");
-            } catch (\Throwable $err) {
+            } 
+            catch (\Throwable $err) {
                 $framework->addNotification("error", "T'es sur que c'est toi?");
-                // $error = true;
-                // $msg   = "un problème est apparu lors de l'enregistrement";
             }
         }
         $this->template = "login";
